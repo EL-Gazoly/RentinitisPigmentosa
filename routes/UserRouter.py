@@ -2,6 +2,7 @@ from config.db import conn
 from models.__init__ import users
 from schemas.__init__ import User
 from fastapi_jwt_auth import AuthJWT
+from fastapi.responses import JSONResponse
 from fastapi import APIRouter, Depends, Request
 from controllers.__init__ import UserController
 
@@ -29,11 +30,11 @@ async def delete_data(id : str, Authorize: AuthJWT = Depends()):
 
 @UserRouter.get('/api/get_current_user_data', tags=["Edit Users"])
 async def getCurrentUserdat(request: Request, Authorize: AuthJWT = Depends()):
+    
     Authorize.jwt_required()
-    response = {
-        "ID":request.cookies.get('ID',None),
-        "UserName": request.cookies.get('User_name',None),
-        "Email":request.cookies.get('Email', None),
-        "token": request.cookies.get("accsess_token", None)
-    }
+    current_user = conn.execute(users.select().where(users.c.email == Authorize.get_jwt_subject())).fetchone()
+    response = JSONResponse(content={'current_user' : Authorize.get_jwt_subject()})
+    response.set_cookie(key='UserID', value=current_user.id)
+    response.set_cookie(key='UserName', value=current_user.first_name+ ' ' + current_user.last_name)
+    response.set_cookie(key='UserEmail', value=current_user.email)
     return response

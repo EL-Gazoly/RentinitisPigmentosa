@@ -1,4 +1,4 @@
-from schemas.__init__ import User
+from schemas.__init__ import User, LoginUser
 from fastapi_jwt_auth import AuthJWT
 from fastapi import APIRouter, Depends
 from controllers.__init__ import SignupLoginController
@@ -12,8 +12,8 @@ async def SignUp(user: User,Authorize: AuthJWT = Depends()):
 
 
 @SignupLoginRouter.post('/api/login', tags=["Authentication"])
-async def Login(email: str, password: str, Authorize: AuthJWT = Depends()):
-    return await SignupLoginController.LogIn(email, password,Authorize)
+async def Login(user: LoginUser, Authorize: AuthJWT = Depends()):
+    return await SignupLoginController.LogIn(user, Authorize)
 
 
 @SignupLoginRouter.post('/api/logout', tags=["Authentication"])
