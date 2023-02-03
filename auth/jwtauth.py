@@ -2,18 +2,7 @@ from fastapi_jwt_auth import AuthJWT
 from fastapi_jwt_auth.exceptions import AuthJWTException
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from decouple import config
-from pydantic import BaseModel
-JWT_SECRET = config("SECRET_KEY")
-
-class Settings(BaseModel):
-    authjwt_secret_key = JWT_SECRET
-
-    authjwt_token_location = {"cookies"}
-
-    authjwt_cookie_csrf_protect: bool = False
-
-    authjwt_cookie_name: str = "JWT_COOKIE"
+from schemas.__init__ import Settings
 
 
 @AuthJWT.load_config
