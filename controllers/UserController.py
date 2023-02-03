@@ -2,7 +2,7 @@ from config.db import conn
 from models.__init__ import users
 from schemas.__init__ import User
 from fastapi import HTTPException
-from controllers.__init__ import Hasher
+from auth.__init__ import Hasher
 
 
 async def get_all_users():
