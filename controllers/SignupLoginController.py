@@ -1,12 +1,12 @@
 from config.db import conn
 from schemas.__init__ import User
 from models.__init__ import users
+from fastapi import HTTPException
+from fastapi_jwt_auth import AuthJWT
 from controllers.__init__ import Hasher
-from fastapi import HTTPException, Response
 from fastapi.responses import JSONResponse
-from auth.jwtHandler import createAccessToken
-async def SignUp(user:User):
-    try:
+
+async def SignUp(user:User, Authorize: AuthJWT):
         
         existing_user = conn.execute(users.select().where(users.c.email== user.email))
         if existing_user.rowcount > 0:
@@ -18,19 +18,18 @@ async def SignUp(user:User):
         email = user.email,
         password = Hasher.get_password_hash(user.password)
     ))
-        accsess_token = createAccessToken({"sub": user.email})
+        accsess_token = Authorize.create_access_token(subject=user.email)
+        Authorize.set_access_cookies(accsess_token)
         response = JSONResponse( content={"accsess_token" : accsess_token } )
         response.set_cookie(key='ID', value= user.id)
         response.set_cookie(key='User_name', value=user.first_name+' '+user.last_name)
         response.set_cookie(key='Email', value=user.email)
-        response.set_cookie(key="Authorization", value= f"Bearer {accsess_token}")
 
-        return response
-    except Exception as e:
-        raise HTTPException(status_code=500, detail='Well, this is not quite what we had in mind.But no worries, we have got this!')
+        return accsess_token 
+    
 
 
-async def LogIn(email: str, password: str):
+async def LogIn(email: str, password: str , Authorize: AuthJWT):
     try:
         res = conn.execute(users.select().where(users.c.email == email))
         if res.rowcount == 0:
@@ -39,16 +38,31 @@ async def LogIn(email: str, password: str):
         user = res.fetchone()
         if(not Hasher.verify_password(password, user[4])):
             raise HTTPException(status_code=400, detail= 'Login credentials are not valid')
-        
-        accsess_token = createAccessToken({"sub": email})
-        response = JSONResponse( content={"accsess token" : accsess_token } )
-        response.set_cookie(key="Authorization", value= f"Bearer {accsess_token}")
-
-        return response
+        print(user.email)
+        accsess_token = Authorize.create_access_token(subject=email)
+        Authorize.set_access_cookies(accsess_token)
+        response = JSONResponse( content={"accsess_token" : accsess_token } )
+        response.set_cookie(key='ID', value= user.id)
+        response.set_cookie(key='User_name', value=user.first_name+' '+user.last_name)
+        response.set_cookie(key='Email', value=user.email)
+        return response, accsess_token
     except Exception as e:
         raise HTTPException(status_code=500, detail='Oops, it seems we have hit a glitch in the matrix.But no worries, we have got this!')
     
 
-async def Logout(response: Response):
-    response.delete_cookie('Authorization')
-    return {"message": "Successfully logged out "}
+async def Logout(Authorize: AuthJWT):
+    Authorize.jwt_required()
+
+    Authorize.unset_access_cookies()    
+    return {'msg' : 'Successfully logout'}
+
+def create_cookies(email : str,user: User, Authorize: AuthJWT):
+    accsess_token = Authorize.create_access_token(subject=email)
+    Authorize.set_access_cookies(accsess_token)
+    response = JSONResponse( content={"accsess_token" : accsess_token } )
+    response.set_cookie(key='ID', value= user.id)
+    response.set_cookie(key='User_name', value=user.first_name+' '+user.last_name)
+    response.set_cookie(key='Email', value=user.email)
+    return accsess_token
+    
+

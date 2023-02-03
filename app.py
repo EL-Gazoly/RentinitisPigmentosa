@@ -1,7 +1,10 @@
-from fastapi import FastAPI
-from routes.__init__ import CNNRouter, UserRouter, SignupLoginRouter
+from fastapi import FastAPI, Request
+from fastapi_jwt_auth import AuthJWT
+from fastapi.responses import JSONResponse
+from auth.jwtauth import authjwt_exception_handler
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi_jwt_auth.exceptions import AuthJWTException
+from routes.__init__ import CNNRouter, UserRouter, SignupLoginRouter
 
 app = FastAPI()
 
@@ -15,7 +18,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+authjwt_exception_handler(app)
 
 app.include_router(CNNRouter)
 app.include_router(UserRouter)

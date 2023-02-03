@@ -1,8 +1,7 @@
-from pydantic import BaseModel, EmailStr, validator
+import re
 from typing import Optional
 from uuid import UUID, uuid4
-import re
-
+from pydantic import BaseModel, EmailStr, validator
 class User(BaseModel):
     id: Optional[UUID] = uuid4()    
     first_name: str     
