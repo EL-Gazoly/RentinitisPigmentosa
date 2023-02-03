@@ -5,7 +5,7 @@ Rentinitis Pigmentosa (RP) is an inherited disease that affects the eyes. It cau
 
 
 ## About the project
-This project is a classification system built using FastAPI, React, Python, and AuthJWT that helps determine if a person has RP. The installation process is straightforward, simply run pip install -r requirements.txt to get started.
+This project is a classification system built using CNN that helps determine if a person has RP. The installation process is straightforward, simply run pip install -r requirements.txt to get started.
 ## Key Features
 * Uses FastAPI for the backend
 * Utilizes React for a user-friendly frontend
