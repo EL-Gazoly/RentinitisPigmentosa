@@ -1,3 +1,2 @@
-from controllers.PasswordController import Hasher
 from controllers import UserController
 from controllers import SignupLoginController
