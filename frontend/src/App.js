@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App w-screen h-screen m-0 p-0 bg-bg">
+    <div className="App w-full h-screen m-0 p-0 overflow-hidden">
       <Router>
         <Routes>
           <Route path="/" element={<Landing />} />

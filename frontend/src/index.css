@@ -4,3 +4,27 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #B2D4ED;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
