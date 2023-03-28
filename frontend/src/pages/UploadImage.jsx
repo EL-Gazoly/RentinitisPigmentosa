@@ -83,10 +83,10 @@ const DragAndDrop = () => {
       className="min-h-screen flex flex-col justify-center items-center  gap-10 mb-5">
 
             
-   
-      <div className="flex flex-col justify-center items-center text-7xl font-extrabold font-poppins text-primary max-w-5xl">
-      Uplod your image to start the classification process
+      <div className="flex flex-col justify-center items-center text-3xl  md:text-5xl lg:text-6xl xl:text-7xl sm:max-w-md md:max-w-4xl xl:max-w-5xl font-extrabold font-poppins text-primary max-w-screen-xl mx-auto px-6">
+          Uplod your image to start the classification process
       </div>
+
       <div
         className="border-dashed border-2 border-primary mx-10 rounded-lg p-4 text-center cursor-pointer"
         onDrop={handleDrop}
@@ -119,7 +119,7 @@ const DragAndDrop = () => {
         </div>
       </div>
     
-        <p className=" text-primary mt-4 mb-40">Or drop files anywhere in the page to upload them</p>
+        <p className=" text-primary mt-4 mb-40 text-sm md:text-xl">Or drop files anywhere in the page to upload them</p>
 
     </div>
 
@@ -131,7 +131,8 @@ const DragAndDrop = () => {
           <Corner className=" left-9 bottom-9 absolute rotate-270" />
           <Corner className=" right-9 bottom-9 absolute rotate-180" />
 
-           <p className="text-white text-7xl font-nunito font-extrabold absolute top-1/2 left-1/3 ">Drop it anywhere</p>
+          <p className="text-white text-3xl md:text-4xl lg:text-6xl font-nunito font-extrabold absolute top-1/2 left-1/3 md:left-1/2 transform md:-translate-x-1/2 md:-translate-y-1/2">Drop it anywhere</p>
+
         </div>
        
       )}
