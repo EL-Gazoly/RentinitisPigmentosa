@@ -5,7 +5,7 @@ import HomePagePic from '../assets/homePagePic.png'
 import {React, useEffect, useState, useRef} from 'react'
 const Landing = () => {
   const [isCardVisible, setIsCardVisible] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+
   
   const cardRef = useRef(null)
 
@@ -21,15 +21,9 @@ const Landing = () => {
       document.removeEventListener('mousedown', handelClickOutside)
     }
       
-  }, [cardRef, isMobile])
+  }, [cardRef])
 
-  function handleResize() {
-    if (window.innerWidth < 768) {
-      setIsMobile(true)
-    } else {
-      setIsMobile(false)
-    }
-  }
+
   return (
     <div className='caret-transparent'>
       <div className='landing-page-container flex flex-col'>
