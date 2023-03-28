@@ -4,6 +4,7 @@ import { ReactComponent as BurgerIcon} from '../assets/burgerIcon.svg'
 import Chatbot from '../components/Chatbot'
 import HomePagePic from '../assets/homePagePic.png'
 import {React, useEffect, useState, useRef} from 'react'
+import { Link } from 'react-router-dom'
 const Landing = () => {
   const [isCardVisible, setIsCardVisible] = useState(false)
 
@@ -29,16 +30,15 @@ const Landing = () => {
     <div className='caret-transparent'>
       <div className='landing-page-container flex flex-col'>
         <div className="landing page-menu flex justify-between mt-5">
-            <div className="landing-page-menu-left flex">
+            <Link to="/" className="landing-page-menu-left flex">
                     <WebsiteLogo className=" w-16 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 md:ml-7 " />
                     <span className=' text-primary self-center font-sans font-bold text-base lg:text-xl '>RetinitisPigmentosa</span>
-            </div>
+            </Link>
             <div className="landing-page-menu-right flex items-center mr-4 md:hidden" onClick={() => setIsCardVisible(!isCardVisible)}>
                 <BurgerIcon/> 
             </div>
             <div className="landing-page-menu-right hidden mr-10 md:flex md:gap-3 lg:gap-10 self-center  items-center text-primary  font-roboto font-bold text-base lg:text-xl">
-                <span >Home</span>
-                <span >Services</span>
+                <Link to="/" >Home</Link>
                 <span >About US</span>
                 <span>Contact</span>
 
@@ -64,11 +64,11 @@ const Landing = () => {
                 md:max-w-lg md:max-h-32 md:self-start '>
                   Our goal is early detection of retinitis pigmentosa 
                   and providing you with all information related to this disease</p>
-                
-                <button className=' bg-primary text-white font-roboto 
+                <>
+                <Link to="/upload" className=' bg-primary text-white font-roboto flex justify-center items-center
                 font-bold text-lg rounded-full py-2 px-4 mt-4 w-2/4 h-16 self-center 
-                 md:w-40 lg: xl:w-52 xl:h-16 md:text-xl md:self-start uppercase'>Sign up</button>
-
+                 md:w-40 lg: xl:w-52 xl:h-16 md:text-xl md:self-start uppercase'>Sign up</Link>
+                </>
             </div>
             <div className="landing-page-body-right order-1 mt-5 md:mt-0  md:order-2 md:flex md:justify-center md:items-center md:mb-8">
               <img className='w-full h-min md:hidden' src='https://tykit.rometheme.pro/eyecare/wp-content/uploads/sites/81/2022/08/close-up-of-doctor-checking-female-patient-vision-2022-05-31-02-18-46-utc.jpg'alt="pic" />

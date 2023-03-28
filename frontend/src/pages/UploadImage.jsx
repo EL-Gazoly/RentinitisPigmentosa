@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import Chatbot from '../components/Chatbot'
 import { ReactComponent as Corner } from '../assets/corner.svg';
 import { ReactComponent as WebsiteLogo } from '../assets/Logo.svg'
 import { ReactComponent as BurgerIcon} from '../assets/burgerIcon.svg'
+import { Link } from 'react-router-dom' 
 
 const DragAndDrop = () => {
   const [files, setFiles] = useState([]);
@@ -59,20 +61,19 @@ const DragAndDrop = () => {
       className= "caret-transparent"
     >
       <div className="landing page-menu flex justify-between">
-            <div className="landing-page-menu-left flex">
+            <Link to="/" className="landing-page-menu-left flex">
                     <WebsiteLogo className=" w-16 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 md:ml-7 " />
                     <span className=' text-primary self-center font-sans font-bold text-base lg:text-xl '>RetinitisPigmentosa</span>
-            </div>
+            </Link>
             <div className="landing-page-menu-right flex items-center mr-4 md:hidden" onClick={() => setIsCardVisible(!isCardVisible)}>
                 <BurgerIcon/> 
             </div>
             <div className="landing-page-menu-right hidden mr-10 md:flex md:gap-3 lg:gap-10 self-center  items-center text-primary  font-roboto font-bold text-base lg:text-xl">
-                <span >Home</span>
-                <span >Services</span>
+                <Link to="/" >Home</Link>
                 <span >About US</span>
                 <span>Contact</span>
 
-                <button className=' w-20 h-12 lg:w-28 lg:h-14 rounded-2xl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>Login</button>
+                <button className=' w-20 h-12 lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>Logout</button>
             </div>
 
           
@@ -136,6 +137,7 @@ const DragAndDrop = () => {
         </div>
        
       )}
+      <Chatbot/>
     </div>
   );
 };
