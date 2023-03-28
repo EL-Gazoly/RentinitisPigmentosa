@@ -1,5 +1,6 @@
 // import UploadImage from './components/UploadImage';
 import Landing from './pages/Landing';
+import DragAndDrop from './pages/UploadImage';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -9,6 +10,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/upload" element={<DragAndDrop />} />
         </Routes>
       </Router>
       
