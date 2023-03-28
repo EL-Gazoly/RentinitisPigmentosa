@@ -1,6 +1,7 @@
 
 import { ReactComponent as WebsiteLogo } from '../assets/Logo.svg'
 import { ReactComponent as BurgerIcon} from '../assets/burgerIcon.svg'
+import Chatbot from '../components/Chatbot'
 import HomePagePic from '../assets/homePagePic.png'
 import {React, useEffect, useState, useRef} from 'react'
 const Landing = () => {
@@ -41,7 +42,7 @@ const Landing = () => {
                 <span >About US</span>
                 <span>Contact</span>
 
-                <button className=' w-20 h-12 lg:w-28 lg:h-14 rounded-2xl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>Login</button>
+                <button className=' w-20 h-12 lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>Login</button>
             </div>
 
           
@@ -89,6 +90,7 @@ const Landing = () => {
         <span className=' text-primary font-roboto font-bold text-xs border-b border-line'>Contact</span> 
       </div>
       )}
+       <Chatbot/>
     </div>    
   )
 }
