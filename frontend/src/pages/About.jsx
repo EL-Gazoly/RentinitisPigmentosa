@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../components/Header'
+import Chatbot from '../components/Chatbot'
 import {Link} from 'react-router-dom'
 const About = () => {
   return (
@@ -15,7 +16,7 @@ const About = () => {
                         patients with all the information they may need about this disease.</p>
                 </div>
 
-                <div className="bottom self-end justify-self-end flex flex-row items-center gap-x-4 mr-9">
+                <div className="bottom self-end justify-self-end flex flex-row items-center gap-x-4 mr-24   ">
                     <span>Need more information?</span>
                     <Link to='/contact' className='w-36 h-11 flex justify-center items-center text-primary font-roboto
                      font-semibold text-sm bg-white border-2 border-primary rounded-full p-6 self-center'>Contact us</Link>
@@ -23,6 +24,7 @@ const About = () => {
 
             </div>
         </div>
+        <Chatbot/>
       
     </div>
   )
