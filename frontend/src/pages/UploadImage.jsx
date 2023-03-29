@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import Chatbot from '../components/Chatbot'
-import PageLogo from '../components/PageLogo'
 import Header from '../components/Header';
 import { ReactComponent as Corner } from '../assets/corner.svg';
-import { ReactComponent as BurgerIcon} from '../assets/burgerIcon.svg'
-import { Link } from 'react-router-dom' 
+
 
 const DragAndDrop = () => {
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
-  const [isCardVisible, setIsCardVisible] = useState(false)
 
   const handleDrop = (e) => {
     e.preventDefault();
