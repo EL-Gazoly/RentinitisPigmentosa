@@ -23,6 +23,9 @@ module.exports = {
       rotate :{
         '270' : '270deg',
       },
+      height:{
+        '100' : '30rem',
+      },
       colors: {
         primary: '#0072C6',
         bg: '#F5F5F5',
