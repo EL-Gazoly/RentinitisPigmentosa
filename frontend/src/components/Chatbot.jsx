@@ -129,7 +129,7 @@ const Chatbot = () => {
 
     </div>
   </div>
-  <div className="grid grid-rows-2 grid-cols-2 w-11/12 h-min gap-1 mb-1 justify-items-center ml-2">
+  <div className="grid grid-rows-2 grid-cols-1 sm:grid-cols-2 w-11/12 h-min gap-1 mb-1 justify-items-center ml-2">
   <button
     className="text-sm text-gray-600  underline bg-border rounded-full p-1"
     onClick={() => handleQuestionClick(1)}
@@ -144,7 +144,7 @@ const Chatbot = () => {
   </button>
   <button
     className="text-sm text-gray-600
-     underline bg-border rounded-full"
+     underline bg-border rounded-full p-2"
     onClick={() => handleQuestionClick(3)}
   >
     Is retinitis pigmentosa progressive?
