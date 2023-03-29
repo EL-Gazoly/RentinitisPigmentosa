@@ -1,8 +1,8 @@
 
-import { ReactComponent as WebsiteLogo } from '../assets/Logo.svg'
 import { ReactComponent as BurgerIcon} from '../assets/burgerIcon.svg'
 import Chatbot from '../components/Chatbot'
 import HomePagePic from '../assets/homePagePic.png'
+import PageLogo from '../components/PageLogo'
 import {React, useEffect, useState, useRef} from 'react'
 import { Link } from 'react-router-dom'
 const Landing = () => {
@@ -30,10 +30,7 @@ const Landing = () => {
     <div className='caret-transparent'>
       <div className='landing-page-container flex flex-col'>
         <div className="landing page-menu flex justify-between mt-5">
-            <Link to="/" className="landing-page-menu-left flex">
-                    <WebsiteLogo className=" w-16 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 md:ml-7 " />
-                    <span className=' text-primary self-center font-sans font-bold text-base lg:text-xl '>RetinitisPigmentosa</span>
-            </Link>
+            <PageLogo className="md:ml-7" />
             <div className="landing-page-menu-right flex items-center mr-4 md:hidden" onClick={() => setIsCardVisible(!isCardVisible)}>
                 <BurgerIcon/> 
             </div>

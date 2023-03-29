@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactComponent as WebsiteLogo } from '../assets/Logo.svg'
+import PageLogo from '../components/PageLogo'
 import {Link} from 'react-router-dom'
 const SignUp = () => {
   return (
@@ -7,10 +7,7 @@ const SignUp = () => {
       
     <div className="flex flex-col md:flex-row w-full h-screen">
         <div className="left w-full h-96 bg-SignUp bg-cover grid grid-cols-1 sm:h-100 md:h-full md:w-7/12  ">
-        <Link to="/" className='container caret-transparent self-start flex justify-start items-center mt-3 md:ml-7'>
-            <WebsiteLogo className=' w-14 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 ' />
-            <span className=' text-primary self-center font-sans font-bold text-sm lg:text-xl'>RetinitisPigmentosa</span>
-        </Link>
+        <PageLogo className="md:ml-7" />
         <div className="middel caret-transparent">
             <div className="container flex flex-col justify-center items-center self-center mb-20 gap-y-3 md:mb-48 md:gap-y-6">
                 <h1 className=' text-2xl font-sans font-extrabold text-darkPrimary text-center sm:text-4xl w-96 md:text-5xl md:w-11/12 2xl:text-7xl lg:text-5xl lg:w-3/4 2xl:w-2/3   '>WELCOME TO OUR COMMUNITY</h1>
