@@ -18,16 +18,21 @@ module.exports = {
       xxl: '1rem',
       full: '9999px',
       circle: '50%',
+      thiry: '30px',
     },
     extend: {
       rotate :{
         '270' : '270deg',
+      },
+      backgroundImage : {
+        'SignUp' : "url('/src/assets/SignUpPic.png')",
       },
       height:{
         '100' : '30rem',
       },
       colors: {
         primary: '#0072C6',
+        darkPrimary: '#035EA0',
         bg: '#F5F5F5',
         secondary: '#838AA3',
         border : '#B2D4ED',
@@ -35,6 +40,7 @@ module.exports = {
         upload : '#846e33',
         chatbg : '#B2D4ED',
         lightblack :'#3F3D56',
+        babyblack : 'rgba(0, 0, 0, 0.65)',
       },
       maxWidth : {
         'xxs' : '15rem',
