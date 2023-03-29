@@ -3,6 +3,7 @@ import Landing from './pages/Landing';
 import DragAndDrop from './pages/UploadImage';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
+import About from './pages/About';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/upload" element={<DragAndDrop />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </Router>
       

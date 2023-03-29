@@ -32,7 +32,7 @@ const Header = ({LoginOrLogout}) => {
             </div>
             <div className="landing-page-menu-right hidden mr-10 md:flex md:gap-3 lg:gap-10 self-center  items-center text-primary  font-roboto font-bold text-base lg:text-xl">
                 <Link to="/" >Home</Link>
-                <span >About US</span>
+                <Link to="/about" >About US</Link>
                 <span>Contact</span>
 
                 <Link to="/login" className=' w-20 h-12  lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>{LoginOrLogout}</Link>
@@ -45,7 +45,7 @@ const Header = ({LoginOrLogout}) => {
         (
       <div ref={cardRef}  className='card-container w-20 h-20 border-2 border-border rounded bg-bg flex flex-col text-start gap-y-3 align-middle fixed right-5 top-16 '>
         <Link to="/" className=' text-primary font-roboto font-bold text-xs border-b border-line pb-1'>Home</Link>
-        <span className=' text-primary font-roboto font-bold text-xs border-b border-line'>About US</span>
+        <Link to="/" className=' text-primary font-roboto font-bold text-xs border-b border-line'>About US</Link>
         <span className=' text-primary font-roboto font-bold text-xs border-b border-line mb-1'>Contact</span> 
       </div>
       )}

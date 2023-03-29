@@ -8,7 +8,7 @@ const Login = () => {
     <div className=' bg-bg'>
         <div className=' flex flex-col md:flex-row w-full h-screen'>
             <div className="left order-2 mt-8 flex-1 md:mt-36 2xl:mt-72 ">
-            <div className="form grid grid-cols-1 gap-y-8 md:md:gap-11 xl:ml-12 2xl:ml-32 ">
+            <div className="form grid grid-cols-1 gap-y-8 xl:ml-12 2xl:ml-32 ">
                 <h3 className=' self-start text-3xl font-nunito font-bold caret-transparent ml-7 md:ml-5 md:text-4xl'>Log in.</h3>
                 <div className="form-group self-center flex flex-col gap-y-4 w-11/12 ml-4  caret-primary md:gap-10 xl:w-4/5 2xl:w-3/4">
                     <div className=' flex flex-col '>

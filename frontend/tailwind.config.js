@@ -34,6 +34,9 @@ module.exports = {
         '120' : '31.75rem',
         '150' : '39.75rem'
       },
+      lineHeight:{
+        '66': '66px'
+      },
       colors: {
         primary: '#0072C6',
         darkPrimary: '#035EA0',
@@ -45,6 +48,7 @@ module.exports = {
         chatbg : '#B2D4ED',
         lightblack :'#3F3D56',
         babyblack : 'rgba(0, 0, 0, 0.65)',
+        lightblue : '#ECF1F5',
       },
       maxWidth : {
         'xxs' : '15rem',
