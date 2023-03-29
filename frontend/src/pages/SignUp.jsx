@@ -9,7 +9,7 @@ const SignUp = () => {
         <div className="left w-full h-96 bg-SignUp bg-cover grid grid-cols-1 sm:h-100 md:h-full md:w-7/12  ">
         <Link to="/" className='container caret-transparent self-start flex justify-start items-center mt-3 md:ml-7'>
             <WebsiteLogo className=' w-14 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 ' />
-            <span className=' text-primary self-center font-sans font-bold text-sm lg:text-xl ' >RetinitisPigmentosa</span>
+            <span className=' text-primary self-center font-sans font-bold text-sm lg:text-xl'>RetinitisPigmentosa</span>
         </Link>
         <div className="middel caret-transparent">
             <div className="container flex flex-col justify-center items-center self-center mb-20 gap-y-3 md:mb-48 md:gap-y-6">
@@ -30,7 +30,7 @@ const SignUp = () => {
             </div>
                 <div className=" caret-transparent form-button self-end flex flex-col gap-y-5 text-center w-11/12  ml-4 xl:ml-0 xl:w-4/5 ">
                     <Link to="/upload" className='  h-11 bg-primary flex justify-center items-center text-white font-nunito text-xl  rounded-thiry xl:ml-16 2xl:ml-6' >Sign up</Link>
-                    <span className=' text-primary text-sm  font-roboto font-medium' >Already have an account? <Link to="#" className=' text-primary text-base font-roboto font-medium underline'>Login</Link></span>
+                    <span className=' text-primary text-sm  font-roboto font-medium' >Already have an account? <Link to="/login" className=' text-primary text-base font-roboto font-medium underline'>Login</Link></span>
                 </div>
             </div>
         </div>

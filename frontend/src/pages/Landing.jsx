@@ -42,7 +42,7 @@ const Landing = () => {
                 <span >About US</span>
                 <span>Contact</span>
 
-                <button className=' w-20 h-12 lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>Login</button>
+                <Link to="/login" className=' w-20 h-12  lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>Login</Link>
             </div>
 
           
@@ -65,7 +65,7 @@ const Landing = () => {
                   Our goal is early detection of retinitis pigmentosa 
                   and providing you with all information related to this disease</p>
                 <>
-                <Link to="/upload" className=' bg-primary text-white font-roboto flex justify-center items-center
+                <Link to="/signup" className=' bg-primary text-white font-roboto flex justify-center items-center
                 font-bold text-lg rounded-full py-2 px-4 mt-4 w-2/4 h-16 self-center 
                  md:w-40 lg: xl:w-52 xl:h-16 md:text-xl md:self-start uppercase'>Sign up</Link>
                 </>

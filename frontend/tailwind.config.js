@@ -30,6 +30,10 @@ module.exports = {
       height:{
         '100' : '30rem',
       },
+      width:{
+        '120' : '31.75rem',
+        '150' : '39.75rem'
+      },
       colors: {
         primary: '#0072C6',
         darkPrimary: '#035EA0',
