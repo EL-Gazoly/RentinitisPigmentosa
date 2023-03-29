@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Chatbot from '../components/Chatbot'
 import PageLogo from '../components/PageLogo'
+import Header from '../components/Header';
 import { ReactComponent as Corner } from '../assets/corner.svg';
 import { ReactComponent as BurgerIcon} from '../assets/burgerIcon.svg'
 import { Link } from 'react-router-dom' 
@@ -60,23 +61,7 @@ const DragAndDrop = () => {
       onDragLeave={handleDragLeave}
       className= "caret-transparent"
     >
-      <div className="landing page-menu flex justify-between">
-            <PageLogo className="md:ml-7" />
-            <div className="landing-page-menu-right flex items-center mr-4 md:hidden" onClick={() => setIsCardVisible(!isCardVisible)}>
-                <BurgerIcon/> 
-            </div>
-            <div className="landing-page-menu-right hidden mr-10 md:flex md:gap-3 lg:gap-10 self-center  items-center text-primary  font-roboto font-bold text-base lg:text-xl">
-                <Link to="/" >Home</Link>
-                <span >About US</span>
-                <span>Contact</span>
-
-                <button className=' w-20 h-12 lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>Logout</button>
-            </div>
-
-          
-          
-        </div>
-    
+      <Header LoginOrLogout="Logout" />
     <div
       className="min-h-screen flex flex-col justify-center items-center  gap-10 mb-5">
 
