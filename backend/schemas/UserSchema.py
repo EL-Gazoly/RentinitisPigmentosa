@@ -49,3 +49,19 @@ class LoginUser(BaseModel):
         if not re.search(r'[a-z]', v):
             raise ValueError("Password must contain at least one lowercase letter")
         return v
+
+class ForgetPassword(BaseModel):
+    email: EmailStr
+
+    @validator('email')
+    def validate_email(cls, v):
+        if not re.search(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', v):
+            raise ValueError("Email is not valid")
+        return v
+
+class ResetCode(BaseModel):
+    email: EmailStr
+    code: str
+    newPassword: str
+    
+    

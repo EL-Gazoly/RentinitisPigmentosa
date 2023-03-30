@@ -1,9 +1,9 @@
 from config.db import conn
-from schemas.__init__ import User, LoginUser
-from models.__init__ import users
+from schemas.__init__ import User, LoginUser, ForgetPassword ,ResetCode
+from models.__init__ import users, code
 from fastapi_jwt_auth import AuthJWT
 from fastapi import HTTPException
-from auth.__init__ import Hasher
+from auth.__init__ import Hasher, forgetPassword, sentVerficationcode
  
 
 async def SignUp(user:User, Authorize: AuthJWT):
@@ -48,3 +48,35 @@ def create_auth_token(email: str, Authorize: AuthJWT):
      Authorize.set_access_cookies(accsess_token)
      
      return accsess_token
+
+def updatePassword(new_password, email):
+    conn.execute(users.update().values(
+        password = Hasher.get_password_hash(new_password)
+    ).where(users.c.email == email))
+     
+
+def forget_Password(request:ForgetPassword):
+     forgetPassword(request)
+
+async def reset_password(request :ResetCode, Authorize: AuthJWT): 
+    
+   user_email = request.email
+   user_code = request.code
+   user_password = request.password
+
+   
+   existing_code = conn.execute(code.select().where(code.c.email== user_email  and code.c.code == user_code ))
+   if existing_code.rowcount == 0:
+       raise HTTPException(status_code=400, detail= 'Code does not exist')
+   
+   conn.execute(code.delete().where(code.c.email == user_email))
+       
+   updatePassword(user_password, user_email)
+   return {'msg' : 'Password updated successfully'}
+
+   
+
+
+    
+
+     

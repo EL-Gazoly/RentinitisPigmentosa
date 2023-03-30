@@ -11,3 +11,10 @@ users= Table(
     Column('email', String(255), unique=True, nullable=False),
     Column('password', String(255), nullable=False),
 )
+
+code = Table(
+    'code', meta,
+    Column('email', String(255), nullable=False),
+    Column('code', String(255), nullable=False),
+
+)
