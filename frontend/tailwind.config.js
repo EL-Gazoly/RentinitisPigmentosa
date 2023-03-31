@@ -29,10 +29,13 @@ module.exports = {
       },
       height:{
         '100' : '30rem',
+        '98' : '26rem',
       },
       width:{
         '120' : '31.75rem',
-        '150' : '39.75rem'
+        '130' : '34rem',
+        '150' : '39.75rem',
+        '200': '52rem',
       },
       lineHeight:{
         '66': '66px'

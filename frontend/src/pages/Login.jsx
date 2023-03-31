@@ -21,7 +21,11 @@ const Login = () => {
                     </div>
             </div>
                 <div className=" caret-transparent form-button self-end flex flex-col gap-y-5 text-center w-11/12  ml-4 xl:ml-0 xl:w-4/5 ">
+                    <div className=' grid grid-cols-1 gap-y-1'>
+                        <Link to="/forgot-password" className=' font-roboto text-sm text-forget justify-self-end font-medium'>Forgot password?</Link>
                     <Link to="/upload" className='  h-11 bg-primary flex justify-center items-center text-white font-nunito text-xl  rounded-thiry xl:ml-16 2xl:ml-6' >Log in</Link>
+                    </div>
+                    
                     <Link to='/signup' className=' w-36 h-11 flex justify-center items-center text-primary font-roboto font-semibold text-sm bg-white border-4 border-primary rounded-full p-6 self-center xl:ml-12 2xl:ml-10'> Sign up now </Link>
                 </div>
             </div>
