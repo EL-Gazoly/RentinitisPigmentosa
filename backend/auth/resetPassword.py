@@ -1,18 +1,8 @@
 import random 
 import os
-from config.db import conn
-from dotenv import load_dotenv
-from models.__init__ import users, code
-from schemas.__init__ import ForgetPassword, ResetCode
-from fastapi_mail import FastMail, MessageSchema,ConnectionConfig, MessageType
-from pydantic import  EmailStr
-import yagmail
 from email.message import EmailMessage
 import ssl
 import smtplib
-
-load_dotenv()
-
 
 
 def generateOTP() : 
