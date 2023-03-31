@@ -49,6 +49,7 @@ module.exports = {
         lightblack :'#3F3D56',
         babyblack : 'rgba(0, 0, 0, 0.65)',
         lightblue : '#ECF1F5',
+        forget : '#FF6584'
       },
       maxWidth : {
         'xxs' : '15rem',
