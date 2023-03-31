@@ -23,6 +23,6 @@ async def ForgetPassword(request: ForgetPassword, Authorize: AuthJWT = Depends()
 async def ResetPassword(request: ResetCode, Authorize: AuthJWT = Depends()):
     return await SignupLoginController.reset_password(request, Authorize)
 @SignupLoginRouter.post('/api/logout', tags=["Authentication"])
-async def Logout(Authorize: AuthJWT =Depends()):
+async def Logout(Authorize: AuthJWT =Depends()): 
     return await SignupLoginController.Logout(Authorize)
 
