@@ -46,8 +46,6 @@ const Landing = () => {
         </div>
 
 
-      
-       <Chatbot/>
     </div>    
   )
 }
