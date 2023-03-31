@@ -52,16 +52,14 @@ class LoginUser(BaseModel):
 
 class ForgetPassword(BaseModel):
     email: EmailStr
-
+    
     @validator('email')
     def validate_email(cls, v):
-        if not re.search(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', v):
-            raise ValueError("Email is not valid")
+        if not re.search(r'[^@]+@[^@]+\.[^@]+', v):
+            raise ValueError("Email must be valid")
         return v
 
 class ResetCode(BaseModel):
-    email: EmailStr
-    code: str
-    newPassword: str
-    
-    
+    email : EmailStr
+    code : str
+    newPassword : str

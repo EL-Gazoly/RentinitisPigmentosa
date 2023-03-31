@@ -10,7 +10,6 @@ UserRouter = APIRouter()
 
 @UserRouter.get("/api/get_users", tags=["Edit Users"])
 async def getUsers(Authorize: AuthJWT = Depends()):
-    Authorize.jwt_required()
     return await UserController.get_all_users()
     
 @UserRouter.get("/api/get_user/{id}", tags=["Edit Users"])

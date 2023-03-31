@@ -1,1 +1,8 @@
 .env
+routes/__pycache__/
+schemas/__pycache__/
+models/__pycache__/
+controllers/__pycache__/
+config/__pycache__/
+auth/__pycache__/
+/__pycache__/

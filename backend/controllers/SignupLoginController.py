@@ -1,9 +1,10 @@
 from config.db import conn
+from sqlalchemy import and_
 from schemas.__init__ import User, LoginUser, ForgetPassword ,ResetCode
 from models.__init__ import users, code
 from fastapi_jwt_auth import AuthJWT
 from fastapi import HTTPException
-from auth.__init__ import Hasher, forgetPassword, sentVerficationcode
+from auth.__init__ import Hasher, generateOTP , sentVerficationcode
  
 
 async def SignUp(user:User, Authorize: AuthJWT):
@@ -49,31 +50,44 @@ def create_auth_token(email: str, Authorize: AuthJWT):
      
      return accsess_token
 
+
 def updatePassword(new_password, email):
     conn.execute(users.update().values(
-        password = Hasher.get_password_hash(new_password)
+        password=Hasher.get_password_hash(new_password)
     ).where(users.c.email == email))
-     
 
-def forget_Password(request:ForgetPassword):
-     forgetPassword(request)
-
-async def reset_password(request :ResetCode, Authorize: AuthJWT): 
+async def forget_Password(request: ForgetPassword,forgetAuthorize: AuthJWT):
+    user_email = request.email
+    existing_user = conn.execute(users.select().where(users.c.email == user_email))
+    if existing_user.rowcount == 0:                                                
+        raise HTTPException(status_code=400, detail='Email does not exist')
     
-   user_email = request.email
-   user_code = request.code
-   user_password = request.password
+    user_code = generateOTP()
+    conn.execute(code.insert().values(
+        email = user_email,
+        code = user_code
+    ))
+    sentVerficationcode(user_email, user_code)
 
-   
-   existing_code = conn.execute(code.select().where(code.c.email== user_email  and code.c.code == user_code ))
-   if existing_code.rowcount == 0:
-       raise HTTPException(status_code=400, detail= 'Code does not exist')
-   
-   conn.execute(code.delete().where(code.c.email == user_email))
-       
-   updatePassword(user_password, user_email)
-   return {'msg' : 'Password updated successfully'}
+    return {'msg' : 'Code sent to your email'}
 
+async def reset_password(request: ResetCode, Authorize: AuthJWT):
+    
+    user_email = request.email
+    user_code = request.code
+    user_password = request.newPassword
+
+    existing_code = conn.execute(
+        code.select().where(and_(code.c.email == user_email, code.c.code == user_code))
+    ).fetchone()
+
+    if not existing_code:
+        raise HTTPException(status_code=400, detail='Invalid OTP')
+
+    conn.execute(code.delete().where(code.c.email == user_email))
+
+    updatePassword(user_password, user_email)
+    return {'msg': 'Password updated successfully'}
    
 
 

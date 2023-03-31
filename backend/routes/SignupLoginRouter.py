@@ -16,8 +16,8 @@ async def Login(user: LoginUser, Authorize: AuthJWT = Depends()):
     return await SignupLoginController.LogIn(user, Authorize)
 
 @SignupLoginRouter.post('/api/forget_password', tags=["Authentication"])
-async def ForgetPassword(request: ForgetPassword, Authorize: AuthJWT = Depends()):
-    return await SignupLoginController.ForgetPassword(request, Authorize)
+async def ForgetPassword(request : ForgetPassword,Authorize: AuthJWT = Depends()):
+    return await SignupLoginController.forget_Password(request, Authorize)
 
 @SignupLoginRouter.post('/api/reset_password', tags=["Authentication"])
 async def ResetPassword(request: ResetCode, Authorize: AuthJWT = Depends()):
