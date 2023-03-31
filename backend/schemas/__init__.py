@@ -1,2 +1,2 @@
-from schemas.UserSchema import User, LoginUser, ForgetPassword, ResetCode
+from schemas.UserSchema import User, LoginUser, ForgetPassword, ResetCode , ContactUS
 from .JwtTokenSchema import Settings

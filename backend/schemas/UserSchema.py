@@ -63,3 +63,21 @@ class ResetCode(BaseModel):
     email : EmailStr
     code : str
     newPassword : str
+
+
+class ContactUS(BaseModel):
+    name : str
+    email : EmailStr
+    message : str
+
+    @validator('email')
+    def validate_email(cls, v):
+        if not re.search(r'[^@]+@[^@]+\.[^@]+', v):
+            raise ValueError("Email must be valid")
+        return v
+
+    @validator('message')
+    def validate_message(cls, v):
+        if len(v) < 10:
+            raise ValueError("Message must be at least 10 characters long")
+        return v

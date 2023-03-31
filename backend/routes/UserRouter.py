@@ -1,6 +1,6 @@
 from config.db import conn
 from models.__init__ import users
-from schemas.__init__ import User
+from schemas.__init__ import User, ContactUS
 from fastapi_jwt_auth import AuthJWT
 from fastapi.responses import JSONResponse
 from fastapi import APIRouter, Depends, Request
@@ -37,3 +37,7 @@ async def getCurrentUserdat(request: Request, Authorize: AuthJWT = Depends()):
     response.set_cookie(key='UserName', value=current_user.first_name+ ' ' + current_user.last_name)
     response.set_cookie(key='UserEmail', value=current_user.email)
     return response
+
+@UserRouter.post('/api/contact_us', tags=["Contact Us"])
+async def contact_us(request: ContactUS):
+    return await UserController.contact_us(request)

@@ -1,8 +1,13 @@
+import ssl
+import smtplib
+import os
 from config.db import conn
 from models.__init__ import users
 from schemas.__init__ import User
 from fastapi import HTTPException
 from auth.__init__ import Hasher
+from email.message import EmailMessage
+
 
 
 async def get_all_users():
@@ -42,3 +47,28 @@ async def delete_user(id: str):
         return {'message': 'Good bye :('}
     except:
         raise HTTPException(status_code=500, detail='Well, this is not quite what we had in mind.But no worries, we have got this!')
+    
+
+async def contact_us(request):
+    sender_email = request.email
+    sender_name = request.name
+    contact_us_email = os.getenv('CONTACT_US_EMAIL')
+    contact_us_password = os.getenv('CONTACT_US_PASSWORD')
+    reciever_email = os.getenv('MYEMAIL')
+    sender_message = request.message
+
+    message = f"""Subject: Message from RP Website User\n\nName: {sender_name}\nEmail: {sender_email}\nMessage: {sender_message}"""
+
+    em = EmailMessage()
+    em['From'] = contact_us_email
+    em['To'] = reciever_email
+    em['Subject'] = 'Message from RP Website User' 
+    em.set_content(message)
+
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=ssl.create_default_context()) as smtp:
+        smtp.login(contact_us_email, contact_us_password)
+        smtp.sendmail(contact_us_email, reciever_email, em.as_string())
+    
+    return {'message': 'Thank you for contacting us!'}
+
+    
