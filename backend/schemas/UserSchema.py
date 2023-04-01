@@ -14,6 +14,7 @@ class User(BaseModel):
         if len(value) < 3:
             raise ValueError("first_name must be at least 3 characters long")
         return value
+    
 
     @validator("last_name")
     def last_name_validator(cls, value):

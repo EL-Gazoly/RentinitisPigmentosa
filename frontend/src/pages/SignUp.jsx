@@ -1,28 +1,44 @@
-import {React, useState} from 'react'
-import PageLogo from '../components/PageLogo'
-import Loading from '../components/Loading'
 import {Link} from 'react-router-dom'
 import usePost from '../hooks/usePost'
+import {React, useRef} from 'react'
+import PageLogo from '../components/PageLogo'
+import Loading from '../components/Loading'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+
+
 const SignUp = () => {
-  const [userdata, setData] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: ''
-  });
+
+
+  const firstname = useRef();
+  const lastname = useRef();
+  const email = useRef();
+  const password = useRef();
+
   const navigate = useNavigate();
+
   const { execute, pending, data} = usePost();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    execute('signup', userdata);
+    const user = {
+      first_name: firstname.current.value,
+      last_name: lastname.current.value,
+      email: email.current.value,
+      password: password.current.value  
+    };  
+    execute('signup', user);
+    firstname.current.value = '';
+    lastname.current.value = '';
+    email.current.value = '';
+    password.current.value = '';
   };
   const successMessgae = () => {
     setTimeout(() => {
       navigate('/login');
-    }, 2000);
+    }, 1700);
   };
    
   return (
@@ -48,22 +64,22 @@ const SignUp = () => {
                 <div className="form-group self-center flex flex-col gap-y-4 w-11/12 ml-4  caret-primary md:gap-10 xl:w-4/5 2xl:w-3/4">
                     <input type="text" placeholder='firstname' className='h-12 bg-bg border-b-2 rounded-md pl-4 pt-1 
                      border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary '
-                     onChange={(e) => { setData({...userdata, first_name : e.target.value})}}
+                     ref={firstname}
                      />
 
                     <input type="text" placeholder='lastname' className='h-12 bg-bg border-b-2 rounded-md pl-4 pt-1 
                      border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary '
-                        onChange={(e) => { setData({...userdata, last_name : e.target.value})}}
+                        ref={lastname}
                      />
 
                     <input type="email" placeholder='email' className='h-12 bg-bg border-b-2 rounded-md pl-4 pt-1
                       border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary '
-                        onChange={(e) => { setData({...userdata, email : e.target.value})}}
+                        ref={email}
                       />
                       
                     <input type="password" placeholder='password' className='  h-12 bg-bg border-b-2 rounded-md pl-4 pt-1
                       border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary ' 
-                        onChange={(e) => { setData({...userdata, password : e.target.value})}}
+                        ref={password}
                       />
             </div>
                 <div className=" caret-transparent form-button self-end flex flex-col gap-y-5 text-center w-11/12  ml-4 xl:ml-0 xl:w-4/5 ">
@@ -74,9 +90,7 @@ const SignUp = () => {
         </div>
 
     </div>
-    <ToastContainer 
-     autoClose={1000}
-    />
+    <ToastContainer />
     </div>
   )
 }

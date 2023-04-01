@@ -20,7 +20,14 @@ const usePost = () => {
       .post(`http://localhost:8000/api/${endpoint}`, { ...Data })
       .then(response => {
         setTimeout(() => {
-        toast.success('Welcome Aboard!');
+        if(endpoint === 'signup'){
+        toast.success('Welcome Aboard!', {
+          autoClose: 1000,
+        });
+        } 
+        else if(endpoint === 'login'){
+        toast.success('Welcome Back!');
+        }
         updateData({ pending: false, data: response.data, error: undefined });
       }, 1000);
       })
@@ -28,8 +35,11 @@ const usePost = () => {
         setTimeout(() => {
           try {
             const { detail } = JSON.parse(error.request.response);
-            const errorMessages = detail.map((err) => err.msg).join('\n');
-            toast.error(errorMessages);
+            const errorMessages = detail.map((err) => err.msg);
+            errorMessages.forEach((err) => toast.error(err));
+            toast.error(errorMessages,{
+              autoClose: 5000,
+            });
           } catch (e) {
             const err = JSON.parse(error.request.response);
             toast.error(err.detail);
