@@ -3,42 +3,38 @@ import PageLogo from '../components/PageLogo'
 import Loading from '../components/Loading'
 import {Link} from 'react-router-dom'
 import usePost from '../hooks/usePost'
-import {useNavigate} from 'react-router-dom'
-import {ToastContainer, toast} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const SignUp = () => {
-    const [userdata, setData] = useState({
-        first_name: '',
-        last_name: '',
-        email: '',
-        password: ''
-    })
-    const navigate = useNavigate();
-    const { execute, pending, data, error} = usePost();
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        execute('signup', userdata);
-    }
-    const errorMessage = (message) => {
-      {toast.error(message)} 
-      
-  }
-
-  const successMessage = (message) => {
-      return (
-          <ToastContainer>
-              {toast.success(message)}
-          </ToastContainer>
-      );
-  }
+  const [userdata, setData] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: ''
+  });
+  const navigate = useNavigate();
+  const { execute, pending, data, error} = usePost();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    execute('signup', userdata);
+  };
+  const errorMessage = (message) => {
+    toast.error(message);
+  };
+  const successMessgae = (message) => {
+    setTimeout(() => {
+      navigate('/login');
+    }, 2000);
+  };
    
   return (
     <div>
-        
+     {pending && <Loading />}
+     {data && successMessgae()}
     <div className="flex flex-col md:flex-row w-full h-screen">
-        {pending && <Loading />}
-        {error && errorMessage(error.message) }
-        {data && successMessage(data.message)}
+        
+       
         <div className="left w-full h-96 bg-SignUp bg-cover grid grid-cols-1 sm:h-100 md:h-full md:w-7/12  ">
         <PageLogo className="md:ml-7" />
         <div className="middel caret-transparent">
@@ -81,7 +77,9 @@ const SignUp = () => {
         </div>
 
     </div>
-    <ToastContainer />
+    <ToastContainer 
+     autoClose={1000}
+    />
     </div>
   )
 }

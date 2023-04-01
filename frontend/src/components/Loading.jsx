@@ -6,7 +6,7 @@ const Loading = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 3000)
+        }, 500)
 
         return () => {
             clearTimeout()
