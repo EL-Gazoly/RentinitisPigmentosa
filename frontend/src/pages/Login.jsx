@@ -1,11 +1,47 @@
-import React from 'react'
 import {Link} from 'react-router-dom'
 import PageLogo from '../components/PageLogo'
+import {React, useRef, useState} from 'react'
+import usePost from '../hooks/usePost'
+import Loading from '../components/Loading'
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {ReactComponent as LoginIcon} from '../assets/loginIcon.svg'
 const Login = () => {
+    const [emailOk, setEmailOk] = useState(false);
+    const [passwordOk, setPasswordOk] = useState(false);
+
+    const email = useRef();
+    const password = useRef();
+
+    const navigate = useNavigate();
+
+    const { execute, pending, data} = usePost();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const user = {
+            email: email.current.value,
+            password: password.current.value
+        };
+        execute('login', user);
+        email.current.value = '';
+        password.current.value = '';
+    };
+
+    const successMessgae = () => {
+        setTimeout(() => {
+            navigate('/upload');
+        }, 1700);
+    };
+
+    
   return (
     <div className=' bg-bg'>
+        {pending && <Loading />}
+        {data && successMessgae()}
+
         <div className=' flex flex-col md:flex-row w-full h-screen'>
             <div className="left order-2 mt-8 flex-1 md:mt-36 2xl:mt-72 ">
             <div className="form grid grid-cols-1 gap-y-8 xl:ml-12 2xl:ml-32 ">
@@ -13,17 +49,23 @@ const Login = () => {
                 <div className="form-group self-center flex flex-col gap-y-4 w-11/12 ml-4  caret-primary md:gap-10 xl:w-4/5 2xl:w-3/4">
                     <div className=' flex flex-col '>
                         <label className=' font-roboto  text-sm text-secondary pl-3'>Email Address</label>   
-                        <input type="email" placeholder='name@example.com' className='h-12 bg-white border rounded-full px-6 border-gray-400 focus:outline-none placeholder:text-secondary focus:border-primary '  />
+                        <input type="email" placeholder='name@example.com' className={`h-12 bg-white border rounded-full px-6
+                         border-gray-400 focus:outline-none placeholder:text-secondary focus:border-primary `}
+                            ref={email} 
+                          />
                     </div>
                     <div className=' flex flex-col'>
                         <label className=' font-roboto  text-sm text-secondary pl-3'>Password</label>
-                        <input type="password" placeholder='at least 8 characters' className='  h-12 bg-white border rounded-full px-6   border-gray-400 focus:outline-none placeholder:text-secondary focus:border-primary '       />
+                        <input type="password" placeholder='at least 8 characters' className={` 
+                         h-12 bg-white border rounded-full px-6   border-gray-400 focus:outline-none
+                          placeholder:text-secondary focus:border-primary ` } 
+                          ref={password}     />
                     </div>
             </div>
                 <div className=" caret-transparent form-button self-end flex flex-col gap-y-5 text-center w-11/12  ml-4 xl:ml-0 xl:w-4/5 ">
                     <div className=' grid grid-cols-1 gap-y-1'>
                         <Link to="/forgot-password" className=' font-roboto text-sm text-forget justify-self-end font-medium'>Forgot password?</Link>
-                    <Link to="/upload" className='  h-11 bg-primary flex justify-center items-center text-white font-nunito text-xl  rounded-thiry xl:ml-16 2xl:ml-6' >Log in</Link>
+                    <button onClick={handleSubmit} className='  h-11 bg-primary flex justify-center items-center text-white font-nunito text-xl  rounded-thiry xl:ml-16 2xl:ml-6' >Log in</button>
                     </div>
                     
                     <Link to='/signup' className=' w-36 h-11 flex justify-center items-center text-primary font-roboto font-semibold text-sm bg-white border-4 border-primary rounded-full p-6 self-center xl:ml-12 2xl:ml-10'> Sign up now </Link>
@@ -52,6 +94,7 @@ const Login = () => {
                 <PageLogo />
             </div>
         </div>
+        <ToastContainer />
     </div>
   ) 
 }
