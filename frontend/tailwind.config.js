@@ -24,6 +24,9 @@ module.exports = {
       rotate :{
         '270' : '270deg',
       },
+      blur :{
+        '2' : '2px',
+      },
       backgroundImage : {
         'SignUp' : "url('/src/assets/SignUpPic.png')",
       },
