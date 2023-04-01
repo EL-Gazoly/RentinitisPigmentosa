@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ReactComponent as LoginIcon} from '../assets/loginIcon.svg'
 const Login = () => {
     const [emailOk, setEmailOk] = useState(false);
-    const [passwordOk, setPasswordOk] = useState(false);
+    const [passwordOk, setPasswordOk] = useState(true);
 
     const email = useRef();
     const password = useRef();
@@ -27,7 +27,7 @@ const Login = () => {
         };
         execute('login', user);
         email.current.value = '';
-        password.current.value = '';
+        password.current.value = '';    
     };
 
     const successMessgae = () => {
@@ -36,6 +36,25 @@ const Login = () => {
         }, 1700);
     };
 
+    const handelEmailChangeCheck = () => {
+        const emailValue = email.current.value;
+        if (/\S+@\S+\.\S+/.test(emailValue)) {
+          setEmailOk(true);
+        }
+        else {
+          setEmailOk(false);
+        }
+      };
+    
+      const handelPasswordChangeCheck = () => {
+        const passwordValue = password.current.value;
+        if (passwordValue.length < 8 || !/\d/.test(passwordValue) || !/[a-z]/.test(passwordValue) || !/[A-Z]/.test(passwordValue)) {
+          setPasswordOk(true);
+        }
+        else {
+          setPasswordOk(false);
+        }
+      };
     
   return (
     <div className=' bg-bg'>
@@ -50,16 +69,23 @@ const Login = () => {
                     <div className=' flex flex-col '>
                         <label className=' font-roboto  text-sm text-secondary pl-3'>Email Address</label>   
                         <input type="email" placeholder='name@example.com' className={`h-12 bg-white border rounded-full px-6
-                         border-gray-400 focus:outline-none placeholder:text-secondary focus:border-primary `}
+                         border-gray-400 focus:outline-none placeholder:text-secondary focus:border-primary 
+                            ${emailOk ? 'focus:border-primary' : 'focus:border-red-500'}
+                         `}
                             ref={email} 
+                            onChange={handelEmailChangeCheck}
                           />
                     </div>
                     <div className=' flex flex-col'>
                         <label className=' font-roboto  text-sm text-secondary pl-3'>Password</label>
                         <input type="password" placeholder='at least 8 characters' className={` 
                          h-12 bg-white border rounded-full px-6   border-gray-400 focus:outline-none
-                          placeholder:text-secondary focus:border-primary ` } 
-                          ref={password}     />
+                          placeholder:text-secondary 
+                            ${!passwordOk ? 'focus:border-primary' : 'focus:border-red-500'}
+                          ` } 
+                          ref={password} 
+                          onChange={handelPasswordChangeCheck}
+                          />
                     </div>
             </div>
                 <div className=" caret-transparent form-button self-end flex flex-col gap-y-5 text-center w-11/12  ml-4 xl:ml-0 xl:w-4/5 ">
