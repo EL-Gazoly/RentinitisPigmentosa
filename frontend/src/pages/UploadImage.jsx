@@ -68,7 +68,9 @@ const DragAndDrop = () => {
       </div>
 
       <div
-        className="border-dashed border-2 border-primary mx-10 rounded-lg p-4 text-center cursor-pointer"
+        className={`border-dashed border-2 border-primary mx-10 rounded-lg p-4 text-center cursor-pointer 
+        ${files.length > 0 ? '' : 'mb-48'}
+        `}
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
         onClick={() => document.getElementById('fileInput').click()}
@@ -98,9 +100,9 @@ const DragAndDrop = () => {
           ))}
         </div>
       </div>
-    
-        <p className=" text-primary mt-4 mb-40 text-sm md:text-xl">Or drop files anywhere in the page to upload them</p>
-
+        {files.length > 0 && 
+        <button className=" bg-primary text-white w-52 h-16  rounded-xl text-3xl font-nunito font-bold  mt-4 mb-40  md:text-xl">Upload</button>
+      }
     </div>
 
     </div>
