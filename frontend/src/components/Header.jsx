@@ -25,7 +25,7 @@ const Header = ({LoginOrLogout}) => {
     }, [cardRef])
   return (
     <div>
-           <div className="landing page-menu flex justify-between mt-5">
+           <div className="landing page-menu flex justify-between ">
             <PageLogo className="md:ml-7" />
             <div className="landing-page-menu-right flex items-center mr-4 md:hidden" onClick={() => setIsCardVisible(!isCardVisible)}>
                 <BurgerIcon onClick={()=> setIsCardVisible(!isCardVisible)}/> 

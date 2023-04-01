@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import Chatbot from '../components/Chatbot'
 import Header from '../components/Header';
+import usePost from '../hooks/usePost';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 import { ReactComponent as Corner } from '../assets/corner.svg';
-
 
 const DragAndDrop = () => {
   const [files, setFiles] = useState([]);
@@ -47,6 +49,32 @@ const DragAndDrop = () => {
     setFiles([...files, ...newFiles]);
     setIsDragging(false);
   };
+  const { execute, pending, data } = usePost();
+
+  const handelupload = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append('files', file);
+    });
+
+    axios.post('http://localhost:8000/api/uploadImg', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+      .then(response => {
+        console.log(response.data);
+        toast.success(response.data.message);
+      })
+      .catch(error => {
+        const err = JSON.parse(error.request.response);
+        toast.error(err.detail);
+      });
+
+    setFiles([]);
+  };
+
 
   return (
     <div>
@@ -56,7 +84,7 @@ const DragAndDrop = () => {
       onDragEnter={handleDragEnter}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
-      className= "caret-transparent"
+      className= "caret-transparent h-full"
     >
       <Header LoginOrLogout="Logout" />
     <div
@@ -68,8 +96,8 @@ const DragAndDrop = () => {
       </div>
 
       <div
-        className={`border-dashed border-2 border-primary mx-10 rounded-lg p-4 text-center cursor-pointer 
-        ${files.length > 0 ? '' : 'mb-48'}
+        className={`border-dashed border-2 border-primary mx-10 rounded-lg p-4 text-center cursor-pointer
+        ${!files.length > 0 && 'mb-48'}   
         `}
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
@@ -100,9 +128,11 @@ const DragAndDrop = () => {
           ))}
         </div>
       </div>
-        {files.length > 0 && 
-        <button className=" bg-primary text-white w-52 h-16  rounded-xl text-3xl font-nunito font-bold  mt-4 mb-40  md:text-xl">Upload</button>
-      }
+        {files.length > 0 &&
+        <button 
+        onClick={handelupload}
+        className=" text-white bg-primary font-bold font-nunito rounded-xl w-52 h-16 mt-4 mb-40 text-sm 2xl:text-2xl md:text-xl">Upload</button>
+        }
     </div>
 
     </div>
@@ -118,7 +148,7 @@ const DragAndDrop = () => {
         </div>
        
       )}
-      <Chatbot/>
+      <ToastContainer />
     </div>
   );
 };
