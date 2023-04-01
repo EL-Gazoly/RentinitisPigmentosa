@@ -4,7 +4,7 @@ import Loading from '../components/Loading'
 import {Link} from 'react-router-dom'
 import usePost from '../hooks/usePost'
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const SignUp = () => {
   const [userdata, setData] = useState({
@@ -14,15 +14,12 @@ const SignUp = () => {
     password: ''
   });
   const navigate = useNavigate();
-  const { execute, pending, data, error} = usePost();
+  const { execute, pending, data} = usePost();
   const handleSubmit = (e) => {
     e.preventDefault();
     execute('signup', userdata);
   };
-  const errorMessage = (message) => {
-    toast.error(message);
-  };
-  const successMessgae = (message) => {
+  const successMessgae = () => {
     setTimeout(() => {
       navigate('/login');
     }, 2000);

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { json } from 'react-router-dom';
 
 const usePost = () => {
   const [Data, updateData] = useState({
