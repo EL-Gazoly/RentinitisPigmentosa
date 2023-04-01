@@ -1,38 +1,31 @@
-import {useState, useEffect} from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
-const usePost = (url, data) => {
-    const [message, setMessage] = useState(null); // [data, setData
-    const [isPending, setIsPending] = useState(true);
-    const [error, setError] = useState(null);
+const usePost = () => {
+  const [Data, updateData] = useState({
+    pending: false,
+    data: undefined,
+    error: undefined,
+  });
 
-    useEffect(() => {
-        setTimeout(() => {
-         axios.post(url, data)
-            .then(res => {
-                if (!res.data) {
-                    throw Error('Could not post the data for that resource');
-                }
-                return res.json();
-            })
-            .then(Response => {
+  const execute = async (endpoint, Data ) => {
+    updateData({
+      pending: true,
+      data: undefined,
+      error: undefined,
+    });
+    return axios
+      .post(`http://localhost:8000/api/${endpoint}`, { ...Data })
+      .then(response => {
+        updateData({ pending: false, data: response.data, error: undefined });
+      })
+      .catch(error => {
+        updateData({ pending: false, data: undefined, error: error.message });
+        console.log(error);
+      });
+  };
 
-                setMessage(Response);
-                setIsPending(false);
-                setError(null);
-            })
-            .catch(err => {
-                if (err.name === 'AbortError') {
-                    console.log('fetch aborted');
-                } else {
-                    setIsPending(false);
-                    setError(err.message);
-                }
-            }
-            )
-            
-        }, 1000); // 1 second delay
-     })
-        return {message, isPending, error};
-}
+  return { execute, pending: Data.pending, data: Data.data, error: Data.error };
+};
+
 export default usePost;

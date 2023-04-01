@@ -1,11 +1,44 @@
-import React from 'react'
+import {React, useState} from 'react'
 import PageLogo from '../components/PageLogo'
+import Loading from '../components/Loading'
 import {Link} from 'react-router-dom'
+import usePost from '../hooks/usePost'
+import {useNavigate} from 'react-router-dom'
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const SignUp = () => {
+    const [userdata, setData] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: ''
+    })
+    const navigate = useNavigate();
+    const { execute, pending, data, error} = usePost();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        execute('signup', userdata);
+    }
+    const errorMessage = (message) => {
+      {toast.error(message)} 
+      
+  }
+
+  const successMessage = (message) => {
+      return (
+          <ToastContainer>
+              {toast.success(message)}
+          </ToastContainer>
+      );
+  }
+   
   return (
     <div>
-      
+        
     <div className="flex flex-col md:flex-row w-full h-screen">
+        {pending && <Loading />}
+        {error && errorMessage(error.message) }
+        {data && successMessage(data.message)}
         <div className="left w-full h-96 bg-SignUp bg-cover grid grid-cols-1 sm:h-100 md:h-full md:w-7/12  ">
         <PageLogo className="md:ml-7" />
         <div className="middel caret-transparent">
@@ -20,19 +53,35 @@ const SignUp = () => {
             <div className="form grid grid-cols-1 gap-y-8 md:md:gap-11 xl:ml-12 2xl:ml-32 ">
                 <h3 className=' self-start text-3xl font-nunito font-bold caret-transparent ml-7 md:ml-5 md:text-4xl'>Sign up.</h3>
                 <div className="form-group self-center flex flex-col gap-y-4 w-11/12 ml-4  caret-primary md:gap-10 xl:w-4/5 2xl:w-3/4">
-                    <input type="text" placeholder='firstname' className='h-12 bg-bg border-b-2 rounded-md pl-4 pt-1  border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary ' />
-                    <input type="text" placeholder='lastname' className='h-12 bg-bg border-b-2 rounded-md pl-4 pt-1  border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary '  />
-                    <input type="email" placeholder='email' className='h-12 bg-bg border-b-2 rounded-md pl-4 pt-1  border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary '  />
-                    <input type="password" placeholder='password' className='  h-12 bg-bg border-b-2 rounded-md pl-4 pt-1  border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary '       />
+                    <input type="text" placeholder='firstname' className='h-12 bg-bg border-b-2 rounded-md pl-4 pt-1 
+                     border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary '
+                     onChange={(e) => { setData({...userdata, first_name : e.target.value})}}
+                     />
+
+                    <input type="text" placeholder='lastname' className='h-12 bg-bg border-b-2 rounded-md pl-4 pt-1 
+                     border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary '
+                        onChange={(e) => { setData({...userdata, last_name : e.target.value})}}
+                     />
+
+                    <input type="email" placeholder='email' className='h-12 bg-bg border-b-2 rounded-md pl-4 pt-1
+                      border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary '
+                        onChange={(e) => { setData({...userdata, email : e.target.value})}}
+                      />
+                      
+                    <input type="password" placeholder='password' className='  h-12 bg-bg border-b-2 rounded-md pl-4 pt-1
+                      border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary ' 
+                        onChange={(e) => { setData({...userdata, password : e.target.value})}}
+                      />
             </div>
                 <div className=" caret-transparent form-button self-end flex flex-col gap-y-5 text-center w-11/12  ml-4 xl:ml-0 xl:w-4/5 ">
-                    <Link to="/upload" className='  h-11 bg-primary flex justify-center items-center text-white font-nunito text-xl  rounded-thiry xl:ml-16 2xl:ml-6' >Sign up</Link>
+                    <button  onClick={handleSubmit} className='  h-11 bg-primary flex justify-center items-center text-white font-nunito text-xl  rounded-thiry xl:ml-16 2xl:ml-6' >Sign up</button>
                     <span className=' text-primary text-sm  font-roboto font-medium' >Already have an account? <Link to="/login" className=' text-primary text-base font-roboto font-medium underline'>Login</Link></span>
                 </div>
             </div>
         </div>
 
     </div>
+    <ToastContainer />
     </div>
   )
 }
