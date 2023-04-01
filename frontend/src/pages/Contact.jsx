@@ -17,15 +17,21 @@ const Contact = () => {
          </div>
          <div className="right w-1/2 bg-lightblue grid">
             <div className=' justify-self-center w-full ml-64 self-center grid grid-cols-1  gap-y-6'>
+            <div className='flex flex-col gap-y-1 '>
+                    <label htmlFor="name" className=' text-secondary'>Name</label>
+                    <input type="text" 
+                    placeholder='Please enter your name' 
+                    className=' w-3/4 h-12 rounded-lg p-5 placeholder:text-secondary focus:outline-none focus:border focus:border-primary' />
+                </div>
                 <div className='flex flex-col gap-y-1 '>
                     <label htmlFor="email" className=' text-secondary'>Email Address</label>
                     <input type="email" 
                     placeholder='name@example.com' 
-                    className=' w-3/4 h-12 rounded-lg p-3 placeholder:text-secondary focus:outline-none focus:border focus:border-primary' />
+                    className=' w-3/4 h-12 rounded-lg p-5 placeholder:text-secondary focus:outline-none focus:border focus:border-primary' />
                 </div>
                 <div className='flex flex-col gap-y-1 '>
                     <label className=' text-secondary' >Enter Your question</label>
-                    <textarea className=' w-3/4 focus:outline-none rounded-lg p-4 focus:border focus:border-primary
+                    <textarea className=' w-3/4 focus:outline-none rounded-lg p-5 focus:border focus:border-primary
                     placeholder:text-secondary
                     ' name="" id="" cols="30" rows="10" placeholder='We are really interested to hear what you have to say..'></textarea>
                 </div>
