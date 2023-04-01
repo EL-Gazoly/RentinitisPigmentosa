@@ -29,7 +29,7 @@ const usePost = () => {
         toast.success('Welcome Back!');
         }
         updateData({ pending: false, data: response.data, error: undefined });
-      }, 2000);
+      }, 2300);
       })
       .catch(error => {
         setTimeout(() => {
@@ -46,7 +46,7 @@ const usePost = () => {
           }
         updateData({ pending: false, data: undefined, error: error.message });
         console.log(error);
-      }, 1000)
+      }, 2300)
       });
   };
 

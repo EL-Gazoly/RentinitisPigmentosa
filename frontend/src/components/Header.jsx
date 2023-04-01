@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import PageLogo from '../components/PageLogo'
 import { ReactComponent as BurgerIcon} from '../assets/burgerIcon.svg'
 import {React, useEffect, useState, useRef} from 'react'
+import usePost from '../hooks/usePost'
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({LoginOrLogout}) => {
     const [isCardVisible, setIsCardVisible] = useState(false)
@@ -23,6 +25,16 @@ const Header = ({LoginOrLogout}) => {
       }
         
     }, [cardRef])
+
+    const navigate = useNavigate();
+
+    const { execute } = usePost();
+
+    const handelLogout = () => {   
+        execute('logout');
+        navigate('/login');
+
+    }
   return (
     <div>
            <div className="landing page-menu flex justify-between ">
@@ -35,7 +47,16 @@ const Header = ({LoginOrLogout}) => {
                 <Link to="/about" >About US</Link>
                 <Link to="/contact">Contact</Link>
 
-                <Link to="/login" className=' w-20 h-12  lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>{LoginOrLogout}</Link>
+               
+            
+                {LoginOrLogout === 'Login' ? 
+                 <Link to="/login" className=' w-20 h-12  lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>Login</Link>
+                :
+                <button className=' w-20 h-12  lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl'
+                onClick={handelLogout}
+                >Logout</button> 
+                
+                }
             </div>
 
           
