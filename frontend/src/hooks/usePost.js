@@ -32,6 +32,16 @@ const usePost = () => {
         toast.success('Welcome Back!');
         }
 
+        else if(endpoint === 'logout'){
+        toast.success('See you soon!');
+        }
+
+        else if(endpoint === 'contact_us'){
+        toast.success('Thank you for contacting us!', {
+          autoClose: 3000,
+        });
+        }
+
         toast.success(response.data.message, {
           autoClose: 1000,
           }); 
