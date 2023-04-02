@@ -1,4 +1,4 @@
-from schemas.__init__ import User, LoginUser, ForgetPassword ,ResetCode
+from schemas.__init__ import User, LoginUser, ForgetPassword ,VerifyOTP, ResetPassword
 from fastapi_jwt_auth import AuthJWT
 from fastapi import APIRouter, Depends
 from controllers.__init__ import SignupLoginController
@@ -16,12 +16,18 @@ async def Login(user: LoginUser, Authorize: AuthJWT = Depends()):
     return await SignupLoginController.LogIn(user, Authorize)
 
 @SignupLoginRouter.post('/api/forget_password', tags=["Authentication"])
-async def ForgetPassword(request : ForgetPassword,Authorize: AuthJWT = Depends()):
-    return await SignupLoginController.forget_Password(request, Authorize)
+async def ForgetPassword(request : ForgetPassword):
+    return await SignupLoginController.forget_Password(request)
+
+@SignupLoginRouter.post('/api/verify_otp', tags=["Authentication"])
+async def VerifyOTP(request: VerifyOTP):
+    return await SignupLoginController.verifyOTP(request)
 
 @SignupLoginRouter.post('/api/reset_password', tags=["Authentication"])
-async def ResetPassword(request: ResetCode, Authorize: AuthJWT = Depends()):
-    return await SignupLoginController.reset_password(request, Authorize)
+async def ResetPassword(request: ResetPassword):
+    return await SignupLoginController.resetPassword(request)
+
+
 @SignupLoginRouter.post('/api/logout', tags=["Authentication"])
 async def Logout(Authorize: AuthJWT =Depends()): 
     return await SignupLoginController.Logout(Authorize)

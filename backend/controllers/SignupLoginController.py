@@ -1,6 +1,6 @@
 from config.db import conn
 from sqlalchemy import and_
-from schemas.__init__ import User, LoginUser, ForgetPassword ,ResetCode
+from schemas.__init__ import User, LoginUser, ForgetPassword , VerifyOTP, ResetPassword
 from models.__init__ import users, code
 from fastapi_jwt_auth import AuthJWT
 from fastapi import HTTPException
@@ -56,7 +56,7 @@ def updatePassword(new_password, email):
         password=Hasher.get_password_hash(new_password)
     ).where(users.c.email == email))
 
-async def forget_Password(request: ForgetPassword,forgetAuthorize: AuthJWT):
+async def forget_Password(request: ForgetPassword):
     user_email = request.email
     existing_user = conn.execute(users.select().where(users.c.email == user_email))
     if existing_user.rowcount == 0:                                                
@@ -71,11 +71,9 @@ async def forget_Password(request: ForgetPassword,forgetAuthorize: AuthJWT):
 
     return {'msg' : 'Code sent to your email'}
 
-async def reset_password(request: ResetCode, Authorize: AuthJWT):
-    
+async def verifyOTP(request: VerifyOTP):
     user_email = request.email
     user_code = request.code
-    user_password = request.newPassword
 
     existing_code = conn.execute(
         code.select().where(and_(code.c.email == user_email, code.c.code == user_code))
@@ -86,11 +84,19 @@ async def reset_password(request: ResetCode, Authorize: AuthJWT):
 
     conn.execute(code.delete().where(code.c.email == user_email))
 
-    updatePassword(user_password, user_email)
-    return {'msg': 'Password updated successfully'}
+    return {'msg': 'OTP verified successfully'}
    
 
+async def resetPassword(request: ResetPassword):
+    user_email = request.email
+    user_password = request.password
 
+    existing_user = conn.execute(users.select().where(users.c.email == user_email))
+    if existing_user.rowcount == 0:
+        raise HTTPException(status_code=400, detail='Email does not exist')
+
+    updatePassword(user_password, user_email)
+    return {'msg': 'Password updated successfully'}
     
 
      

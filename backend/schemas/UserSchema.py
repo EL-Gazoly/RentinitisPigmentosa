@@ -60,11 +60,25 @@ class ForgetPassword(BaseModel):
             raise ValueError("Email must be valid")
         return v
 
-class ResetCode(BaseModel):
+class VerifyOTP(BaseModel):
     email : EmailStr
     code : str
-    newPassword : str
 
+class ResetPassword(BaseModel):
+    email : EmailStr
+    password : str
+
+    @validator('password')
+    def validate_password(cls, v):
+        if len(v) < 8:
+            raise ValueError("Password must be at least 8 characters long")
+        if not re.search(r'\d', v):
+            raise ValueError("Password must contain at least one digit")
+        if not re.search(r'[A-Z]', v):
+            raise ValueError("Password must contain at least one uppercase letter")
+        if not re.search(r'[a-z]', v):
+            raise ValueError("Password must contain at least one lowercase letter")
+        return v
 
 class ContactUS(BaseModel):
     name : str

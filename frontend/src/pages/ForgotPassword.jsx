@@ -14,6 +14,7 @@ const ForgotPassword = () => {
   const [isSentOTp, setIsSentOTp] = useState(false)
   const [isOTpVerified, setIsOTpVerified] = useState(false)
   const [isFiveDigit, setIsFiveDigit] = useState(false)
+  const [userEmail, setUserEmail] = useState("")
 
 
   const email = useRef();
@@ -52,14 +53,14 @@ const ForgotPassword = () => {
     }
 
 
-    useEffect(() => {
-        const isFiveDigit = otp.every((value) => value !== "")
-          if (isFiveDigit) {
-            setIsFiveDigit(true)
-            setIsOTpVerified(true)
+    // useEffect(() => {
+    //     const isFiveDigit = otp.every((value) => value !== "")
+    //       if (isFiveDigit) {
+    //         setIsFiveDigit(true)
+    //         handleVerifyOtp()
             
-        }
-    },[otp])
+    //     }
+    // },[otp])
 
     const { execute, pending, data} = usePost();
     const handelSendOtp =   () => {
@@ -78,6 +79,26 @@ const ForgotPassword = () => {
             toast.error(err.message )
         })
       
+    }
+    const handleVerifyOtp = () => {
+
+        const validate = {
+            email: userEmail,
+            code: otp.join("")
+        }
+        console.log(validate.email)
+        console.log(validate.code)
+        axios.post('http://localhost:8000/api/verify_otp', validate )
+        .then(res => {
+            console.log(res)
+            toast.success("OTP verified")
+            setIsOTpVerified(true)
+        })
+        .catch(err => {
+            console.log(err)
+            toast.error(err.message )
+
+        })
     }
   
   return (
@@ -103,6 +124,7 @@ const ForgotPassword = () => {
                             ' 
                             placeholder='name@example.com'
                             ref={email}
+                            onChange={(e) => setUserEmail(e.target.value)}
                             />
                         
                     </div>
@@ -175,7 +197,7 @@ const ForgotPassword = () => {
                                   handelSendOtp()
                                 }
                                 if(isSentOTp && !isOTpVerified) {
-                                    setIsOTpVerified(true)
+                                    handleVerifyOtp()
                                 }
                                 if(isSentOTp && isOTpVerified) {
                                    navigate('/login')
