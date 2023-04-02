@@ -8,6 +8,8 @@ import Contact from './pages/Contact';
 import ForgotPassword from './pages/ForgotPassword';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -27,6 +29,8 @@ const ProtectedRoute = useAuth(DragAndDrop);
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </Router>
+
+      <ToastContainer />
       
    
     </div>
