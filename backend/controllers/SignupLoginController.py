@@ -62,10 +62,12 @@ async def forget_Password(request: ForgetPassword):
     if existing_user.rowcount == 0:                                                
         raise HTTPException(status_code=400, detail='Email does not exist')
     
-    if conn.execute(code.select().where(code.c.email == user_email)).rowcount > 0:
-        raise HTTPException(status_code=400, detail='Code already sent to your email')
-    
     user_code = generateOTP()
+
+    code_already_sent = conn.execute(code.select().where(code.c.email == user_email))
+    if code_already_sent.rowcount > 0:
+        conn.execute(code.delete().where(code.c.email == user_email))
+
     conn.execute(code.insert().values(
         email = user_email,
         code = user_code
@@ -82,8 +84,11 @@ async def verifyOTP(request: VerifyOTP):
         code.select().where(and_(code.c.email == user_email, code.c.code == user_code))
     ).fetchone()
 
+
     if not existing_code:
         raise HTTPException(status_code=400, detail='Invalid OTP')
+
+   
 
     conn.execute(code.delete().where(code.c.email == user_email))
 

@@ -55,14 +55,14 @@ const ForgotPassword = () => {
     }
 
 
-    // useEffect(() => {
-    //     const isFiveDigit = otp.every((value) => value !== "")
-    //       if (isFiveDigit) {
-    //         setIsFiveDigit(true)
-    //         handleVerifyOtp()
+    useEffect(() => {
+        const isFiveDigit = otp.every((value) => value !== "")
+          if (isFiveDigit) {
+            setIsFiveDigit(true)
+            handleVerifyOtp()
             
-    //     }
-    // },[otp])
+        }
+    },[otp])
 
     const { execute, pending, data} = usePost();
     const handelSendOtp =   () => {
@@ -77,13 +77,24 @@ const ForgotPassword = () => {
             setIsSentOTp(true)
         })
         .catch(err => {
-            console.log(err)
-            toast.error(err.message )
+          try {
+            const { detail } = JSON.parse(err.request.response);
+            const errorMessages = detail.map((err) => err.msg);
+            errorMessages.forEach((err) => toast.error(err));
+            toast.error(errorMessages,{
+              autoClose: 5000,
+            });
+            
+          } catch (e) {
+            const err = JSON.parse(err.request.response);
+            toast.error(err.detail);
+          }
         })
       
       
     }
     const handleVerifyOtp = () => {
+      setIsFiveDigit(true)
 
         const validate = {
             email: userEmail,
@@ -98,9 +109,11 @@ const ForgotPassword = () => {
             setIsOTpVerified(true)
         })
         .catch(err => {
-            console.log(err)
-            toast.error(err.message )
+          setTimeout(() => {
+          setIsFiveDigit(false)
+          toast.error("Invalid OTP")
 
+          }, 1800)
         })
         
     }
