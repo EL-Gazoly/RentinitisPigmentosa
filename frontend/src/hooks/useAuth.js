@@ -9,7 +9,7 @@ const withAuth = (Component) => {
 
     React.useEffect(() => {
       const cookies = document.cookie.split(';');
-      const myCookie = cookies.find(cookie => cookie.trim().startsWith('token='));
+      const myCookie = cookies.find(cookie => cookie.trim().startsWith('Authorization='));
 
       const token = myCookie ? myCookie.split('=')[1] : undefined;
       if (!token) {

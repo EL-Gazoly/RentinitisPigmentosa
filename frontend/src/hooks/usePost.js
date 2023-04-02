@@ -27,18 +27,18 @@ const usePost = () => {
           autoClose: 1000,
         });
 
-        document.cookie = `access_token_cookie=${response.data}; path=/; max-age=7400`;
+        document.cookie = `Authorization=${response.data}; path=/; max-age=7400`;
 
         } 
 
         else if(endpoint === 'login'){
         toast.success('Welcome Back!');
-        document.cookie = `access_token_cookie=${response.data}; path=/; max-age=7400`;
+        document.cookie = 'access_token_cookie=Bearer ' + response.data + '; path=/; max-age=7400';
+        document.cookie = `Authorization=${response.data}; path=/; max-age=7400`;
         }
 
         else if(endpoint === 'logout'){
         toast.success('See you soon!');
-        localStorage.removeItem('access_token_cookie');
         }
 
         else if(endpoint === 'contact_us'){
@@ -57,8 +57,7 @@ const usePost = () => {
 
 
       .catch(error => {
-        document.cookie = 'access_token_cookie=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = 'Authorization=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         setTimeout(() => {
           try {
             const { detail } = JSON.parse(error.request.response);

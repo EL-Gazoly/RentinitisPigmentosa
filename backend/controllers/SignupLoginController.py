@@ -2,12 +2,22 @@ from config.db import conn
 from sqlalchemy import and_
 from schemas.__init__ import User, LoginUser, ForgetPassword , VerifyOTP, ResetPassword
 from models.__init__ import users, code
-from fastapi_jwt_auth import AuthJWT
-from fastapi import HTTPException
+# from fastapi_jwt_auth import AuthJWT
+from fastapi import HTTPException , Depends, status
 from auth.__init__ import Hasher, generateOTP , sentVerficationcode
- 
+from decouple import config
+from datetime import datetime, timedelta
 
-async def SignUp(user:User, Authorize: AuthJWT):
+from jose import JWTError, jwt
+ 
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+JWT_SECRET = config("SECRET_KEY")
+JWT_ALGORITHM = config("ALGORITHM")
+
+async def SignUp(user:User):
         
         existing_user = conn.execute(users.select().where(users.c.email== user.email))
         if existing_user.rowcount > 0:
@@ -20,11 +30,11 @@ async def SignUp(user:User, Authorize: AuthJWT):
         password = Hasher.get_password_hash(user.password)
     ))
 
-        return create_auth_token(user.email, Authorize) 
+        return {'msg' : 'Successfully registered'}
     
 
 
-async def LogIn(user:LoginUser , Authorize: AuthJWT):
+async def LogIn(user:LoginUser ):
    
         res = conn.execute(users.select().where(users.c.email == user.email))
         if res.rowcount == 0:
@@ -33,22 +43,41 @@ async def LogIn(user:LoginUser , Authorize: AuthJWT):
         existing_user = res.fetchone()
         if(not Hasher.verify_password(user.password, existing_user.password)):
             raise HTTPException(status_code=400, detail= 'Login credentials are not valid')
+
+        access_token = await create_access_token(data={"sub": user.email})
+        return {"access_token": access_token, "token_type": "bearer"}
     
 
-        return create_auth_token(user.email, Authorize)
+
+
+async def create_access_token(data: dict, expires_delta: int = 30):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(minutes=expires_delta)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    return encoded_jwt
+
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication credentials")
+    except JWTError:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication credentials")
+
+    res = conn.execute(users.select().where(users.c.email == email))
+    existing_user = res.fetchone()
+    if existing_user is None:
+        raise HTTPException(status_code=400, detail="Email does not exist")
+    return existing_user
+
+                 
+         
+async def Logout():
     
-
-async def Logout(Authorize: AuthJWT):
-    Authorize.jwt_required()
-
-    Authorize.unset_access_cookies()    
+    
     return {'msg' : 'Successfully logout'}
-
-def create_auth_token(email: str, Authorize: AuthJWT):
-     accsess_token = Authorize.create_access_token(subject=email)
-     Authorize.set_access_cookies(accsess_token)
-     
-     return accsess_token
 
 
 def updatePassword(new_password, email):

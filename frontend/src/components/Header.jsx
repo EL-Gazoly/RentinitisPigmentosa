@@ -5,6 +5,9 @@ import { ReactComponent as BurgerIcon} from '../assets/burgerIcon.svg'
 import {React, useEffect, useState, useRef} from 'react'
 import usePost from '../hooks/usePost'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import { toast } from 'react-toastify'
+
 
 const Header = ({LoginOrLogout}) => {
     const [isCardVisible, setIsCardVisible] = useState(false)
@@ -31,10 +34,25 @@ const Header = ({LoginOrLogout}) => {
     const { execute } = usePost();
 
     const handelLogout = () => {   
-        execute('logout');
-        navigate('/login');
-
+      const cookies = document.cookie.split(';');
+      const myCookie = cookies.find(cookie => cookie.trim().startsWith('Authorization='));
+      const token = myCookie ? myCookie.split('=')[1] : undefined;
+    
+      axios.post('http://localhost:8000/api/logout', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((response) => {
+        toast.success('You have been logged out successfully')
+      })
+      .catch((error) => {
+        toast.error('Something went wrong')
+        console.log(error);
+      })
     }
+    
   return (
     <div>
            <div className="landing page-menu flex justify-between ">
