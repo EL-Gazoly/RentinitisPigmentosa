@@ -1,17 +1,26 @@
 import {React , useState, useRef, useEffect} from 'react'
 import { useNavigate }   from 'react-router-dom';
+import usePost from '../hooks/usePost';
 
 import PageLogo from '../components/PageLogo'
 import ForgetIcon from '../assets/ForgetIcon.svg'
+
+import { ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const ForgotPassword = () => {
   const [otp, setOtp] = useState(["", "", "", "", ""])
   const [isSentOTp, setIsSentOTp] = useState(false)
   const [isOTpVerified, setIsOTpVerified] = useState(false)
   const [isFiveDigit, setIsFiveDigit] = useState(false)
+
+
+  const email = useRef();
   const otpRef = useRef([])
 
-    const navigate = useNavigate();
+
+  const navigate = useNavigate();
 
   const handleOtpChange = (e, index) => {
    
@@ -51,6 +60,25 @@ const ForgotPassword = () => {
             
         }
     },[otp])
+
+    const { execute, pending, data} = usePost();
+    const handelSendOtp =   () => {
+        const user = {
+            email: email.current.value
+        }
+       
+        axios.post('http://localhost:8000/api/forget_password', user )
+        .then(res => {  
+            console.log(res)
+            toast.success("OTP sent to your email")
+            setIsSentOTp(true)
+        })
+        .catch(err => {
+            console.log(err)
+            toast.error(err.message )
+        })
+      
+    }
   
   return (
     <div>
@@ -74,6 +102,7 @@ const ForgotPassword = () => {
                             focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
                             ' 
                             placeholder='name@example.com'
+                            ref={email}
                             />
                         
                     </div>
@@ -143,7 +172,7 @@ const ForgotPassword = () => {
                             `}
                             onClick={() => {
                                 if(!isSentOTp && !isOTpVerified) {
-                                    setIsSentOTp(true)
+                                  handelSendOtp()
                                 }
                                 if(isSentOTp && !isOTpVerified) {
                                     setIsOTpVerified(true)
@@ -164,6 +193,7 @@ const ForgotPassword = () => {
             </div>
 
         </div>
+        <ToastContainer />
     </div>
   )
 }

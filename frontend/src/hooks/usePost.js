@@ -18,19 +18,31 @@ const usePost = () => {
     });
     return axios
       .post(`http://localhost:8000/api/${endpoint}`, { ...Data })
+
       .then(response => {
         setTimeout(() => {
+
         if(endpoint === 'signup'){
         toast.success('Welcome Aboard!', {
           autoClose: 1000,
         });
         } 
+
         else if(endpoint === 'login'){
         toast.success('Welcome Back!');
         }
+
+        toast.success(response.data.message, {
+          autoClose: 1000,
+          }); 
+
+        console.log(response);
         updateData({ pending: false, data: response.data, error: undefined });
       }, 2300);
       })
+
+
+
       .catch(error => {
         setTimeout(() => {
           try {
@@ -40,6 +52,7 @@ const usePost = () => {
             toast.error(errorMessages,{
               autoClose: 5000,
             });
+            
           } catch (e) {
             const err = JSON.parse(error.request.response);
             toast.error(err.detail);
