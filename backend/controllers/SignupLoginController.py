@@ -29,8 +29,8 @@ async def SignUp(user:User):
         email = user.email,
         password = Hasher.get_password_hash(user.password)
     ))
-
-        return {'msg' : 'Successfully registered'}
+        access_token = await create_access_token(data={"sub": user.email})
+        return {"access_token": access_token, "token_type": "bearer"}
     
 
 

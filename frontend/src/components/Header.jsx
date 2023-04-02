@@ -37,20 +37,23 @@ const Header = ({LoginOrLogout}) => {
       const cookies = document.cookie.split(';');
       const myCookie = cookies.find(cookie => cookie.trim().startsWith('Authorization='));
       const token = myCookie ? myCookie.split('=')[1] : undefined;
+      // split the word Bearer from the token
+      console.log(token);
     
-      axios.post('http://localhost:8000/api/logout', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      })
-      .then((response) => {
-        toast.success('You have been logged out successfully')
-      })
-      .catch((error) => {
-        toast.error('Something went wrong')
-        console.log(error);
-      })
+      axios.post('http://localhost:8000/api/logout', {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => {
+      toast.success('You have been logged out successfully')
+    })
+    .catch((error) => {
+      toast.error(error.response.data)
+      console.log(error.response.data);
+    })
+
     }
     
   return (

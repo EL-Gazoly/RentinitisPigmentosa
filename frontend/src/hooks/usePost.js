@@ -32,9 +32,10 @@ const usePost = () => {
         } 
 
         else if(endpoint === 'login'){
+        console.log(response.data.access_token);
         toast.success('Welcome Back!');
-        document.cookie = 'access_token_cookie=Bearer ' + response.data + '; path=/; max-age=7400';
-        document.cookie = `Authorization=${response.data}; path=/; max-age=7400`;
+        
+        document.cookie = `Authorization=${response.data.access_token}; path=/; max-age=7400`;
         }
 
         else if(endpoint === 'logout'){
