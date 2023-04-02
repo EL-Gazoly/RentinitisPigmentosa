@@ -16,6 +16,10 @@ const ForgotPassword = () => {
   const [isFiveDigit, setIsFiveDigit] = useState(false)
   const [userEmail, setUserEmail] = useState("")
 
+  const [emailOk, setEmailOk] = useState(false);
+  const [passwordOk, setPasswordOk] = useState(true);
+  const [confirmPasswordOk, setConfirmPasswordOk] = useState(true);
+
 
   const email = useRef();
   const otpRef = useRef([])
@@ -152,6 +156,38 @@ const ForgotPassword = () => {
       toast.error("Password not matched")
     }
     }
+
+    const handelEmailChangeCheck = (e) => {
+      setUserEmail(e.target.value)
+      const emailValue = email.current.value;
+      if (/\S+@\S+\.\S+/.test(emailValue)) {
+        setEmailOk(true);
+      }
+      else {
+        setEmailOk(false);
+      }
+    };
+  
+    const handelNewPasswordChangeCheck = () => {
+      const passwordValue = newPassword.current.value;
+    
+      if (passwordValue.length < 8 || !/\d/.test(passwordValue) || !/[a-z]/.test(passwordValue) || !/[A-Z]/.test(passwordValue) )  {
+        setPasswordOk(true);
+      }
+      else {
+        setPasswordOk(false);
+      }
+    };
+    const handelConfirmPasswordChangeCheck = () => {
+      const passwordValue = confirmPassword.current.value;
+      if (passwordValue.length < 8 || !/\d/.test(passwordValue) || !/[a-z]/.test(passwordValue) || !/[A-Z]/.test(passwordValue) || newPassword.current.value !== confirmPassword.current.value) {
+        setConfirmPasswordOk(true);
+      }
+      else {
+        setConfirmPasswordOk(false);
+      }
+    };
+  
   
   return (
     <div>
@@ -167,16 +203,18 @@ const ForgotPassword = () => {
                     <h3 className={`text-2xl  font-nunito font-extrabold text-lightblack justify-self-center md:text-5xl 
                     ${isSentOTp && !isOTpVerified && "mr-36"}
                     `}> Forgot your password?</h3>
+
                     {!isSentOTp && !isOTpVerified && (
                     <div className=' grid grid-cols-1 justify-self-center gap-y-1'>
                             <label className=' font-roboto  text-sm text-secondary pl-4 md:text-lg'>Email Address</label>
                             <input type="email"
-                            className=' w-72  h-12 p-4  rounded-xl placeholder:text-secondary bg-white justify-self-center md:w-130 md:h-16 
+                            className={` w-72  h-12 p-4  rounded-xl placeholder:text-secondary bg-white justify-self-center md:w-130 md:h-16 
                             focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
-                            ' 
+                            ${!emailOk ? "focus:ring-red-500" : "focus:ring-primary"}
+                            ` }
                             placeholder='name@example.com'
                             ref={email}
-                            onChange={(e) => setUserEmail(e.target.value)}
+                            onChange={(e) => handelEmailChangeCheck(e)}
                             />
                         
                     </div>
@@ -221,21 +259,24 @@ const ForgotPassword = () => {
                             <div className='grid grid-cols-1'>
                                 <label className=' font-roboto  text-sm text-secondary pl-4 md:text-lg'>New Password</label>
                                 <input type="password"
-                                className=' w-72  h-12 px-7  rounded-xl placeholder:text-secondary bg-white justify-self-center md:w-130 md:h-16
+                                className={` w-72  h-12 px-7  rounded-xl placeholder:text-secondary bg-white justify-self-center md:w-130 md:h-16
                                 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
-                                '
+                                ${passwordOk ? "focus:ring-red-500" : "focus:ring-primary"}
+                                `}
                                 placeholder='***********'
                                 ref={newPassword}
+                                onChange={handelNewPasswordChangeCheck}
                                 />
                             </div>
                             <div className='grid grid-cols-1'>
                                 <label className=' font-roboto  text-sm text-secondary pl-4 md:text-lg'>Confirm Password</label>
                                 <input type="password"
-                                className=' w-72  h-12 px-7  rounded-xl placeholder:text-secondary bg-white justify-self-center md:w-130 md:h-16
-                                focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
-                                '
+                                className={` w-72  h-12 px-7  rounded-xl placeholder:text-secondary bg-white justify-self-center md:w-130 md:h-16
+                                focus:outline-none focus:ring-2  focus:border-transparent
+                                ${confirmPasswordOk ? "focus:ring-red-500" : "focus:ring-primary"}  `}
                                 placeholder='***********'
                                 ref={confirmPassword}
+                                onChange={handelConfirmPasswordChangeCheck}
                             />
                             </div>
                     </div>
