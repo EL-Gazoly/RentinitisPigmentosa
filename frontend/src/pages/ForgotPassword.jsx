@@ -19,6 +19,8 @@ const ForgotPassword = () => {
 
   const email = useRef();
   const otpRef = useRef([])
+  const newPassword = useRef();
+  const confirmPassword = useRef();
 
 
   const navigate = useNavigate();
@@ -79,6 +81,7 @@ const ForgotPassword = () => {
             toast.error(err.message )
         })
       
+      
     }
     const handleVerifyOtp = () => {
 
@@ -99,6 +102,42 @@ const ForgotPassword = () => {
             toast.error(err.message )
 
         })
+        
+    }
+
+    const handleResetPassword = () => {
+      if (newPassword.current.value === confirmPassword.current.value) {
+      const reset = {
+        email: userEmail,
+        password: newPassword.current.value,
+      }
+      axios.post('http://localhost:8000/api/reset_password', reset )
+      .then(res => {
+          console.log(res)
+          toast.success("Password reset successfully")
+          setTimeout(() => {
+          navigate('/login')
+          }, 2000)
+      })
+      .catch(err => {
+        try {
+          const { detail } = JSON.parse(err.request.response);
+          const errorMessages = detail.map((err) => err.msg);
+          errorMessages.forEach((err) => toast.error(err));
+          toast.error(errorMessages,{
+            autoClose: 5000,
+          });
+          
+        } catch (e) {
+          const err = JSON.parse(err.request.response);
+          toast.error(err.detail);
+        }
+
+      })
+    }
+    else {
+      toast.error("Password not matched")
+    }
     }
   
   return (
@@ -173,6 +212,7 @@ const ForgotPassword = () => {
                                 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
                                 '
                                 placeholder='***********'
+                                ref={newPassword}
                                 />
                             </div>
                             <div className='grid grid-cols-1'>
@@ -182,6 +222,7 @@ const ForgotPassword = () => {
                                 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
                                 '
                                 placeholder='***********'
+                                ref={confirmPassword}
                             />
                             </div>
                     </div>
@@ -200,7 +241,7 @@ const ForgotPassword = () => {
                                     handleVerifyOtp()
                                 }
                                 if(isSentOTp && isOTpVerified) {
-                                   navigate('/login')
+                                   handleResetPassword()
                                 }
                             }}
                             >
