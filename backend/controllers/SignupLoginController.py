@@ -62,6 +62,9 @@ async def forget_Password(request: ForgetPassword):
     if existing_user.rowcount == 0:                                                
         raise HTTPException(status_code=400, detail='Email does not exist')
     
+    if conn.execute(code.select().where(code.c.email == user_email)).rowcount > 0:
+        raise HTTPException(status_code=400, detail='Code already sent to your email')
+    
     user_code = generateOTP()
     conn.execute(code.insert().values(
         email = user_email,
