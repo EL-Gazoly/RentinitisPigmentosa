@@ -26,10 +26,14 @@ const usePost = () => {
         toast.success('Welcome Aboard!', {
           autoClose: 1000,
         });
+
+        document.cookie = `token=${response.data}; path=/; max-age=7400`;
+
         } 
 
         else if(endpoint === 'login'){
         toast.success('Welcome Back!');
+        document.cookie = `token=${response.data}; path=/; max-age=7400`;
         }
 
         else if(endpoint === 'logout'){
@@ -45,8 +49,6 @@ const usePost = () => {
         toast.success(response.data.message, {
           autoClose: 1000,
           }); 
-
-        console.log(response);
         updateData({ pending: false, data: response.data, error: undefined });
       }, 2300);
       })

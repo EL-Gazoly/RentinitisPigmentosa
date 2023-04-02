@@ -42,7 +42,7 @@ const SignUp = () => {
   };
   const successMessgae = () => {
     setTimeout(() => {
-      navigate('/login');
+      navigate('/upload');
     }, 1700);
   };
 
