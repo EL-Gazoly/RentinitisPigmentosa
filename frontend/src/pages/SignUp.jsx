@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-const SignUp = () => {
+const SignUp = ({isHighContrast}) => {
 
   const [firstNameOk, setFirstNameOk] = useState(true);
   const [lastNameOk, setLastNameOk] = useState(true);
@@ -89,20 +89,29 @@ const SignUp = () => {
     <div>
      {pending && <Loading />}
      {data && successMessgae()}
-    <div className="flex flex-col md:flex-row w-full h-screen">
+    <div className={`flex flex-col md:flex-row w-full h-screen
+    ${isHighContrast ? 'filter invert contrast-100' : ''}
+    `}>
+      
         
        
-        <div className="left w-full h-96 bg-SignUp bg-cover grid grid-cols-1 sm:h-100 md:h-full md:w-7/12  ">
-        <PageLogo className="md:ml-7" />
+        <div className={`left w-full h-96 bg-SignUp bg-cover grid grid-cols-1 sm:h-100 md:h-full md:w-7/12  
+        
+        `}>
+        <PageLogo className="md:ml-7" isHighContras={isHighContrast}/>
         <div className="middel caret-transparent">
-            <div className="container flex flex-col justify-center items-center self-center mb-20 gap-y-3 md:mb-48 md:gap-y-6">
+            <div className={`container flex flex-col justify-center items-center self-center mb-20 gap-y-3 md:mb-48 md:gap-y-6
+        
+            `}>
                 <h1 className=' text-2xl font-sans font-extrabold text-darkPrimary text-center sm:text-4xl w-96 md:text-5xl md:w-11/12 2xl:text-7xl lg:text-5xl lg:w-3/4 2xl:w-2/3   '>WELCOME TO OUR COMMUNITY</h1>
                 <span className=' text-sm font-roboto font-semibold text-babyblack sm:text-xl md:text-2xl 2xl:text-3xl '>Let’s get started </span>
             </div>
         </div>
         
         </div>
-        <div className="right mt-8 flex-1 md:mt-36 2xl:mt-48">
+        <div className={`right mt-8 flex-1 md:mt-36 2xl:mt-48
+         
+        `}>
             <div className="form grid grid-cols-1 gap-y-8 md:md:gap-11 xl:ml-12 2xl:ml-32 ">
                 <h3 className=' self-start text-3xl font-nunito font-bold caret-transparent ml-7 md:ml-5 md:text-4xl'>Sign up.</h3>
                 <div className="form-group self-center flex flex-col gap-y-4 w-11/12 ml-4  caret-primary md:gap-10 xl:w-4/5 2xl:w-3/4">
