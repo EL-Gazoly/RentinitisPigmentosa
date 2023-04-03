@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 
 
 
-const Contact = () => {
+const Contact = ({isHighContrast }) => {
 
 const nameRef = useRef();
 const emailRef = useRef();
@@ -61,16 +61,24 @@ const handelMessageChangeCheck = () => {
 
   return (
     <div className=' w-full h-full flex flex-row '>
-         <div className="left w-1/2 bg-white grid">
-            <PageLogo className="md:ml-7" />
+         <div className={`left w-1/2  grid
+          ${isHighContrast ? ' bg-black' : 'bg-white'}
+         `}>
+            <PageLogo className="md:ml-7" isHighContrast={isHighContrast} />
             <div className="middel caret-transparent justify-self-center grid gap-y-1 mb-10 ">
-                <h1 className=' text-8xl font-sans text-primary font-extrabold uppercase ml-10'>contact us</h1>
-                <img src={ContactICon} alt="contact icon"  className=' max-w-2xl min-h-min'/>
+                <h1 className={`text-8xl font-sans text-primary font-extrabold uppercase ml-10
+                ${isHighContrast ? 'filter invert contrast-100' : ''}
+                `}>contact us</h1>
+                <img src={ContactICon} alt="contact icon"  className=' max-w-2xl min-h-min ml-20'/>
 
             </div>
          </div>
-         <div className="right w-1/2 bg-lightblue grid">
-            <div className=' justify-self-center w-full ml-64 self-center grid grid-cols-1  gap-y-6'>
+         <div className={`right w-1/2 grid
+          ${isHighContrast ? ' bg-invertedlightblue' : 'bg-lightblue'}
+         `}>
+            <div className={` justify-self-center w-full ml-64 self-center grid grid-cols-1  gap-y-6
+            ${isHighContrast ? 'filter invert contrast-100' : ''}
+            `}>
             <div className='flex flex-col gap-y-1 '>
                     <label htmlFor="name" className=' text-secondary'>Name</label>
                     <input type="text" 
