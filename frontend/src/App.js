@@ -41,7 +41,7 @@ const ProtectedRoute = useAuth(DragAndDrop);
           <Route path="/login" element={<Login  isHighContrast={isHighContrast} />} />
           <Route path="/about" element={<About isHighContrast={isHighContrast}  />} />
           <Route path="/contact" element={<Contact isHighContrast={isHighContrast}  />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/forgot-password" element={<ForgotPassword isHighContrast={isHighContrast} />} />
           <Route path="/resources" element={<Resources isHighContrast={isHighContrast}   />} />
         </Routes>
       </Router>

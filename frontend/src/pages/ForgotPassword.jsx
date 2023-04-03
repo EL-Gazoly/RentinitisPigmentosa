@@ -8,7 +8,7 @@ import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({isHighContrast}) => {
   const [otp, setOtp] = useState(["", "", "", "", ""])
   const [isSentOTp, setIsSentOTp] = useState(false)
   const [isOTpVerified, setIsOTpVerified] = useState(false)
@@ -190,13 +190,15 @@ const ForgotPassword = () => {
   return (
     <div>
         <div className='grid grid-cols-1 h-screen  md:flex md:flex-row  md:gap-y-40'>
-            <PageLogo className=" self-start justify-self-start"/>
+            <PageLogo isHighContrast={isHighContrast} className=" self-start justify-self-start" />
             <div className='flex gap-80 '>
                 <div className="right justify-self-center md:col-span-2  md:justify-self-start md:flex md:self-center   ">
                     <img src={ForgetIcon} alt="forget icon" className=' w-60  h-48 md:w-130 md:h-98' />
                 </div>
 
-                <div className="left justify-self-center md:col-span-2 md:row-span-1 md:justify-self-end md:self-center " >
+                <div className={`left justify-self-center md:col-span-2 md:row-span-1 md:justify-self-end md:self-center
+                  ${isHighContrast ? 'filter invert contrast-100' : ''}
+                `} >
                     <div className="form grid grid-cols-1 gap-y-10">
                     <h3 className={`text-2xl  font-nunito font-extrabold text-lightblack justify-self-center md:text-5xl 
                     ${isSentOTp && !isOTpVerified && "mr-36"}
