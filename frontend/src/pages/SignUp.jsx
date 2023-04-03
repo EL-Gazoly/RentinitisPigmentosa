@@ -41,9 +41,7 @@ const SignUp = () => {
     password.current.value = '';
   };
   const successMessgae = () => {
-    setTimeout(() => {
       navigate('/upload');
-    }, 1700);
   };
 
   const handelFirstNameChangeCheck = () => {

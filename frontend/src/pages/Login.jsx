@@ -31,9 +31,8 @@ const Login = () => {
     };
 
     const successMessgae = () => {
-        setTimeout(() => {
             navigate('/upload');
-        }, 1700);
+        
     };
 
     const handelEmailChangeCheck = () => {
