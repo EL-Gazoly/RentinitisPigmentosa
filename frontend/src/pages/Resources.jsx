@@ -59,6 +59,61 @@ const Resources = () => {
               Visit the American Council of the Blind website
             </a>
           </div>
+          <div className="bg-white shadow-md rounded-lg p-8">
+            <h2 className="text-xl font-bold mb-4">Low Vision Rehabilitation</h2>
+            <p className="text-gray-700">
+            Low vision rehabilitation can help individuals with retinitis
+              pigmentosa make the most of their remaining vision. This type of
+              rehabilitation involves working with a specialist who can provide
+              training on how to use magnifying devices, lighting, and other
+              tools to enhance visual function.
+            </p>
+            <a
+              href="https://www.afb.org/blindness-and-low-vision/eye-conditions/retinitis-pigmentosa  "
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block mt-4 text-primary hover:text-darkPrimary"
+            >
+               Learn more about low vision rehabilitation
+            </a>
+          </div>
+          <div className="bg-white shadow-md rounded-lg p-8">
+            <h2 className="text-xl font-bold mb-4">Rehabilitation and Training</h2>
+            <p className="text-gray-700">
+            Orientation and mobility (O&amp;M) training can help individuals
+              with retinitis pigmentosa navigate their environment safely and
+              confidently. This type of training involves learning how to use
+              mobility aids, such as a cane or a guide dog, and developing
+              orientation skills to help navigate unfamiliar places.
+            </p>
+            <a
+              href="https://www.afb.org/blindness-and-low-vision/using-technology/mobility-training"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block mt-4 text-primary hover:text-darkPrimary"
+            >
+              Learn more about O&amp;M training
+            </a>
+          </div>
+          <div className="bg-white shadow-md rounded-lg p-8">
+            <h2 className="text-xl font-bold mb-4">Assistive Technology</h2>
+            <p className="text-gray-700">
+              Assistive technology can help individuals with retinitis
+              pigmentosa access information and perform daily tasks more
+              independently. There are a variety of assistive technology
+              devices available, such as screen readers, magnifiers, and
+              voice-activated assistants, that can be tailored to an individual's
+              needs.
+            </p>
+            <a
+              href="https://www.afb.org/blindness-and-low-vision/eye-conditions/retinitis-pigmentosa"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block mt-4 text-primary hover:text-darkPrimary"
+            >
+              Learn more about assistive technology
+            </a>
+          </div>
           <div className=' flex flex-col'>
 
           
