@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import usePost from '../hooks/usePost';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 import { ReactComponent as Corner } from '../assets/corner.svg';
+import useProtectedPost from '../hooks/useProtectedPost';
+import Loading from '../components/Loading';
+import ResultCard from '../components/ResultCard';
 
 const DragAndDrop = () => {
   const [files, setFiles] = useState([]);
@@ -49,7 +50,7 @@ const DragAndDrop = () => {
     setFiles([...files, ...newFiles]);
     setIsDragging(false);
   };
-  const { execute, pending, data } = usePost();
+  const { execute, pending, data } = useProtectedPost();
 
   const handelupload = (e) => {
     e.preventDefault();
@@ -58,19 +59,7 @@ const DragAndDrop = () => {
       formData.append('files', file);
     });
 
-    axios.post('http://localhost:8000/api/uploadImg', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-      .then(response => {
-        console.log(response.data);
-        toast.success(response.data.message);
-      })
-      .catch(error => {
-        const err = JSON.parse(error.request.response);
-        toast.error(err.detail);
-      });
+    execute('uploadImg', formData);
 
     setFiles([]);
   };
@@ -78,6 +67,7 @@ const DragAndDrop = () => {
 
   return (
     <div>
+      {pending && <Loading />}
     <div
     style={{ backgroundColor: isDragging ? 'rgba(132, 110, 51, 0.7)' : 'transparent' }}
       onDrop={handleDropAnywhere}
@@ -148,6 +138,7 @@ const DragAndDrop = () => {
         </div>
        
       )}
+      {data && <ResultCard />}
       <ToastContainer />
     </div>
   );

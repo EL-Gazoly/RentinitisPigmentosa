@@ -25,10 +25,10 @@ const useProtectedPost = () => {
         const token = myCookie ? myCookie.split('=')[1] : undefined;
 
         return axios
-            .post(`http://localhost:8000/api/${endpoint}`, { ...data },{
+            .post(`http://localhost:8000/api/${endpoint}`, data ,{
                 headers: {
                     'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'multipart/form-data'
                   }
 
             })
@@ -40,7 +40,7 @@ const useProtectedPost = () => {
                         navigate('/login')
                     }
                     else if (endpoint === 'uploadImg') {
-                        toast.success('Image uploaded successfully!')
+                        toast.success('Classication process completed successfully!')
                     }
                     setResponse({ pending: false, data: response.data, error: undefined })
                 }, 1300)
