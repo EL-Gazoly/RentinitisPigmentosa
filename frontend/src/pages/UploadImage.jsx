@@ -143,7 +143,7 @@ const DragAndDrop = ({isHighContrast}) => {
         </div>
        
       )}
-      {data && <ResultCard />}
+      {data && <ResultCard isHighContrast={isHighContrast} />}
       <ToastContainer />
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-const ResultCard = () => {
+const ResultCard = ({isHighContrast}) => {
     const cardRef = useRef(null)
     const [isCardVisible, setIsCardVisible] = useState(true)
    
@@ -24,6 +24,7 @@ const ResultCard = () => {
     <div>
        <div class={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xxl
         ${isCardVisible ? 'visible' : 'hidden'}
+        ${isHighContrast ? 'filter invert contrast-100' : ''}
        `} ref={cardRef}>
         <div className=' w-160 h-96 grid grid-cols-1 text-center py-10 px-3 font-nunito font-extrabold '>
           <h2 className=' text-2xl self-start '>Your Clustering result is </h2>
