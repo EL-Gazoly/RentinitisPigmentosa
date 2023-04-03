@@ -10,6 +10,7 @@ import Loading from '../components/Loading'
 
 const Header = ({LoginOrLogout}) => {
     const [isCardVisible, setIsCardVisible] = useState(false)
+    const [LoginLogout, setLoginLogout] = useState('Login')
 
   
     const cardRef = useRef(null)
@@ -33,6 +34,19 @@ const Header = ({LoginOrLogout}) => {
     const handelLogout = () => {   
         execute('logout',null)
     }
+
+    useEffect(() => {
+      const cookies = document.cookie.split(';')
+      const myCookie = cookies.find(cookie => cookie.trim().startsWith('Authorization='));
+      const token = myCookie? myCookie.split('=')[1] : undefined;
+      if (token) {
+        setLoginLogout('Logout')
+      }
+      else {
+        setLoginLogout('Login')
+      }
+    }, [])
+
     
   return (
     <div>
@@ -50,7 +64,7 @@ const Header = ({LoginOrLogout}) => {
 
                
             
-                {LoginOrLogout === 'Login' ? 
+                {LoginLogout === 'Login' ? 
                  <Link to="/login" className=' w-20 h-12  lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>Login</Link>
                 :
                 <button className=' w-20 h-12  lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl'
