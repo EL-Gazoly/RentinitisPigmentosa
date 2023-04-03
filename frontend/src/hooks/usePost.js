@@ -27,20 +27,16 @@ const usePost = () => {
           autoClose: 1000,
         });
 
-        document.cookie = `Authorization=${response.data}; path=/; max-age=7400`;
+        document.cookie = `Authorization=${response.access_token}; path=/; max-age=7400`;
 
         } 
 
         else if(endpoint === 'login'){
-        console.log(response.data.access_token);
         toast.success('Welcome Back!');
         
         document.cookie = `Authorization=${response.data.access_token}; path=/; max-age=7400`;
         }
 
-        else if(endpoint === 'logout'){
-        toast.success('See you soon!');
-        }
 
         else if(endpoint === 'contact_us'){
         toast.success('Thank you for contacting us!', {
@@ -58,7 +54,6 @@ const usePost = () => {
 
 
       .catch(error => {
-        document.cookie = 'Authorization=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         setTimeout(() => {
           try {
             const { detail } = JSON.parse(error.request.response);

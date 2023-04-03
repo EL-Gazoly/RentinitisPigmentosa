@@ -18,10 +18,7 @@ const withAuth = (Component) => {
         toast.error('You must be logged in to vew this page')
         flag = true;
     }
-      
-        
-        
-       
+
       }
     }, [navigate]);
 

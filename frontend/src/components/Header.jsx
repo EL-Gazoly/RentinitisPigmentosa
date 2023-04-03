@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom'
 import PageLogo from '../components/PageLogo'
 import { ReactComponent as BurgerIcon} from '../assets/burgerIcon.svg'
 import {React, useEffect, useState, useRef} from 'react'
-import usePost from '../hooks/usePost'
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
-import { toast } from 'react-toastify'
+import useProtectedPost from '../hooks/useProtectedPost'
+import Loading from '../components/Loading'
+
 
 
 const Header = ({LoginOrLogout}) => {
@@ -29,36 +28,17 @@ const Header = ({LoginOrLogout}) => {
         
     }, [cardRef])
 
-    const navigate = useNavigate();
-
-    const { execute } = usePost();
+    const { execute, pending } = useProtectedPost();
 
     const handelLogout = () => {   
-      const cookies = document.cookie.split(';');
-      const myCookie = cookies.find(cookie => cookie.trim().startsWith('Authorization='));
-      const token = myCookie ? myCookie.split('=')[1] : undefined;
-      // split the word Bearer from the token
-      console.log(token);
-    
-      axios.post('http://localhost:8000/api/logout', {}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-    .then((response) => {
-      toast.success('You have been logged out successfully')
-    })
-    .catch((error) => {
-      toast.error(error.response.data)
-      console.log(error.response.data);
-    })
-
+        execute('logout',null)
     }
     
   return (
     <div>
+          {pending && <Loading />}
            <div className="landing page-menu flex justify-between ">
+           
             <PageLogo className="md:ml-7" />
             <div className="landing-page-menu-right flex items-center mr-4 md:hidden" onClick={() => setIsCardVisible(!isCardVisible)}>
                 <BurgerIcon onClick={()=> setIsCardVisible(!isCardVisible)}/> 
