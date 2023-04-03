@@ -59,7 +59,7 @@ const Login = ({isHighContrast }) => {
     <div className={` 
     {isHighContrast ? ' bg-invertedbg' : 'bg-bg'}
     `}>
-        {pending && <Loading />}
+        {pending && <Loading isHighContrast={isHighContrast}/>}
         {data && successMessgae()}
 
         <div className=' flex flex-col md:flex-row w-full h-screen'>

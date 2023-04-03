@@ -69,7 +69,7 @@ const DragAndDrop = ({isHighContrast}) => {
 
   return (
     <div>
-      {pending && <Loading />}
+      {pending && <Loading isHighContrast={isHighContrast}/>}
       <div
       
     style={{ backgroundColor: isDragging ? 'rgba(132, 110, 51, 0.7)' : 'transparent' }}

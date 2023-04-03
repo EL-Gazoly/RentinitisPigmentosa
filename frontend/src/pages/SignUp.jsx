@@ -87,7 +87,7 @@ const SignUp = ({isHighContrast}) => {
    
   return (
     <div>
-     {pending && <Loading />}
+     {pending && <Loading  isHighContrast={isHighContrast}/>}
      {data && successMessgae()}
     <div className={`flex flex-col md:flex-row w-full h-screen
     ${isHighContrast ? 'filter invert contrast-100' : ''}

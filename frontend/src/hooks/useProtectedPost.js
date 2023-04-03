@@ -40,7 +40,7 @@ const useProtectedPost = () => {
                         toast.success('Classication process completed successfully!')
                     }
                     setResponse({ pending: false, data: response.data, error: undefined })
-                }, 1300)
+                }, 3000)
             })
             .catch(error => {
                 setTimeout(() => {
