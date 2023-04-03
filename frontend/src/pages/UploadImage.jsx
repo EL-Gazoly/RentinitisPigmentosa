@@ -7,7 +7,7 @@ import useProtectedPost from '../hooks/useProtectedPost';
 import Loading from '../components/Loading';
 import ResultCard from '../components/ResultCard';
 
-const DragAndDrop = () => {
+const DragAndDrop = ({isHighContrast}) => {
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -64,11 +64,14 @@ const DragAndDrop = () => {
     setFiles([]);
   };
 
+  console.log(isHighContrast);
+
 
   return (
     <div>
       {pending && <Loading />}
-    <div
+      <div
+      
     style={{ backgroundColor: isDragging ? 'rgba(132, 110, 51, 0.7)' : 'transparent' }}
       onDrop={handleDropAnywhere}
       onDragEnter={handleDragEnter}
@@ -76,9 +79,11 @@ const DragAndDrop = () => {
       onDragLeave={handleDragLeave}
       className= "caret-transparent h-full"
     >
-      <Header LoginOrLogout="Logout" />
+      <Header isHighContrast={isHighContrast} />
     <div
-      className="min-h-screen flex flex-col justify-center items-center  gap-10 mb-5">
+      className={`min-h-screen flex flex-col justify-center items-center  gap-10 mb-5
+      ${isHighContrast ? 'filter invert contrast-100' : ''}
+      `}>
 
             
       <div className="flex flex-col justify-center items-center text-3xl  md:text-5xl lg:text-6xl xl:text-7xl sm:max-w-md md:max-w-4xl xl:max-w-5xl font-extrabold font-poppins text-primary max-w-screen-xl mx-auto px-6">

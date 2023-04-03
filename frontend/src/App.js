@@ -27,7 +27,7 @@ function App() {
       
     }, [isHighContrast]);
   
-const ProtectedRoute = useAuth(DragAndDrop);
+const ProtectedRoute = useAuth(DragAndDrop, isHighContrast);
   return (
     <div className={`App w-full h-screen m-0 p-0 overflow-x-hidden  
     ${isHighContrast ? 'bg-invertedbg' : 'bg-bg'}

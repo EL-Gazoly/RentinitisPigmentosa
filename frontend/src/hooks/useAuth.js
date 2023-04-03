@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 
-const withAuth = (Component) => {
+const withAuth = (Component, isHighContrast) => {
   const AuthComponent = () => {
     const navigate = useNavigate();
     let flag = false;
@@ -23,7 +23,7 @@ const withAuth = (Component) => {
       }
     }, [navigate]);
 
-    return <Component />;
+    return <Component isHighContrast={isHighContrast} />;
   };
 
   return AuthComponent;
