@@ -3,9 +3,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-
-import React from 'react'
-
 const useProtectedPost = () => {
     const [response, setResponse] = useState({
         pending: false,

@@ -1,6 +1,5 @@
 import {React , useState, useRef, useEffect} from 'react'
 import { useNavigate }   from 'react-router-dom';
-import usePost from '../hooks/usePost';
 
 import PageLogo from '../components/PageLogo'
 import ForgetIcon from '../assets/ForgetIcon.svg'
@@ -67,8 +66,7 @@ const ForgotPassword = () => {
             
         }
     },[otp])
-
-    const { execute, pending, data} = usePost();
+;
     const handelSendOtp =   () => {
         const user = {
             email: email.current.value

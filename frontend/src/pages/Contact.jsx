@@ -1,5 +1,4 @@
 import {React, useState, useRef} from 'react'
-import Chatbot from '../components/Chatbot'
 import PageLogo from '../components/PageLogo'
 import ContactICon from '../assets/contactIcon.png'
 import usePost from '../hooks/usePost'
@@ -18,7 +17,7 @@ const [emailOk, setEmailOk] = useState(false);
 const [messageOk, setMessageOk] = useState(false);
 
 
-const {execute, pending, data} = usePost();
+const {execute} = usePost();
 const handleSentMessage = () => {
     const message = {
         name: nameRef.current.value,

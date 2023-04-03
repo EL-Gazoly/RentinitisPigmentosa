@@ -1,6 +1,5 @@
 
 import React from 'react'
-import Chatbot from '../components/Chatbot'
 import HomePagePic from '../assets/homePagePic.png'
 import Header from '../components/Header'
 
