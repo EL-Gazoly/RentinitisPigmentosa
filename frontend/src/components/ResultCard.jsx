@@ -28,7 +28,7 @@ const ResultCard = () => {
         <div className=' w-160 h-96 grid grid-cols-1 text-center py-10 px-3 font-nunito font-extrabold '>
           <h2 className=' text-2xl self-start '>Your Clustering result is </h2>
           <h1 className=' text-5xl text-red-500  self-center'>Postive</h1>
-          <h3 className=' font-normal text-xl text-lightblack  self-end mb-9 '>Check our <Link to="#" className=' text-primary'>resources page</Link> to learn more about the disease.</h3>
+          <h3 className=' font-normal text-xl text-lightblack  self-end mb-9 '>Check our <Link to="/resources" className=' text-primary'>resources page</Link> to learn more about the disease.</h3>
         </div>
     
       </div>
