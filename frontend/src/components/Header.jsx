@@ -8,7 +8,7 @@ import Loading from '../components/Loading'
 
 
 
-const Header = ({LoginOrLogout}) => {
+const Header = ({isHighContrast }) => {
     const [isCardVisible, setIsCardVisible] = useState(false)
     const [LoginLogout, setLoginLogout] = useState('Login')
 
@@ -49,7 +49,7 @@ const Header = ({LoginOrLogout}) => {
 
     
   return (
-    <div>
+    <div  className={` ${isHighContrast ? 'filter invert contrast-100' : ''} `}>
           {pending && <Loading />}
            <div className="landing page-menu flex justify-between ">
            

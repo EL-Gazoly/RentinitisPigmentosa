@@ -8,7 +8,7 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {ReactComponent as LoginIcon} from '../assets/loginIcon.svg'
-const Login = () => {
+const Login = ({isHighContrast }) => {
     const [emailOk, setEmailOk] = useState(false);
     const [passwordOk, setPasswordOk] = useState(true);
 
@@ -56,12 +56,16 @@ const Login = () => {
       };
     
   return (
-    <div className=' bg-bg'>
+    <div className={` 
+    {isHighContrast ? ' bg-invertedbg' : 'bg-bg'}
+    `}>
         {pending && <Loading />}
         {data && successMessgae()}
 
         <div className=' flex flex-col md:flex-row w-full h-screen'>
-            <div className="left order-2 mt-8 flex-1 md:mt-36 2xl:mt-72 ">
+            <div className={`left order-2 mt-8 flex-1 md:mt-36 2xl:mt-72
+            ${isHighContrast ? 'filter invert contrast-100' : ''}
+            `}>
             <div className="form grid grid-cols-1 gap-y-8 xl:ml-12 2xl:ml-32 ">
                 <h3 className=' self-start text-3xl font-nunito font-bold caret-transparent ml-7 md:ml-5 md:text-4xl'>Log in.</h3>
                 <div className="form-group self-center flex flex-col gap-y-4 w-11/12 ml-4  caret-primary md:gap-10 xl:w-4/5 2xl:w-3/4">
@@ -99,8 +103,12 @@ const Login = () => {
 
                 
             </div>
-            <div className="right order-1 md:order-2 grid  bg-border w-full h-96 grid-cols-1 sm:h-100 md:h-full md:w-7/12">
-                <div className="right-top self-end text-center mt-20 md:mt-28 gap-y-5">
+            <div className={`right order-1 md:order-2 grid w-full h-96 grid-cols-1 sm:h-100 md:h-full md:w-7/12
+            ${isHighContrast ? ' bg-invertedborder' : 'bg-border'}
+            `}>
+                <div className={`right-top self-end text-center mt-20 md:mt-28 gap-y-5
+                   ${isHighContrast ? 'filter invert contrast-100' : ''}
+                `}>
                     <span className=' font-nunito text-base font-bold text-babyblack sm:text-lg 2xl:text-3xl'>Nice to see you again</span>
                     <h1 className=' font-sans text-3xl text-primary font-extrabold uppercase sm:text-5xl lg:text-6xl md:w-full 2xl:text-6xl '>welcom back</h1>
                 </div>
@@ -116,7 +124,7 @@ const Login = () => {
 
         <div className=' fixed top-3 left-3 md:left-0'>
             <div className=' relative'>
-                <PageLogo />
+                <PageLogo isHighContrast={isHighContrast} />
             </div>
         </div>
         <ToastContainer />

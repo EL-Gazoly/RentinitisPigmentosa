@@ -4,19 +4,26 @@ import HomePagePic from '../assets/homePagePic.png'
 import Header from '../components/Header'
 
 import { Link } from 'react-router-dom'
-const Landing = () => {
+const Landing = ({isHighContrast}) => {
 
 
 
   return (
     <div className='caret-transparent'>
       <div className='landing-page-container flex flex-col'>
-        <Header LoginOrLogout={'Login'} />
 
-        <div className="landing-page-body flex flex-col   md:flex md:flex-row  "
+        <Header isHighContrast={isHighContrast}
+       
+        />
+
+        <div className={`landing-page-body flex flex-col   md:flex md:flex-row  
+       
+        `}
         >
-            <div className="landing-page-body-left order-2 flex flex-col justify-start
-             items-start mt-4 md:mt-48 md:order-1 md:ml-20 xl:ml-40 md:gap-7 lg:gap-10">
+            <div className={`landing-page-body-left order-2 flex flex-col justify-start
+             items-start mt-4 md:mt-48 md:order-1 md:ml-20 xl:ml-40 md:gap-7 lg:gap-10
+             ${isHighContrast ? 'filter invert contrast-100' : ''} 
+             `}>
 
                 <h1 className=' font-sans font-extrabold text-3xl text-primary 
                 self-center w-3/4 text-center md:w-80 lg:w-full xl:w-11/12 md:min-h-min 
@@ -35,7 +42,7 @@ const Landing = () => {
                 </>
             </div>
             <div className="landing-page-body-right order-1 mt-5 md:mt-0  md:order-2 md:flex md:justify-center md:items-center md:mb-8">
-              <img className='w-full h-min md:hidden' src='https://tykit.rometheme.pro/eyecare/wp-content/uploads/sites/81/2022/08/close-up-of-doctor-checking-female-patient-vision-2022-05-31-02-18-46-utc.jpg'alt="pic" />
+              <img className='w-full h-min md:hidden filter invert contras' src='https://tykit.rometheme.pro/eyecare/wp-content/uploads/sites/81/2022/08/close-up-of-doctor-checking-female-patient-vision-2022-05-31-02-18-46-utc.jpg'alt="pic" />
               <img src={HomePagePic} alt="home page pic" className=' hidden md:max-w-sm lg:max-w-md 
               xl:max-w-2xl 
                md:mt md:mt-36 xl:mt-16   min-h-min rounded-full lg:mr-16
