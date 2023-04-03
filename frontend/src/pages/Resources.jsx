@@ -1,15 +1,19 @@
 import React from 'react'
 import Header from '../components/Header'
 
-const Resources = () => {
+const Resources = ({isHighContrast}) => {
   return (
     <div>
         <div>
-            <Header />
-            <div className="container mx-auto px-4 py-8 overflow-scroll">
-        <h1 className="text-3xl font-bold mb-8 text-primary">Caregiver Resources</h1>
+            <Header  isHighContrast={isHighContrast}/>
+            <div className="container mx-auto px-4 py-8 overflow-hidden">
+        <h1 className={`text-3xl font-bold mb-8 text-primary
+        ${isHighContrast ? 'filter invert contrast-100' : ''}
+        `}>Caregiver Resources</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          <div className="bg-white shadow-md rounded-lg p-8">
+          <div className={`bg-white shadow-md rounded-lg p-8
+          ${isHighContrast ? 'filter invert contrast-100' : ''}
+          `}>
             <h2 className="text-xl font-bold mb-4">National Eye Institute</h2>
             <p className="text-gray-700">
               The National Eye Institute is a great resource for information on
@@ -25,7 +29,9 @@ const Resources = () => {
               Visit the NEI website
             </a>
           </div>
-          <div className="bg-white shadow-md rounded-lg p-8">
+          <div className={`bg-white shadow-md rounded-lg p-8
+          ${isHighContrast ? 'filter invert contrast-100' : ''}
+          `}>
             <h2 className="text-xl font-bold mb-4">Foundation Fighting Blindness</h2>
             <p className="text-gray-700">
               The Foundation Fighting Blindness is a nonprofit organization
@@ -42,7 +48,9 @@ const Resources = () => {
               Visit the Foundation Fighting Blindness website
             </a>
           </div>
-          <div className="bg-white shadow-md rounded-lg p-8">
+          <div className={`bg-white shadow-md rounded-lg p-8
+          ${isHighContrast ? 'filter invert contrast-100' : ''}
+          `}>
             <h2 className="text-xl font-bold mb-4">American Council of the Blind</h2>
             <p className="text-gray-700">
               The American Council of the Blind is a national organization that
@@ -59,7 +67,9 @@ const Resources = () => {
               Visit the American Council of the Blind website
             </a>
           </div>
-          <div className="bg-white shadow-md rounded-lg p-8">
+          <div className={`bg-white shadow-md rounded-lg p-8
+          ${isHighContrast ? 'filter invert contrast-100' : ''}
+          `}>
             <h2 className="text-xl font-bold mb-4">Low Vision Rehabilitation</h2>
             <p className="text-gray-700">
             Low vision rehabilitation can help individuals with retinitis
@@ -77,7 +87,9 @@ const Resources = () => {
                Learn more about low vision rehabilitation
             </a>
           </div>
-          <div className="bg-white shadow-md rounded-lg p-8">
+          <div className={`bg-white shadow-md rounded-lg p-8
+          ${isHighContrast ? 'filter invert contrast-100' : ''}
+          `}>
             <h2 className="text-xl font-bold mb-4">Rehabilitation and Training</h2>
             <p className="text-gray-700">
             Orientation and mobility (O&amp;M) training can help individuals
@@ -95,7 +107,9 @@ const Resources = () => {
               Learn more about O&amp;M training
             </a>
           </div>
-          <div className="bg-white shadow-md rounded-lg p-8">
+          <div className={`bg-white shadow-md rounded-lg p-8
+          ${isHighContrast ? 'filter invert contrast-100' : ''}
+          `}>
             <h2 className="text-xl font-bold mb-4">Assistive Technology</h2>
             <p className="text-gray-700">
               Assistive technology can help individuals with retinitis
@@ -118,7 +132,9 @@ const Resources = () => {
 
           
           <div className='mt-8 w-screen h-fit grid gap-y-7'>
-          <h2 className="text-2xl font-bold mb-4 text-primary">Related Videos</h2>
+          <h2 className={`text-2xl font-bold mb-4 text-primary
+          ${isHighContrast ? 'filter invert contrast-100' : ''}
+          `}>Related Videos</h2>
           <div className=" flex flex-row gap-4 ">
             <div className="bg-white shadow-md rounded-lg flex items-center justify-center w-fit px-4">
             <iframe width="477" height="272" 
@@ -143,7 +159,9 @@ const Resources = () => {
             
           </div>
             </div>
-          <div className="mt-8">
+          <div className={`mt-8
+          ${isHighContrast ? 'filter invert contrast-100' : ''}
+          `}>
           <h2 className="text-2xl font-bold mb-4 text-primary ">Additional Resources</h2>
           <ul className="list-disc list-inside">
             <li className="mb-4">
