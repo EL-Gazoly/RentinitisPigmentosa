@@ -1,11 +1,15 @@
 import React from 'react'
 import Header from '../components/Header'
 import {Link} from 'react-router-dom'
-const About = () => {
+const About = ({isHighContrast}) => {
   return (
     <div>
-        <div className='flex flex-col w-full h-screen bg-lightblue'>
-            <div className=' grid grid-cols-1 h-full gap-y-9 mb-10 '>
+        <div className={`flex flex-col w-full h-screen
+        ${isHighContrast ? ' bg-invertedbg' : 'bg-lightblue'}
+        `}>
+            <div className={` grid grid-cols-1 h-full gap-y-9 mb-10 
+             ${isHighContrast ? 'filter invert contrast-100' : ''}
+            `}>
                 <Header LoginOrLogout="Login" />
                 <div className="middel text-center  grid gap-y-3 mb-16">
                     <h1 className=' text-9xl text-primary font-sans font-extrabold uppercase' >About us</h1>
