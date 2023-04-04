@@ -6,6 +6,8 @@ import ForgetIcon from '../assets/ForgetIcon.svg'
 
 import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import Loading from '../components/Loading';
 import axios from 'axios';
 
 const ForgotPassword = ({isHighContrast}) => {
@@ -14,6 +16,7 @@ const ForgotPassword = ({isHighContrast}) => {
   const [isOTpVerified, setIsOTpVerified] = useState(false)
   const [isFiveDigit, setIsFiveDigit] = useState(false)
   const [userEmail, setUserEmail] = useState("")
+  const [pending, setPending] = useState(false)
 
   const [emailOk, setEmailOk] = useState(false);
   const [passwordOk, setPasswordOk] = useState(true);
@@ -71,14 +74,17 @@ const ForgotPassword = ({isHighContrast}) => {
         const user = {
             email: email.current.value
         }
+        setPending(true)
        
         axios.post('http://localhost:8000/api/forget_password', user )
         .then(res => {  
             console.log(res)
             toast.success("OTP sent to your email")
+            setPending(false)
             setIsSentOTp(true)
         })
         .catch(err => {
+          setPending(false)
           try {
             const { detail } = JSON.parse(err.request.response);
             const errorMessages = detail.map((err) => err.msg);
@@ -86,6 +92,7 @@ const ForgotPassword = ({isHighContrast}) => {
             toast.error(errorMessages,{
               autoClose: 5000,
             });
+
             
           } catch (e) {
             const err = JSON.parse(err.request.response);
@@ -115,8 +122,16 @@ const ForgotPassword = ({isHighContrast}) => {
           setIsFiveDigit(false)
           toast.error("Invalid OTP")
 
+
           }, 1800)
         })
+        
+       setTimeout(() => {
+        setOtp(["", "", "", "", ""])
+       }, 2000)
+        
+        otpRef.current[0].focus();
+
         
     }
 
@@ -130,9 +145,7 @@ const ForgotPassword = ({isHighContrast}) => {
       .then(res => {
           console.log(res)
           toast.success("Password reset successfully")
-          setTimeout(() => {
           navigate('/login')
-          }, 2000)
       })
       .catch(err => {
         try {
@@ -189,6 +202,7 @@ const ForgotPassword = ({isHighContrast}) => {
   
   return (
     <div>
+      {pending && <Loading />}
         <div className='grid grid-cols-1 h-screen  md:flex md:flex-row  md:gap-y-40'>
             <PageLogo isHighContrast={isHighContrast} className=" self-start justify-self-start" />
             <div className='flex gap-80 '>
