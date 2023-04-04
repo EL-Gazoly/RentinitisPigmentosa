@@ -23,11 +23,12 @@ const ResultCard = ({isHighContrast}) => {
   return (
     <div>
        <div class={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xxl
+         shadow-slate-300 shadow-2xl
         ${isCardVisible ? 'visible' : 'hidden'}
         ${isHighContrast ? 'filter invert contrast-100' : ''}
        `} ref={cardRef}>
         <div className=' w-160 h-96 grid grid-cols-1 text-center py-10 px-3 font-nunito font-extrabold '>
-          <h2 className=' text-2xl self-start '>Your Clustering result is </h2>
+          <h2 className=' text-2xl self-start '>Your Classification result is </h2>
           <h1 className=' text-5xl text-red-500  self-center'>Postive</h1>
           <h3 className=' font-normal text-xl text-lightblack  self-end mb-9 '>Check our <Link to="/resources" className=' text-primary'>resources page</Link> to learn more about the disease.</h3>
         </div>
