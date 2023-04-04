@@ -87,7 +87,7 @@ const DragAndDrop = ({isHighContrast}) => {
 
             
       <div className="flex flex-col justify-center items-center text-3xl  md:text-5xl lg:text-6xl xl:text-7xl sm:max-w-md md:max-w-4xl xl:max-w-5xl font-extrabold font-poppins text-primary max-w-screen-xl mx-auto px-6">
-          Uplod your image to start the classification process
+          Upload your image to start the classification process
       </div>
 
       <div
