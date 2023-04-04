@@ -32,33 +32,31 @@ const ForgotPassword = ({isHighContrast}) => {
   const navigate = useNavigate();
 
   const handleOtpChange = (e, index) => {
-   
-
-    const value = e.target.value;
-
-    // Check if the key pressed is not a backspace
-    if (e.keyCode !== 8) {
-      // Check if the input value is a number
-      if (!isNaN(value)) {
-        // Update the OTP array
-        const otpCopy = [...otp];
-        otpCopy[index] = value;
-        setOtp(otpCopy);
-
-        // Move focus to the next input field
-        if (index < otpRef.current.length - 1) {
-          otpRef.current[index + 1].focus();
-        }
-      } else {
-        e.preventDefault(); // Prevent non-numeric characters from being entered
-      }
-    } else {
-      // Move focus to the previous input field
-      if (index > 0) {
-        otpRef.current[index - 1].focus();
+    const otpValue = e.target.value;
+    if (otpValue.length > 1) {
+      return;
+    }
+    if (isNaN(otpValue)) {
+      return;
+    }
+    if (!otpValue.match(/[0-9]/) ) {
+      otp[index] = "";
+    }
+    // check if value is backspace
+  
+    if (otpValue.match(/[0-9]/)) {
+      otp[index] = otpValue;
+      // Move to the next input field
+      if (index < otpRef.current.length - 1) {
+        otpRef.current[index + 1].focus();
       }
     }
-    }
+    // Update the OTP value in the state
+    const newOtp = [...otp];
+    newOtp[index] = otpValue;
+    setOtp(newOtp);
+  };
+  
 
 
     useEffect(() => {
