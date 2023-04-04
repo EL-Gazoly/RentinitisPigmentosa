@@ -2,7 +2,7 @@ import {React, useState, useRef} from 'react'
 import PageLogo from '../components/PageLogo'
 import ContactICon from '../assets/contactIcon.png'
 import usePost from '../hooks/usePost'
-import { ToastContainer } from 'react-toastify'
+import Loading from '../components/Loading'
 
 
 
@@ -17,7 +17,7 @@ const [emailOk, setEmailOk] = useState(false);
 const [messageOk, setMessageOk] = useState(false);
 
 
-const {execute} = usePost();
+const { execute, pending} = usePost(); 
 const handleSentMessage = () => {
     const message = {
         name: nameRef.current.value,
@@ -60,9 +60,17 @@ const handelMessageChangeCheck = () => {
 
 
   return (
-    <div className=' w-full h-full flex flex-row '>
+    <div className={`
+    ${isHighContrast ? ' bg-black' : 'bg-white'}
+    w-full h-full
+    `}>
+      {pending && <Loading />}
+
+
+    
+    <div className='flex flex-row w-full h-full '>
          <div className={`left w-1/2  grid
-          ${isHighContrast ? ' bg-black' : 'bg-white'}
+          
          `}>
             <PageLogo className="md:ml-7" isHighContrast={isHighContrast} />
             <div className="middel caret-transparent justify-self-center grid gap-y-1 mb-10 ">
@@ -117,7 +125,8 @@ const handelMessageChangeCheck = () => {
 
             </div>
          </div>
-         <ToastContainer />
+        
+    </div>
     </div>
   )
 }

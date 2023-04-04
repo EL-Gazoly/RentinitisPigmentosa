@@ -24,7 +24,7 @@ const usePost = () => {
 
         if(endpoint === 'signup'){
         toast.success('Welcome Aboard!');
-        
+
         document.cookie = `Authorization=${response.data.access_token}; path=/; max-age=7400`;
 
         } 
@@ -37,14 +37,9 @@ const usePost = () => {
 
 
         else if(endpoint === 'contact_us'){
-        toast.success('Thank you for contacting us!', {
-          autoClose: 3000,
-        });
+        toast.success('Thank you for contacting us!');
         }
 
-        toast.success(response.data.message, {
-          autoClose: 1000,
-          }); 
         updateData({ pending: false, data: response.data, error: undefined });
       }, 2300);
       })
