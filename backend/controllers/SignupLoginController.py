@@ -50,7 +50,7 @@ async def LogIn(user:LoginUser ):
 
 
 
-async def create_access_token(data: dict, expires_delta: int = 30):
+async def create_access_token(data: dict, expires_delta: int = 120):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=expires_delta)
     to_encode.update({"exp": expire})
