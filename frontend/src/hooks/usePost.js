@@ -23,11 +23,9 @@ const usePost = () => {
         setTimeout(() => {
 
         if(endpoint === 'signup'){
-        toast.success('Welcome Aboard!', {
-          autoClose: 1000,
-        });
-
-        document.cookie = `Authorization=${response.access_token}; path=/; max-age=7400`;
+        toast.success('Welcome Aboard!');
+        
+        document.cookie = `Authorization=${response.data.access_token}; path=/; max-age=7400`;
 
         } 
 
