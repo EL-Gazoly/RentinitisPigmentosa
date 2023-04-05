@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ReactComponent as Corner } from '../assets/corner.svg';
 import useProtectedPost from '../hooks/useProtectedPost';
@@ -47,9 +47,17 @@ const DragAndDrop = ({isHighContrast}) => {
   const handleDropAnywhere = (e) => {
     e.preventDefault();
     const newFiles = Array.from(e.dataTransfer.files);
-    setFiles([...files, ...newFiles]);
+    for(let i = 0; i < newFiles.length; i++) {
+        if(newFiles[i].type.match(/image.*/)) { // check if file is an image
+            setFiles([...files, newFiles[i]]);
+        }
+        else {
+            toast.error('Only images are allowed');
+
+        }
+    }
     setIsDragging(false);
-  };
+};
   const { execute, pending, data } = useProtectedPost();
 
   const handelupload = (e) => {
@@ -86,8 +94,8 @@ const DragAndDrop = ({isHighContrast}) => {
       `}>
 
             
-      <div className="flex flex-col justify-center items-center text-3xl  md:text-5xl lg:text-6xl xl:text-7xl sm:max-w-md md:max-w-4xl xl:max-w-5xl font-extrabold font-poppins text-primary max-w-screen-xl mx-auto px-6">
-          Upload your image to start the classification process
+      <div className="flex flex-col justify-center items-center text-3xl  md:text-5xl lg:text-6xl xl:text-7xl sm:max-w-md md:max-w-4xl xl:max-w-6xl font-extrabold font-poppins text-primary max-w-screen-xl mx-auto px-6  2xl:w-300">
+      Upload your image to start the diagnosis process
       </div>
 
       <div
@@ -103,6 +111,7 @@ const DragAndDrop = ({isHighContrast}) => {
           type="file"
           multiple
           className="hidden"
+          accept="image/*"
           onChange={handleFileInput}
         />
         <p className=" text-primary mb-2">Drag and drop files here, or click to select files</p>
