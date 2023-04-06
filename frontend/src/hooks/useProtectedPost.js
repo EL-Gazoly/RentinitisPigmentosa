@@ -37,7 +37,7 @@ const useProtectedPost = () => {
                         navigate('/login')
                     }
                     else if (endpoint === 'uploadImg') {
-                        toast.success('Classication process completed successfully!')
+                        toast.success('Diagnosis  process completed successfully!')
                     }
                     setResponse({ pending: false, data: response.data, error: undefined })
                 }, 3000)

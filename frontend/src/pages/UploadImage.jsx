@@ -135,7 +135,7 @@ const DragAndDrop = ({isHighContrast}) => {
         {files.length > 0 &&
         <button 
         onClick={handelupload}
-        className=" text-white bg-primary font-bold font-nunito rounded-xl w-64 h-20 p-4 mt-4 mb-40 text-sm 2xl:text-2xl md:text-xl">Start classification</button>
+        className=" text-white bg-primary font-bold font-nunito rounded-xl w-64 h-20 p-4 mt-4 mb-40 text-sm 2xl:text-2xl md:text-xl">Start Diagnosis  </button>
         }
     </div>
 

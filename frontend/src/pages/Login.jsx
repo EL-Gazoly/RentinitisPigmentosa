@@ -110,7 +110,7 @@ const Login = ({isHighContrast }) => {
                    ${isHighContrast ? 'filter invert contrast-100' : ''}
                 `}>
                     <span className=' font-nunito text-base font-bold text-babyblack sm:text-lg 2xl:text-3xl'>Nice to see you again</span>
-                    <h1 className=' font-sans text-3xl text-primary font-extrabold uppercase sm:text-5xl lg:text-6xl md:w-full 2xl:text-6xl '>welcom back</h1>
+                    <h1 className=' font-sans text-3xl text-primary font-extrabold uppercase sm:text-5xl lg:text-6xl md:w-full 2xl:text-6xl '>welcome back</h1>
                 </div>
                 <div className="right-bottom self-end justify-self-center">
                     <LoginIcon className=' w-64 min-h-min sm:w-80 md:w-120 md:mb-40 2xl:w-150  2xl:mb-16' />

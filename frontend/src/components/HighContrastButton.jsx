@@ -13,8 +13,8 @@ const HighContrastButton = ({onToggle}) => {
     >
       <div className="relative inline-block w-16 h-8 bg-gray-400 rounded-full">
       <button
-        className={`absolute left-0 top-0 w-8 h-8 bg-white rounded-full shadow-md transform transition-transform ease-in-out duration-300 ${
-          isToggle ? "translate-x-full bg-green-500" : ""
+        className={`absolute left-0 top-0 w-8 h-8 rounded-full shadow-md transform transition-transform ease-in-out duration-300 ${
+          isToggle ? "translate-x-full bg-green-500" : "bg-white "
         }`}
        
       >
