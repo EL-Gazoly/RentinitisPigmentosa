@@ -13,8 +13,9 @@ This project is a classification system built using CNN that helps determine if 
 * Implements machine learning algorithms for RP classification
 ## Getting started with the backend
 1. Clone the repository
-2. Install the required packages by running pip install -r requirements.txt
-3. Start the application by running ⌘ uvicorn app:app --reload
-4. navigate to the frontend by running ⌘ cd frontend
-5. Install the required packages by running ⌘ npm install
-6. Start the frontend by running ⌘ npm start
+2. Navigate to the backend by running ⌘ cd backend
+3. Install the required packages by running ⌘ pip install -r requirements.txt
+4. Start the application by running ⌘ uvicorn app:app --reload
+5. Navigate to the frontend by running ⌘ cd frontend
+6. Install the required packages by running ⌘ npm install
+7. Start the frontend by running ⌘ npm start
