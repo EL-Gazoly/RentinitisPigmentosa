@@ -11,7 +11,10 @@ This project is a classification system built using CNN that helps determine if 
 * Utilizes React for a user-friendly frontend
 * Includes AuthJWT for secure user authentication
 * Implements machine learning algorithms for RP classification
-## Getting started
+## Getting started with the backend
 1. Clone the repository
 2. Install the required packages by running pip install -r requirements.txt
 3. Start the application by running ⌘ uvicorn app:app --reload
+4. navigate to the frontend by running ⌘ cd frontend
+5. Install the required packages by running ⌘ npm install
+6. Start the frontend by running ⌘ npm start
