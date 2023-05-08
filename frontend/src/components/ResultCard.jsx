@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-const ResultCard = ({isHighContrast}) => {
+const ResultCard = ({isHighContrast, result}) => {
     const cardRef = useRef(null)
     const [isCardVisible, setIsCardVisible] = useState(true)
    
@@ -29,7 +29,7 @@ const ResultCard = ({isHighContrast}) => {
        `} ref={cardRef}>
         <div className=' w-160 h-96 grid grid-cols-1 text-center py-10 px-3 font-nunito font-extrabold '>
           <h2 className=' text-2xl self-start '>Your Classification result is </h2>
-          <h1 className=' text-5xl text-red-500  self-center'>Postive</h1>
+          {result === 'RP' ? <h1 className=' text-6xl text-red-500 self-center '>Postive</h1> : <h1 className=' text-6xl text-green-500 self-center '>Negative</h1>}
           <h3 className=' font-normal text-xl text-lightblack  self-end mb-9 '>Check our <Link to="/resources" className=' text-primary'>resources page</Link> to learn more about the disease.</h3>
         </div>
     

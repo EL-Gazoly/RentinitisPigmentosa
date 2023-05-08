@@ -72,7 +72,6 @@ const DragAndDrop = ({isHighContrast}) => {
     setFiles([]);
   };
 
-  console.log(isHighContrast);
 
 
   return (
@@ -152,7 +151,8 @@ const DragAndDrop = ({isHighContrast}) => {
         </div>
        
       )}
-      {data && <ResultCard isHighContrast={isHighContrast} />}
+      {data && <ResultCard isHighContrast={isHighContrast} result={data}/>}
+
       <ToastContainer />
     </div>
   );
