@@ -7,29 +7,11 @@ Original file is located at
     https://colab.research.google.com/drive/1MrN-lwnCuZE3uDaMMp3PK3Xl3X5jyhYn
 """
 
-import pandas as pd 
-from random import shuffle
-import matplotlib.pyplot as plt
-
-import cv2
-from PIL import Image
-
 import os
-from tqdm import tqdm
-
-
-import splitfolders
-
+import cv2
 import numpy as np
-
-
-import tflearn
-import tensorflow as tf
-
-from tensorflow.keras import layers
-from tensorflow.keras.models import Model
+from PIL import Image
 from tensorflow.keras.models import Sequential
-from tensorflow.core.framework.types_pb2 import DataType
 from tensorflow.keras.layers import Conv2D,MaxPooling2D,Dense,Flatten,Dropout
 
 
