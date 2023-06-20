@@ -28,10 +28,10 @@ async def SignUp(user:User):
         last_name = user.last_name,
         email = user.email,
         password = Hasher.get_password_hash(user.password),
-        doctor = user.doctor
+        docotr = user.doctor
     ))
         access_token = await create_access_token(data={"sub": user.email})
-        return {"access_token": access_token, "token_type": "bearer", "doctor": user.doctor}
+        return {"access_token": access_token, "token_type": "bearer"}
     
 
 
@@ -46,7 +46,7 @@ async def LogIn(user:LoginUser ):
             raise HTTPException(status_code=400, detail= 'Login credentials are not valid')
 
         access_token = await create_access_token(data={"sub": user.email})
-        return {"access_token": access_token, "token_type": "bearer", "doctor": user.doctor}
+        return {"access_token": access_token, "token_type": "bearer"}
     
 
 
