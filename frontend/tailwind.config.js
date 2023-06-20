@@ -60,7 +60,8 @@ module.exports = {
         babyblack : 'rgba(0, 0, 0, 0.65)',
         lightblue : '#ECF1F5',
         invertedlightblue : '#130e0a',
-        forget : '#FF6584'
+        forget : '#FF6584',
+        disabled : '#5F5F5F'
       },
       maxWidth : {
         'xxs' : '15rem',
