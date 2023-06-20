@@ -1,23 +1,27 @@
 import {Link} from 'react-router-dom'
 import usePost from '../hooks/usePost'
-import {React, useRef, useState} from 'react'
+import {React, useRef, useState, useContext} from 'react'
 import PageLogo from '../components/PageLogo'
 import Loading from '../components/Loading'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import useIsDoctor from '../hooks/useDoctor'
+import {DoctorContext} from '../hooks/useDoctor'
 
 
 
 const SignUp = ({isHighContrast}) => {
 
+
+
+  
   const [firstNameOk, setFirstNameOk] = useState(true);
   const [lastNameOk, setLastNameOk] = useState(true);
   const [emailOk, setEmailOk] = useState(true);
   const [passwordOk, setPasswordOk] = useState(true);
-  
 
+  const { isDoctor, setIsDoctor } = useContext(DoctorContext);
+  
   const firstname = useRef();
   const lastname = useRef();
   const email = useRef();
@@ -86,7 +90,7 @@ const SignUp = ({isHighContrast}) => {
     }
   };
 
-  const {isDoctor, setIsDoctor} = useIsDoctor();
+ 
 
    
   return (
