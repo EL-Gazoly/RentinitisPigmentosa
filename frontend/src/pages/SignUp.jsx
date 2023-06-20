@@ -6,7 +6,7 @@ import Loading from '../components/Loading'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { stringify } from 'postcss'
+import useIsDoctor from '../hooks/useDoctor'
 
 
 
@@ -16,7 +16,6 @@ const SignUp = ({isHighContrast}) => {
   const [lastNameOk, setLastNameOk] = useState(true);
   const [emailOk, setEmailOk] = useState(true);
   const [passwordOk, setPasswordOk] = useState(true);
-  const [isDoctor, setIsDoctor] = useState(false);
   
 
   const firstname = useRef();
@@ -86,6 +85,8 @@ const SignUp = ({isHighContrast}) => {
       setPasswordOk(false);
     }
   };
+
+  const {isDoctor, setIsDoctor} = useIsDoctor();
 
    
   return (

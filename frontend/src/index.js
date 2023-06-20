@@ -2,11 +2,14 @@ import React from 'react';
 import './index.css';
 import App from './App';
 import ReactDOM from 'react-dom/client';
+import {DoctorContext} from './hooks/useDoctor'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <DoctorContext>
     <App />
+    </DoctorContext>
   </React.StrictMode>
 );
 
