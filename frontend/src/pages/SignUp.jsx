@@ -6,6 +6,7 @@ import Loading from '../components/Loading'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { stringify } from 'postcss'
 
 
 
@@ -15,6 +16,7 @@ const SignUp = ({isHighContrast}) => {
   const [lastNameOk, setLastNameOk] = useState(true);
   const [emailOk, setEmailOk] = useState(true);
   const [passwordOk, setPasswordOk] = useState(true);
+  const [isDoctor, setIsDoctor] = useState(false);
   
 
   const firstname = useRef();
@@ -32,7 +34,8 @@ const SignUp = ({isHighContrast}) => {
       first_name: firstname.current.value,
       last_name: lastname.current.value,
       email: email.current.value,
-      password: password.current.value  
+      password: password.current.value,
+      doctor:  isDoctor.toString()
     };  
     execute('signup', user);
     firstname.current.value = '';
@@ -112,8 +115,12 @@ const SignUp = ({isHighContrast}) => {
         <div className={`right mt-8 flex-1 md:mt-36 2xl:mt-48
          
         `}>
-            <div className="form grid grid-cols-1 gap-y-8 md:md:gap-11 xl:ml-12 2xl:ml-32 ">
+            <div className="form grid grid-cols-1 gap-y-7 md:md:gap-11 xl:ml-12 2xl:ml-32 ">
                 <h3 className=' self-start text-3xl font-nunito font-bold caret-transparent ml-7 md:ml-5 md:text-4xl'>Sign up.</h3>
+                <div className=' flex flex-row gap-x-4 font-nunito font-medium ml-7 md:ml-5 text-2xl'>
+                      <span className={`  cursor-pointer ${isDoctor === false ? 'border-b-2 border-primary text-primary transition-all duration-200' : ' text-disabled'} `} onClick={ () => setIsDoctor(false)}>Patient</span>
+                      <span className={`cursor-pointer ${isDoctor === true ? 'border-b-2 border-primary text-primary transition-all duration-200' : ' text-disabled'}  `} onClick={()=> setIsDoctor(true)}>Doctor</span>
+                </div>
                 <div className="form-group self-center flex flex-col gap-y-4 w-11/12 ml-4  caret-primary md:gap-10 xl:w-4/5 2xl:w-3/4">
                     <input type="text" placeholder='firstname' className={`h-12 bg-bg border-b-2 rounded-md pl-4 pt-1 
                      border-gray-400 focus:outline-none placeholder:text-gray-400 
