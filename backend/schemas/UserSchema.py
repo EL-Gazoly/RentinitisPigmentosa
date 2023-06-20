@@ -8,6 +8,7 @@ class User(BaseModel):
     last_name: str
     email: EmailStr
     password: str
+    doctor: str = 'False'
 
     @validator("first_name")
     def first_name_validator(cls, value):
