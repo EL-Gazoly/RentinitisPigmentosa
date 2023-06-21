@@ -76,12 +76,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
                  
          
 async def Logout():
-    
-    
     return {'msg' : 'Successfully logout'}
-
-
-
 
 
 def updatePassword(new_password, email):
@@ -139,20 +134,3 @@ async def resetPassword(request: ResetPassword):
     updatePassword(user_password, user_email)
     return {'msg': 'Password updated successfully'}
     
-
-async def get_current_user_role(token: str = Depends(oauth2_scheme)):
-
-    
-    try:
-        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
-        email: str = payload.get("sub")
-        if email is None:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication credentials")
-    except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication credentials")
-
-    res = conn.execute(users.select().where(users.c.email == email))
-    existing_user = res.fetchone()
-    if existing_user is None:
-        raise HTTPException(status_code=400, detail="Email does not exist")
-    return existing_user['doctor']
