@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Sample from '../assets/sample.png';
 import { Link } from 'react-router-dom';
 
-const SegmentationResultsCard = ({isHighContrast}) => {
+const SegmentationResultsCard = ({isHighContrast, result}) => {
     const cardRef = useRef(null)
     const [isCardVisible, setIsCardVisible] = useState(true)
 
@@ -33,8 +33,8 @@ const SegmentationResultsCard = ({isHighContrast}) => {
         <div className=' w-500 h-250 flex flex-col text-center py-10 px-3 font-nunito font-extrabold '>
         <h1 className='text-3xl md:text-4xl lg:text-6xl text-primary mb-24'>Segmentation Results</h1>
         <div className='w-full flex flex-row justify-between items-center px-40 gap-x-12 mb-4  '>
-            <img src={Sample} className=' w-96' alt="sample" />
-            <img src={Sample} className=' w-96' alt="sample" />
+            <img src={require("/home/elgazoly/Projects/RentinitisPigmentosa/frontend/src/assets/Input_image.png")} className=' w-96 h-full rounded-lg' alt="sample" />
+            <img src={require("/home/elgazoly/Projects/RentinitisPigmentosa/frontend/src/assets/Output_image.png")} className=' w-96 rounded-lg' alt="sample" />
         </div>
         <div className='w-full flex flex-row justify-between items-center px-72 gap-x-12 text-center font-bold font-nunito text-lg'>
             <span className=' pl-5'>Input Image</span>

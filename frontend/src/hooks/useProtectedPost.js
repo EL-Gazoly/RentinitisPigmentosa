@@ -23,12 +23,12 @@ const useProtectedPost = () => {
 
         return axios
             .post(`http://localhost:8000/api/${endpoint}`, data ,{
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data'
-                  }
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data'
+                    }
 
-            })
+                })
             .then(response => {
                 setTimeout(() => {
                     if (endpoint === 'logout') {
@@ -38,6 +38,10 @@ const useProtectedPost = () => {
                     }
                     else if (endpoint === 'uploadImg') {
                         toast.success('Diagnosis  process completed successfully!')
+                       
+                    }
+                    else if (endpoint === 'segmentation') {
+                        toast.success('Segmentation process completed successfully!')
                     }
                     setResponse({ pending: false, data: response.data, error: undefined })
                 }, 3000)

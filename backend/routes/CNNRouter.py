@@ -5,6 +5,7 @@ from fastapi.responses import FileResponse
 import os
 import shutil
 import pickle
+from PIL import Image  
 from tfModel.classification_for_web import SingleImage_Test
 from tfModel.segmentation.segmentation import Segment
 
@@ -32,9 +33,10 @@ async def segmentation(files: List[UploadFile] = File(...)):
                 file_path = os.path.join(os.getcwd(), "uploads", file.filename)
                 with open(file_path, "wb") as buffer:
                     shutil.copyfileobj(file.file, buffer)
-                    
-                print(file_path)
-                Segment(file_path)
-                return FileResponse("/home/elgazoly/Projects/RentinitisPigmentosa/backend/Output_image.png", media_type="image/png")
+            image = Image.open(file_path)
+            image.save('/home/elgazoly/Projects/RentinitisPigmentosa/frontend/src/assets/Input_image.png')      
+            print(file_path)
+            Segment(file_path)
+            return file_path
         except Exception as e:
             raise HTTPException(status_code=500, detail='An internal error occuered')

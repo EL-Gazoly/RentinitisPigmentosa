@@ -63,6 +63,7 @@ const DragAndDrop = ({isHighContrast}) => {
     setIsDragging(false);
 };
   const { execute, pending, data } = useProtectedPost();
+  const { execute: executeSegmentation, pending: pendingSegmentation, data: dataSegmentation } = useProtectedPost();
 
   const handelupload = (e) => {
     e.preventDefault();
@@ -76,11 +77,26 @@ const DragAndDrop = ({isHighContrast}) => {
     setFiles([]);
   };
 
+  const handelSegmentation = (e) => {
+     e.preventDefault();
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append('files', file);
+    });
+
+    executeSegmentation('segmentation', formData);
+    console.log(dataSegmentation)
+
+    setFiles([]);
+  };
+
 
   return (
     <div>
       {pending && <Loading isHighContrast={isHighContrast}/>}
+      {pendingSegmentation && <Loading isHighContrast={isHighContrast}/>}
       <div
+      
       
     style={{ backgroundColor: isDragging ? 'rgba(132, 110, 51, 0.7)' : 'transparent' }}
       onDrop={handleDropAnywhere}
@@ -94,7 +110,7 @@ const DragAndDrop = ({isHighContrast}) => {
       className={`min-h-screen flex flex-col justify-center items-center  gap-10 mb-5
       ${isHighContrast ? 'filter invert contrast-100' : ''}
       `}>
-
+      
             
       <div className="flex flex-col justify-center items-center text-3xl  md:text-5xl lg:text-6xl xl:text-7xl sm:max-w-md md:max-w-4xl xl:max-w-6xl font-extrabold font-poppins text-primary max-w-screen-xl mx-auto px-6  2xl:w-300">
       Upload your image to start the diagnosis process
@@ -135,13 +151,16 @@ const DragAndDrop = ({isHighContrast}) => {
         </div>
       </div>
       {files.length > 0 &&
-        <div className="flex flex-col justify-center text-white items-center font-bold font-nunito w-64 h-20 mb-40 text-sm 2xl:text-2xl md:text-xl mt-4 gap-y-4">
+        <div className={`flex flex-col justify-center text-white items-center font-bold font-nunito w-64 h-20 mb-40 text-sm 2xl:text-2xl md:text-xl gap-y-4 
+        {isDoctor && ' mt-4'}
+        `}>
         <button 
         onClick={handelupload}
         className=" bg-primary rounded-xl p-4 ">Start Diagnosis 
          </button>
         { isDoctor &&
          <button
+          onClick={handelSegmentation}
         className=" bg-primary rounded-xl p-4">Start Segmentation 
          </button>
          }
@@ -164,7 +183,7 @@ const DragAndDrop = ({isHighContrast}) => {
        
       )}
       {data && <ResultCard isHighContrast={isHighContrast} result={data}/>}
-      <SegmentationResultsCard isHighContrast={isHighContrast} />
+      {dataSegmentation && <SegmentationResultsCard isHighContrast={isHighContrast} result={dataSegmentation}/>}
 
       <ToastContainer />
     </div>
