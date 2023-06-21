@@ -28,3 +28,6 @@ INFO: Successfully applied 4 migrations to schema "PUBLIC", now at version v4 (e
 2023.06.20 20:44:11 INFO  time: initialize in 2.13s
 2023.06.20 20:44:12 WARN  Build server is not auto-connectable.
 2023.06.20 20:44:12 WARN  no build tool detected in workspace '/home/elgazoly/Projects/RentinitisPigmentosa'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2023.06.21 00:15:52 INFO  Shutting down server
+2023.06.21 00:15:52 INFO  shutting down Metals
+2023.06.21 00:15:52 INFO  Exiting server

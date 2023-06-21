@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -6,10 +6,14 @@ import { ReactComponent as Corner } from '../assets/corner.svg';
 import useProtectedPost from '../hooks/useProtectedPost';
 import Loading from '../components/Loading';
 import ResultCard from '../components/ResultCard';
+import SegmentationResultsCard from '../components/SegmentationResultsCard';
+import {DoctorContext} from '../hooks/useDoctor'
 
 const DragAndDrop = ({isHighContrast}) => {
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
+
+  const { isDoctor } = useContext(DoctorContext);
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -73,7 +77,6 @@ const DragAndDrop = ({isHighContrast}) => {
   };
 
 
-
   return (
     <div>
       {pending && <Loading isHighContrast={isHighContrast}/>}
@@ -131,10 +134,19 @@ const DragAndDrop = ({isHighContrast}) => {
           ))}
         </div>
       </div>
-        {files.length > 0 &&
+      {files.length > 0 &&
+        <div className="flex flex-col justify-center text-white items-center font-bold font-nunito w-64 h-20 mb-40 text-sm 2xl:text-2xl md:text-xl mt-4 gap-y-4">
         <button 
         onClick={handelupload}
-        className=" text-white bg-primary font-bold font-nunito rounded-xl w-64 h-20 p-4 mt-4 mb-40 text-sm 2xl:text-2xl md:text-xl">Start Diagnosis  </button>
+        className=" bg-primary rounded-xl p-4 ">Start Diagnosis 
+         </button>
+        { isDoctor &&
+         <button
+        className=" bg-primary rounded-xl p-4">Start Segmentation 
+         </button>
+         }
+
+        </div>
         }
     </div>
 
@@ -152,6 +164,7 @@ const DragAndDrop = ({isHighContrast}) => {
        
       )}
       {data && <ResultCard isHighContrast={isHighContrast} result={data}/>}
+      <SegmentationResultsCard isHighContrast={isHighContrast} />
 
       <ToastContainer />
     </div>

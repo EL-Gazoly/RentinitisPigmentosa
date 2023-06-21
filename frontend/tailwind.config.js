@@ -33,6 +33,8 @@ module.exports = {
       height:{
         '100' : '30rem',
         '98' : '26rem',
+        '250': '46.188rem'
+
       },
       width:{
         '120' : '31.75rem',
@@ -41,6 +43,7 @@ module.exports = {
         '160' : '43rem',
         '200': '52rem',
         '300': '66rem',
+        '500': '83.75rem'
       },
       lineHeight:{
         '66': '66px'

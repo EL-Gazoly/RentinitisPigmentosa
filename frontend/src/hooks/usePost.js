@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {DoctorContext} from './useDoctor'
 
 const usePost = () => {
   const [Data, updateData] = useState({
@@ -9,6 +10,10 @@ const usePost = () => {
     data: undefined,
     error: undefined,
   });
+
+  const { isDoctor, setIsDoctor } = useContext(DoctorContext);
+
+  
 
   const execute = async (endpoint, Data ) => {
     updateData({
@@ -33,6 +38,10 @@ const usePost = () => {
         toast.success('Welcome Back!');
         
         document.cookie = `Authorization=${response.data.access_token}; path=/; max-age=7400`;
+        console.log('is it doctor',response.data.doctor);
+        console.log('is it doctor',response.data.doctor === "true");
+        
+        setIsDoctor(response.data.doctor === "true");
         }
 
 

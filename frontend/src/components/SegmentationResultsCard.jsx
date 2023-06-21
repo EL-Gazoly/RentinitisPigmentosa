@@ -25,7 +25,7 @@ const SegmentationResultsCard = ({isHighContrast}) => {
   return (
     <div>
          <div>
-       <div class={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  bg-white rounded-xxl
+       <div className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  bg-white rounded-xxl
          shadow-slate-300 shadow-2xl
         ${isCardVisible ? 'visible' : 'hidden'}
         ${isHighContrast ? 'filter invert contrast-100' : ''}

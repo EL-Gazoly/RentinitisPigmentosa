@@ -34,3 +34,7 @@ async def ResetPassword(request: ResetPassword):
 async def Logout(current_user: str = Depends(SignupLoginController.get_current_user)): 
     return await SignupLoginController.Logout()
 
+@SignupLoginRouter.post('/api/current_user_role', tags=["Authentication"])
+async def current_user_role(current_user: str = Depends(SignupLoginController.get_current_user_role)):
+    return await SignupLoginController.current_user_role(current_user)
+
