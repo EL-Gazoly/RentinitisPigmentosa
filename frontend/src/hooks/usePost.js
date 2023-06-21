@@ -32,14 +32,14 @@ const usePost = () => {
 
         document.cookie = `Authorization=${response.data.access_token}; path=/; max-age=7400`;
 
+        setIsDoctor(response.data.doctor === "true");
+
         } 
 
         else if(endpoint === 'login'){
         toast.success('Welcome Back!');
         
         document.cookie = `Authorization=${response.data.access_token}; path=/; max-age=7400`;
-        console.log('is it doctor',response.data.doctor);
-        console.log('is it doctor',response.data.doctor === "true");
         
         setIsDoctor(response.data.doctor === "true");
         }
