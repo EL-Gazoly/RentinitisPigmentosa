@@ -1,19 +1,26 @@
 import {React, useState, useEffect} from 'react'
+import { motion } from 'framer-motion'
 
-
-const Loading = ({isHighContrast}) => {
+const Loading = ({isHighContrast, data}) => {
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 2500)
+      data ? 
+      setTimeout(() => {
+        setLoading(false)
+    }, 2500)
+      : setLoading(true)
+       
 
         return () => {
             clearTimeout()
         }
     }, [])
   return (
-    <div className={`flex items-center justify-center h-screen
+    <motion.div
+    initial={{opacity: 0}}
+    animate={{opacity: 1, duration: 0.5}}
+    exit={{opacity: 0}}
+    className={`flex items-center justify-center h-screen
     ${isHighContrast ? 'filter invert contrast-100' : ''}
     `}>
     {loading ? (
@@ -25,7 +32,7 @@ const Loading = ({isHighContrast}) => {
     ) : (
       <h1 className="text-2xl font-bold text-primary">Loading complete!</h1>
     )}
-  </div>
+  </motion.div>
   )
 }
 

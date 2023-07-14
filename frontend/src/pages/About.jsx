@@ -1,9 +1,14 @@
 import React from 'react'
 import Header from '../components/Header'
 import {Link} from 'react-router-dom'
+import { motion } from 'framer-motion'
 const About = ({isHighContrast}) => {
   return (
-    <div>
+    <motion.div
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    exit={{opacity: 0}}
+    >
         <div className={`flex flex-col w-full h-screen
         ${isHighContrast ? ' bg-invertedbg' : 'bg-lightblue'}
         `}>
@@ -28,7 +33,7 @@ const About = ({isHighContrast}) => {
             </div>
         </div>
       
-    </div>
+    </motion.div>
   )
 }
 

@@ -21,6 +21,10 @@ module.exports = {
       thiry: '30px',
     },
     extend: {
+      backgroundImage: {
+        'pentagonal' : "url('/src/assets/Vector 1.png')",
+        'hero-pattern': "url('/img/hero-pattern.svg')",
+      },
       rotate :{
         '270' : '270deg',
       },
@@ -64,12 +68,15 @@ module.exports = {
         lightblue : '#ECF1F5',
         invertedlightblue : '#130e0a',
         forget : '#FF6584',
-        disabled : '#5F5F5F'
+        disabled : '#5F5F5F',
+        seeThroughBorder : 'rgba(178, 212, 238, 0.5)',
       },
       maxWidth : {
         'xxs' : '15rem',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('prettier-plugin-tailwindcss')
+  ],
 };

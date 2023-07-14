@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom'
 import usePost from '../hooks/usePost'
-import {React, useRef, useState, useContext} from 'react'
+import {React, useRef, useState, useContext, useEffect} from 'react'
 import PageLogo from '../components/PageLogo'
 import Loading from '../components/Loading'
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,20 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {DoctorContext} from '../hooks/useDoctor'
 
+import { useAuth } from '../hooks/useAuthContext'
 
+import { motion } from 'framer-motion'
+
+const Patient = [
+  {
+    id: false,
+    name: 'Patient',
+  },
+  {
+    id: true,
+    name: 'Doctor',
+  }
+]
 
 const SignUp = ({isHighContrast}) => {
 
@@ -19,6 +32,7 @@ const SignUp = ({isHighContrast}) => {
   const [lastNameOk, setLastNameOk] = useState(true);
   const [emailOk, setEmailOk] = useState(true);
   const [passwordOk, setPasswordOk] = useState(true);
+  const [activeTab, setActiveTab] = useState(Patient[0].id);
 
   const { isDoctor, setIsDoctor } = useContext(DoctorContext);
   
@@ -47,7 +61,7 @@ const SignUp = ({isHighContrast}) => {
     password.current.value = '';
   };
   const successMessgae = () => {
-      navigate('/upload');
+      navigate('/');
   };
 
   const handelFirstNameChangeCheck = () => {
@@ -90,11 +104,31 @@ const SignUp = ({isHighContrast}) => {
     }
   };
 
+  const handelSelectedTab = (id) => {
+    setActiveTab(id);
+    setIsDoctor(id);
+  }
  
 
+  const { user } = useAuth()
+
+  if(user) {
+    navigate('/')
+  }
+
+  useEffect(() => {
+    firstname.current.value = '';
+    lastname.current.value = '';
+    email.current.value = '';
+    password.current.value = '';
+  }, [])
    
   return (
-    <div>
+    <motion.div
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    exit={{opacity: 0}}
+    >
      {pending && <Loading  isHighContrast={isHighContrast}/>}
      {data && successMessgae()}
     <div className={`flex flex-col md:flex-row w-full h-screen
@@ -120,14 +154,39 @@ const SignUp = ({isHighContrast}) => {
         <div className={`right mt-8 flex-1 md:mt-36 2xl:mt-48
          
         `}>
-            <div className="form grid grid-cols-1 gap-y-7 md:md:gap-11 xl:ml-12 2xl:ml-32 ">
+            <div className="form grid grid-cols-1 gap-y-7 md:md:gap-6.5 xl:ml-12 2xl:ml-32 ">
                 <h3 className=' self-start text-3xl font-nunito font-bold caret-transparent ml-7 md:ml-5 md:text-4xl'>Sign up.</h3>
                 <div className=' flex flex-row gap-x-4 font-nunito font-medium ml-7 md:ml-5 text-2xl'>
-                      <span className={`  cursor-pointer ${isDoctor === false ? 'border-b-2 border-primary text-primary transition-all duration-200' : ' text-disabled'} `} onClick={ () => setIsDoctor(false)}>Patient</span>
-                      <span className={`cursor-pointer ${isDoctor === true ? 'border-b-2 border-primary text-primary transition-all duration-200' : ' text-disabled'}  `} onClick={()=> setIsDoctor(true)}>Doctor</span>
+                    {Patient.map((item) => {
+                        return (
+                            <button key={item.id} className={` 
+                            relative rounded-full py-1 outline-sky-400 transition focus-visible:outline-2x
+                             ${isDoctor === item.id ? 
+                             ' text-primary transition-all duration-200' 
+                             : ' text-disabled'} `} onClick={ () => handelSelectedTab(item.id)}
+                             style={{
+                              WebkitTapHighlightColor: "transparent",
+                            }}
+                             >
+                               {activeTab === item.id && (
+                                <motion.span 
+                                layoutId='underline'
+                                className='absolute bottom-0 left-0 w-full h-[2px] bg-primary rounded-full'
+                                transition={{type: 'spring', bounce: 0.2}}
+
+                                />
+                              )}
+
+                                <span className=' px-1.5 '>{item.name}</span>
+                            </button>
+                        )
+                    })}
+                      
                 </div>
                 <div className="form-group self-center flex flex-col gap-y-4 w-11/12 ml-4  caret-primary md:gap-10 xl:w-4/5 2xl:w-3/4">
-                    <input type="text" placeholder='firstname' className={`h-12 bg-bg border-b-2 rounded-md pl-4 pt-1 
+                    <motion.input   initial={{width: 0}}
+                            animate={{width: '100%'}}
+                            transition={{duration: 0.9  }} type="text" placeholder='firstname' className={`h-12 bg-bg border-b-2 rounded-md pl-4 pt-1 
                      border-gray-400 focus:outline-none placeholder:text-gray-400 
                       ${firstNameOk ? 'focus:border-red-500' : 'focus:border-primary'}
                      `}
@@ -135,7 +194,9 @@ const SignUp = ({isHighContrast}) => {
                      onChange={handelFirstNameChangeCheck}
                      />
 
-                    <input type="text" placeholder='lastname' className={`h-12 bg-bg border-b-2 rounded-md pl-4 pt-1 
+                    <motion.input   initial={{width: 0}}
+                            animate={{width: '100%'}}
+                            transition={{duration: 1.0  }} type="text" placeholder='lastname' className={`h-12 bg-bg border-b-2 rounded-md pl-4 pt-1 
                      border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary 
                       ${lastNameOk ? 'focus:border-red-500' : 'focus:border-primary'}
                      `}
@@ -143,7 +204,9 @@ const SignUp = ({isHighContrast}) => {
                         onChange={handelLastNameChangeCheck}
                      />
 
-                    <input type="email" placeholder='email' className={`h-12 bg-bg border-b-2 rounded-md pl-4 pt-1
+                    <motion.input   initial={{width: 0}}
+                            animate={{width: '100%'}}
+                            transition={{duration: 1.1  }} type="email" placeholder='email' className={`h-12 bg-bg border-b-2 rounded-md pl-4 pt-1
                       border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary
                       ${emailOk ? 'focus:border-red-500' : 'focus:border-primary'}
                       `}
@@ -151,7 +214,9 @@ const SignUp = ({isHighContrast}) => {
                         ref={email}
                       />
                       
-                    <input type="password" placeholder='password' className={`  h-12 bg-bg border-b-2 rounded-md pl-4 pt-1
+                    <motion.input   initial={{width: 0}}
+                            animate={{width: '100%'}}
+                            transition={{duration: 1.2 }} type="password" placeholder='password' className={`  h-12 bg-bg border-b-2 rounded-md pl-4 pt-1
                       border-gray-400 focus:outline-none placeholder:text-gray-400 focus:border-primary 
                       ${passwordOk ? 'focus:border-red-500' : 'focus:border-primary'}
                       ` }
@@ -169,7 +234,7 @@ const SignUp = ({isHighContrast}) => {
 
     </div>
     <ToastContainer />
-    </div>
+    </motion.div>
   )
 }
 

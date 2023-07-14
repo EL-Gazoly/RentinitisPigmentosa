@@ -3,7 +3,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+import { useAuth } from "./useAuthContext";
+
 const useProtectedPost = () => {
+
+    const { setUser } = useAuth();
     const [response, setResponse] = useState({
         pending: false,
         data: undefined,
@@ -30,13 +34,14 @@ const useProtectedPost = () => {
 
                 })
             .then(response => {
+                if (endpoint === 'logout') {
+                    toast.success('See you soon!')
+                    document.cookie = 'Authorization=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    setUser(null);
+                    navigate('/login')
+                }
                 setTimeout(() => {
-                    if (endpoint === 'logout') {
-                        toast.success('See you soon!')
-                        document.cookie = 'Authorization=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                        navigate('/login')
-                    }
-                    else if (endpoint === 'uploadImg') {
+                    if (endpoint === 'uploadImg') {
                         toast.success('Diagnosis  process completed successfully!')
                        
                     }

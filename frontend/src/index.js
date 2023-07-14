@@ -2,14 +2,17 @@ import React from 'react';
 import './index.css';
 import App from './App';
 import ReactDOM from 'react-dom/client';
+import AuthProvider from './hooks/useAuthContext';
 import {DoctorProvider} from './hooks/useDoctor'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <DoctorProvider>
-    <App />
-    </DoctorProvider>
+    <AuthProvider>
+      <DoctorProvider>
+      <App />
+      </DoctorProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 

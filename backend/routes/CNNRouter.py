@@ -6,7 +6,7 @@ import os
 import shutil
 import pickle
 from PIL import Image  
-from tfModel.classification_for_web import SingleImage_Test
+from tfModel.classfication.classification_for_web import SingleImage_Test
 from tfModel.segmentation.segmentation import Segment
 
 CNNRouter = APIRouter()

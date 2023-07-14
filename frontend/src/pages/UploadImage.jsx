@@ -1,19 +1,25 @@
-import React, { useEffect, useState, useContext } from 'react';
+
 import Header from '../components/Header';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { ReactComponent as Corner } from '../assets/corner.svg';
-import useProtectedPost from '../hooks/useProtectedPost';
 import Loading from '../components/Loading';
+import 'react-toastify/dist/ReactToastify.css';
+import {DoctorContext} from '../hooks/useDoctor';
 import ResultCard from '../components/ResultCard';
+import React, {useState, useContext, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import useProtectedPost from '../hooks/useProtectedPost';
+import { ReactComponent as Corner } from '../assets/corner.svg';
 import SegmentationResultsCard from '../components/SegmentationResultsCard';
-import {DoctorContext} from '../hooks/useDoctor'
+
+import Pentagonal from '../components/Pentagonal';
+
+import { motion, AnimatePresence} from 'framer-motion';
 
 const DragAndDrop = ({isHighContrast}) => {
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [Doctor, setDoctor] = useState(false);
 
-  const { isDoctor } = useContext(DoctorContext);
+
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -90,11 +96,27 @@ const DragAndDrop = ({isHighContrast}) => {
     setFiles([]);
   };
 
+  const { isDoctor } = useContext(DoctorContext);
+
+useEffect(() => {
+
+  setDoctor(isDoctor);
+  
+}, []);
 
   return (
+    <motion.div
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    exit={{opacity: 0}}
+    >
+   
+      
+
     <div>
-      {pending && <Loading isHighContrast={isHighContrast}/>}
-      {pendingSegmentation && <Loading isHighContrast={isHighContrast}/>}
+      {pending && <Loading isHighContrast={isHighContrast} data={data}/>}
+      {pendingSegmentation && <Loading isHighContrast={isHighContrast} data={dataSegmentation}/>}
+   
       <div
       
       
@@ -107,17 +129,34 @@ const DragAndDrop = ({isHighContrast}) => {
     >
       <Header isHighContrast={isHighContrast} />
     <div
-      className={`min-h-screen flex flex-col justify-center items-center  gap-10 mb-5
+      className={`min-h-screen flex flex-row justify-between items-center  gap-10 mb-5 
       ${isHighContrast ? 'filter invert contrast-100' : ''}
       `}>
       
-            
-      <div className="flex flex-col justify-center items-center text-3xl  md:text-5xl lg:text-6xl xl:text-7xl sm:max-w-md md:max-w-4xl xl:max-w-6xl font-extrabold font-poppins text-primary max-w-screen-xl mx-auto px-6  2xl:w-300">
-      Upload your image to start the diagnosis process
+      <div className="left w-[1019px] h-[831px] bg-cover bg-[pentagonal] bg-no-repeat  z-50 flex  
+      "> 
+      <div className="flex flex-col justify-center
+       items-center text-3xl md:text-5xl lg:text-6xl
+       xl:text-[105px]  font-black font-nunito text-primary max-w-screen-xl
+         px-6 
+         mb-48
+         ml-20
+
+         ">
+      Start <br/> Diagnosing
       </div>
 
+      </div>
+
+      <div className=' flex flex-col justify-center items-center gap-y-12
+      mr-40
+      mb-14
+      '>
+        <h1
+        className='text-3xl  md:text-5xl lg:text-6xl xl:text-[57px] font-black font-nunito text-primary px-6 text-left'
+        >Upload your images <br/> here </h1>
       <div
-        className={`border-dashed border-2 border-primary mx-10 rounded-lg p-4 text-center cursor-pointer
+        className={`border-dashed border-2 border-primary mx-10 rounded-xxl p-4 text-center cursor-pointer flex flex-col
         ${!files.length > 0 && 'mb-48'}   
         `}
         onDrop={handleDrop}
@@ -126,13 +165,13 @@ const DragAndDrop = ({isHighContrast}) => {
       >
         <input
           id="fileInput"
-          type="file"
+          type="file" 
           multiple
-          className="hidden"
+          className="hidden py-"
           accept="image/*"
           onChange={handleFileInput}
         />
-        <p className=" text-primary mb-2">Drag and drop files here, or click to select files</p>
+        <p className=" text-primary mb-2 justify-self-start">Drag and drop files anywhere, or click to select files</p>
         <div className="flex flex-wrap">
           {files.map((file) => (
             <div
@@ -149,24 +188,30 @@ const DragAndDrop = ({isHighContrast}) => {
             </div>
           ))}
         </div>
-      </div>
-      {files.length > 0 &&
-        <div className={`flex flex-col justify-center text-white items-center font-bold font-nunito w-64 h-20 mb-40 text-sm 2xl:text-2xl md:text-xl gap-y-4 
-        {isDoctor && ' mt-4'}
-        `}>
-        <button 
-        onClick={handelupload}
-        className=" bg-primary rounded-xl p-4 ">Start Diagnosis 
-         </button>
-        { isDoctor &&
-         <button
-          onClick={handelSegmentation}
-        className=" bg-primary rounded-xl p-4">Start Segmentation 
-         </button>
-         }
-
         </div>
-        }
+        {files.length > 0 &&
+          <div className={`flex flex-row justify-center text-white items-center font-bold font-nunito mb-40 text-sm 2xl:text-2xl md:text-xl 
+          ${Doctor && 'gap-x-5    mt-4'}
+          `}>
+          <motion.button 
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={handelupload}
+          className={` bg-primary rounded-xl py-3 px-5 ${!Doctor && 'px-10 py-4' } `}>Start {Doctor ? <span>Classfication</span> : <span> Diagnosing </span> } 
+          </motion.button>
+          { Doctor && 
+          <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          drag
+            onClick={handelSegmentation}
+          className=" bg-primary rounded-xl py-3 px-5">Start Segmentation 
+          </motion.button>
+          }
+
+          </div>
+          }
+      </div>
     </div>
 
     </div>
@@ -182,11 +227,19 @@ const DragAndDrop = ({isHighContrast}) => {
         </div>
        
       )}
-      {data && <ResultCard isHighContrast={isHighContrast} result={data}/>}
-      {dataSegmentation && <SegmentationResultsCard isHighContrast={isHighContrast} result={dataSegmentation}/>}
 
+      {data}
+      <AnimatePresence>
+        {data && <ResultCard isHighContrast={isHighContrast} result={data}/>}
+        {dataSegmentation && <SegmentationResultsCard isHighContrast={isHighContrast} result={dataSegmentation}/>}
+
+      </AnimatePresence>
+      
       <ToastContainer />
     </div>
+      {!isDragging && !pending && !pendingSegmentation ? <Pentagonal /> : null}
+     
+    </motion.div>
   );
 };
 

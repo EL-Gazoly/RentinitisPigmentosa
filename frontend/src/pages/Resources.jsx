@@ -1,9 +1,14 @@
 import React from 'react'
 import Header from '../components/Header'
+import { motion } from 'framer-motion'
 
 const Resources = ({isHighContrast}) => {
   return (
-    <div>
+    <motion.div
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    exit={{opacity: 0}}
+    >
         <div>
             <Header  isHighContrast={isHighContrast}/>
             <div className="container mx-auto px-4 py-8 overflow-hidden">
@@ -204,7 +209,7 @@ const Resources = ({isHighContrast}) => {
         </div>
         </div>
       
-    </div>
+    </motion.div>
   )
 }
 

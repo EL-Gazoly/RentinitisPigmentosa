@@ -1,6 +1,8 @@
 import React from 'react'
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import CardLayout from './CardLayout';
+import { motion } from 'framer-motion';
 const ResultCard = ({isHighContrast, result}) => {
     const cardRef = useRef(null)
     const [isCardVisible, setIsCardVisible] = useState(true)
@@ -21,20 +23,16 @@ const ResultCard = ({isHighContrast, result}) => {
 
 
   return (
-    <div>
-       <div class={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xxl
-         shadow-slate-300 shadow-2xl
-        ${isCardVisible ? 'visible' : 'hidden'}
-        ${isHighContrast ? 'filter invert contrast-100' : ''}
-       `} ref={cardRef}>
-        <div className=' w-160 h-96 grid grid-cols-1 text-center py-10 px-3 font-nunito font-extrabold '>
-          <h2 className=' text-2xl self-start '>Your Classification result is </h2>
-          {result === 'RP' ? <h1 className=' text-6xl text-red-500 self-center '>Postive</h1> : <h1 className=' text-6xl text-green-500 self-center '>Negative</h1>}
-          <h3 className=' font-normal text-xl text-lightblack  self-end mb-9 '>Check our <Link to="/resources" className=' text-primary'>resources page</Link> to learn more about the disease.</h3>
-        </div>
+    <motion.div className='flex flex-col justify-between items-center'>
+          <CardLayout Text="Classfication">
+            <div className=' text-center h-[385px] flex flex-col justify-between'>
+            {result === 'RP' ? <h1 className=' text-6xl text-red-500 self-center mt-24 '>Postive</h1> : <h1 className=' text-6xl text-green-500 self-center mt-24 '>Negative</h1>}
+            <h3 className=' font-normal text-xl text-lightblack  self-end mb-9 mt-64 '>Check our <Link to="/resources" className=' text-primary'>resources page</Link> to learn more about the disease.</h3>
+            </div>
+          </CardLayout> 
     
-      </div>
-    </div>
+      
+    </motion.div>
   )
 }
 

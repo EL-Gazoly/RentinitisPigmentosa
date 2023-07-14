@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {DoctorContext} from './useDoctor'
+import { useAuth } from './useAuthContext';
 
 const usePost = () => {
   const [Data, updateData] = useState({
@@ -11,8 +12,9 @@ const usePost = () => {
     error: undefined,
   });
 
-  const { isDoctor, setIsDoctor } = useContext(DoctorContext);
+  const { setIsDoctor } = useContext(DoctorContext);
 
+  const { setUser } = useAuth();
   
 
   const execute = async (endpoint, Data ) => {
@@ -33,6 +35,7 @@ const usePost = () => {
         document.cookie = `Authorization=${response.data.access_token}; path=/; max-age=7400`;
 
         setIsDoctor(response.data.doctor === "true");
+        setUser(response.data.access_token);
 
         } 
 
@@ -42,6 +45,7 @@ const usePost = () => {
         document.cookie = `Authorization=${response.data.access_token}; path=/; max-age=7400`;
         
         setIsDoctor(response.data.doctor === "true");
+        setUser(response.data.access_token);
         }
 
 

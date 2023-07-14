@@ -1,19 +1,14 @@
 // import UploadImage from './components/UploadImage';
-import Landing from './pages/Landing';
-import DragAndDrop from './pages/UploadImage';
-import SignUp from './pages/SignUp';
-import Login from './pages/Login';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import ForgotPassword from './pages/ForgotPassword';
-import Resources from './pages/Resources';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import useAuth from './hooks/useAuth';
+
+
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HighContrastButton from './components/HighContrastButton';
 import { useState, useEffect } from 'react';
+import AnimatedRoutes from './components/AnimatedRoutes';
 
+import { BrowserRouter as Router } from 'react-router-dom';
 
 
 function App() {
@@ -27,23 +22,14 @@ function App() {
       
     }, [isHighContrast]);
   
-const ProtectedRoute = useAuth(DragAndDrop, isHighContrast);
+
   return (
     <div className={`App w-full h-screen m-0 p-0 overflow-x-hidden  
     ${isHighContrast ? 'bg-invertedbg' : 'bg-bg'}
     
     `}>
       <Router>
-        <Routes>
-          <Route path="/" element={<Landing isHighContrast={isHighContrast} />} />
-          <Route path="/upload" element={<ProtectedRoute isHighContrast={isHighContrast}   />} />
-          <Route path="/signup" element={<SignUp isHighContrast={isHighContrast} />} />
-          <Route path="/login" element={<Login  isHighContrast={isHighContrast} />} />
-          <Route path="/about" element={<About isHighContrast={isHighContrast}  />} />
-          <Route path="/contact" element={<Contact isHighContrast={isHighContrast}  />} />
-          <Route path="/forgot-password" element={<ForgotPassword isHighContrast={isHighContrast} />} />
-          <Route path="/resources" element={<Resources isHighContrast={isHighContrast}   />} />
-        </Routes>
+        <AnimatedRoutes isHighContrast={isHighContrast} />
       </Router>
 
       <HighContrastButton onToggle={onToggle} />

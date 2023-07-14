@@ -1,11 +1,14 @@
 import {Link} from 'react-router-dom'
 import PageLogo from '../components/PageLogo'
-import {React, useRef, useState} from 'react'
+import {React, useEffect, useRef, useState} from 'react'
 import usePost from '../hooks/usePost'
 import Loading from '../components/Loading'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer} from 'react-toastify';
+import {motion } from 'framer-motion'
 import 'react-toastify/dist/ReactToastify.css';
+
+import { useAuth } from '../hooks/useAuthContext'
 
 import {ReactComponent as LoginIcon} from '../assets/loginIcon.svg'
 const Login = ({isHighContrast }) => {
@@ -31,7 +34,7 @@ const Login = ({isHighContrast }) => {
     };
 
     const successMessgae = () => {
-            navigate('/upload');
+            navigate('/');
         
     };
 
@@ -54,11 +57,21 @@ const Login = ({isHighContrast }) => {
           setPasswordOk(false);
         }
       };
+
+      const { user } = useAuth()
+
+    
+
+     
     
   return (
-    <div className={` 
+    <motion.div className={` 
     {isHighContrast ? ' bg-invertedbg' : 'bg-bg'}
-    `}>
+    `}
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    exit={{opacity: 0}}
+    >
         {pending && <Loading isHighContrast={isHighContrast}/>}
         {data && successMessgae()}
 
@@ -71,33 +84,42 @@ const Login = ({isHighContrast }) => {
                 <div className="form-group self-center flex flex-col gap-y-4 w-11/12 ml-4  caret-primary md:gap-10 xl:w-4/5 2xl:w-3/4">
                     <div className=' flex flex-col '>
                         <label className=' font-roboto  text-sm text-secondary pl-3'>Email Address</label>   
-                        <input type="email" placeholder='name@example.com' className={`h-12 bg-white border rounded-full px-6
+                        <motion.input type="email" placeholder='name@example.com' className={`h-12 bg-white border rounded-full px-6
                          border-gray-400 focus:outline-none placeholder:text-secondary focus:border-primary 
                             ${emailOk ? 'focus:border-primary' : 'focus:border-red-500'}
                          `}
+                            initial={{width: 0}}
+                            animate={{width: '100%'}}
+                            transition={{duration: 1.3  }}
                             ref={email} 
                             onChange={handelEmailChangeCheck}
                           />
                     </div>
                     <div className=' flex flex-col'>
                         <label className=' font-roboto  text-sm text-secondary pl-3'>Password</label>
-                        <input type="password" placeholder='at least 8 characters' className={` 
+                        <motion.input type="password" placeholder='at least 8 characters' className={` 
                          h-12 bg-white border rounded-full px-6   border-gray-400 focus:outline-none
                           placeholder:text-secondary 
                             ${!passwordOk ? 'focus:border-primary' : 'focus:border-red-500'}
                           ` } 
                           ref={password} 
+                          initial={{width: 0}}
+                            animate={{width: '100%'}}
+                            transition={{duration: 1.45  }}
                           onChange={handelPasswordChangeCheck}
                           />
                     </div>
             </div>
                 <div className=" caret-transparent form-button self-end flex flex-col gap-y-5 text-center w-11/12  ml-4 xl:ml-0 xl:w-4/5 ">
                     <div className=' grid grid-cols-1 gap-y-1'>
-                        <Link to="/forgot-password" className=' font-roboto text-sm text-forget justify-self-end font-medium'>Forgot password?</Link>
-                    <button onClick={handleSubmit} className='  h-11 bg-primary flex justify-center items-center text-white font-nunito text-xl  rounded-thiry xl:ml-16 2xl:ml-6' >Log in</button>
+                      <motion.button className='justify-self-end' whileTap={{scale: 0.95}} whileHover={{scale: 1.06}} > 
+                        <Link to="/forgot-password" className=' font-roboto text-sm text-forget  font-medium'>Forgot password?</Link>
+                        </motion.button>
+                    <motion.button onClick={handleSubmit} whileHover={{scale: 1.02}} whileTap={{scale: 0.95 }} className='  h-11 bg-primary flex justify-center items-center text-white font-nunito text-xl  rounded-thiry xl:ml-16 2xl:ml-6' >Log in</motion.button>
                     </div>
-                    
-                    <Link to='/signup' className=' w-36 h-11 flex justify-center items-center text-primary font-roboto font-semibold text-sm bg-white border-4 border-primary rounded-full p-6 self-center xl:ml-12 2xl:ml-10'> Sign up now </Link>
+                      <motion.button className='flex justify-center items-center' whileHover={{scale: 1.1}} whileTap={{scale: 0.95}}>
+                        <Link to='/signup' className=' w-36 h-11 flex justify-center items-center text-primary font-roboto font-semibold text-sm bg-white border-4 border-primary rounded-full p-6 self-center xl:ml-12 2xl:ml-10'> Sign up now </Link>
+                      </motion.button>
                 </div>
             </div>
 
@@ -124,11 +146,11 @@ const Login = ({isHighContrast }) => {
 
         <div className=' fixed top-3 left-3 md:left-0'>
             <div className=' relative'>
-                <PageLogo isHighContrast={isHighContrast} />
+               { !pending && <PageLogo isHighContrast={isHighContrast} />}
             </div>
         </div>
         <ToastContainer />
-    </div>
+    </motion.div>
   ) 
 }
 

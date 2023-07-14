@@ -3,13 +3,19 @@ import React from 'react'
 import HomePagePic from '../assets/homePagePic.png'
 import Header from '../components/Header'
 
+import { motion } from 'framer-motion'
+
 import { Link } from 'react-router-dom'
 const Landing = ({isHighContrast}) => {
 
 
 
   return (
-    <div className='caret-transparent'>
+    <motion.div className='caret-transparent'
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    exit={{opacity: 0}}
+    >
       <div className='landing-page-container flex flex-col'>
 
         <Header isHighContrast={isHighContrast}
@@ -35,11 +41,13 @@ const Landing = ({isHighContrast}) => {
                 md:max-w-lg md:max-h-32 md:self-start '>
                   Our goal is early detection of retinitis pigmentosa 
                   and providing you with all information related to this disease</p>
-                <>
+                <motion.button
+                 whileHover={{ scale: 1.1 }}
+                >
                 <Link to="/signup" className=' bg-primary text-white font-roboto flex justify-center items-center
                 font-bold text-lg rounded-full py-2 px-4 mt-4 w-2/4 h-16 self-center 
                  md:w-40 lg: xl:w-52 xl:h-16 md:text-xl md:self-start uppercase'>Sign up</Link>
-                </>
+                </motion.button>
             </div>
             <div className="landing-page-body-right order-1 mt-5 md:mt-0  md:order-2 md:flex md:justify-center md:items-center md:mb-8">
               <img className='w-full h-min md:hidden filter invert contras' src='https://tykit.rometheme.pro/eyecare/wp-content/uploads/sites/81/2022/08/close-up-of-doctor-checking-female-patient-vision-2022-05-31-02-18-46-utc.jpg'alt="pic" />
@@ -52,7 +60,7 @@ const Landing = ({isHighContrast}) => {
         </div>
 
 
-    </div>    
+    </motion.div>    
   )
 }
 

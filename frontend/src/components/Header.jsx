@@ -6,12 +6,43 @@ import {React, useEffect, useState, useRef} from 'react'
 import useProtectedPost from '../hooks/useProtectedPost'
 import Loading from '../components/Loading'
 
+import AnimatedTabs from './Tabs'
+
+import { motion } from 'framer-motion'
+
+import { useAuth } from '../hooks/useAuthContext'
 
 
-const Header = ({isHighContrast }) => {
+const tabs = [
+  {
+    id: 0,
+    name: 'Home',
+    link: '/'
+  },
+  {
+    id: 1,
+    name: 'About US',
+    link: '/about'
+  },
+  {
+    id: 2,
+    name: 'Contact',
+    link: '/contact'
+  },
+  {
+    id: 3,
+    name: 'Resources',
+    link: '/resources'
+  }
+
+
+]
+
+const Header = ({isHighContrast, setIsLogoutClicked}) => {
     const [isCardVisible, setIsCardVisible] = useState(false)
-    const [LoginLogout, setLoginLogout] = useState('Login')
 
+    const { user } = useAuth()
+  
   
     const cardRef = useRef(null)
   
@@ -32,20 +63,11 @@ const Header = ({isHighContrast }) => {
     const { execute, pending } = useProtectedPost();
 
     const handelLogout = () => {   
-        execute('logout',null)
+   
+        execute('logout', null)
     }
 
-    useEffect(() => {
-      const cookies = document.cookie.split(';')
-      const myCookie = cookies.find(cookie => cookie.trim().startsWith('Authorization='));
-      const token = myCookie? myCookie.split('=')[1] : undefined;
-      if (token) {
-        setLoginLogout('Logout')
-      }
-      else {
-        setLoginLogout('Login')
-      }
-    }, [])
+
 
     
   return (
@@ -57,21 +79,33 @@ const Header = ({isHighContrast }) => {
             <div className="landing-page-menu-right flex items-center mr-4 md:hidden" onClick={() => setIsCardVisible(!isCardVisible)}>
                 <BurgerIcon onClick={()=> setIsCardVisible(!isCardVisible)}/> 
             </div>
-            <div className="landing-page-menu-right hidden mr-10 md:flex md:gap-3 lg:gap-10 self-center  items-center text-primary  font-roboto font-bold text-base lg:text-xl">
-                <Link to="/" >Home</Link>
-                <Link to="/about" >About US</Link>
-                <Link to="/contact">Contact</Link>
+            <div className="landing-page-menu-right hidden mr-10 md:flex md:gap-3 lg:gap-6 self-center   items-center text-primary  font-roboto font-bold text-base lg:text-xl">
+              
+                <AnimatedTabs tabs={tabs} /> 
 
-               
+             
             
-                {LoginLogout === 'Login' ? 
-                 <Link to="/login" className=' w-20 h-12  lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '>Login</Link>
-                :
-                <button className=' w-20 h-12  lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl'
-                onClick={handelLogout}
-                >Logout</button> 
+             
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  className=' w-20 h-12  lg:w-28 lg:h-14 rounded-xxl  bg-primary text-white font-roboto font-bold text-xl flex justify-center items-center '
+                >
+                  {user ?
+                     <span onClick={handelLogout}  className=' w-20 h-12 flex items-center justify-center'>
+                     Logout
+                   </span>
+                  : 
+                  
+                   <Link to="/login" className=' w-20 h-12 flex items-center justify-center' >Login</Link>
+                  
+                  }
+             
+               
+                 </motion.button>
+               
+          
+               
                 
-                }
             </div>
 
           
@@ -85,6 +119,9 @@ const Header = ({isHighContrast }) => {
         <Link to="/contact" className=' text-primary font-roboto font-bold text-xs border-b border-line mb-1'>Contact</Link> 
       </div>
       )}
+    
+               
+
     </div>
   )
 }

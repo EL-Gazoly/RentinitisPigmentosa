@@ -3,8 +3,9 @@ import PageLogo from '../components/PageLogo'
 import ContactICon from '../assets/contactIcon.png'
 import usePost from '../hooks/usePost'
 import Loading from '../components/Loading'
+import Header from '../components/Header'
 
-
+import { motion } from 'framer-motion'
 
 const Contact = ({isHighContrast }) => {
 
@@ -60,20 +61,24 @@ const handelMessageChangeCheck = () => {
 
 
   return (
-    <div className={`
+    <motion.div className={`
     ${isHighContrast ? ' bg-black' : 'bg-white'}
-    w-full h-full
-    `}>
+    w-full h-full fixed
+    `}
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    exit={{opacity: 0}}
+    >
       {pending && <Loading />}
-
+      <Header isHighContrast={isHighContrast} />
 
     
     <div className='flex flex-row w-full h-full '>
          <div className={`left w-1/2  grid
-          
+           items-center 
          `}>
-            <PageLogo className="md:ml-7" isHighContrast={isHighContrast} />
-            <div className="middel caret-transparent justify-self-center grid gap-y-1 mb-10 ">
+         
+            <div className="middel caret-transparent justify-self-center grid gap-y-1 mb-20 mr-32 space-y-10 ">
                 <h1 className={`text-8xl font-sans text-primary font-extrabold uppercase ml-10
                 ${isHighContrast ? 'filter invert contrast-100' : ''}
                 `}>contact us</h1>
@@ -127,7 +132,7 @@ const handelMessageChangeCheck = () => {
          </div>
         
     </div>
-    </div>
+    </motion.div>
   )
 }
 

@@ -10,6 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../components/Loading';
 import axios from 'axios';
 
+import { motion } from 'framer-motion'
+
 const ForgotPassword = ({isHighContrast}) => {
   const [otp, setOtp] = useState(["", "", "", "", ""])
   const [isSentOTp, setIsSentOTp] = useState(false)
@@ -199,7 +201,11 @@ const ForgotPassword = ({isHighContrast}) => {
   
   
   return (
-    <div>
+    <motion.div
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    exit={{opacity: 0}}
+    >
       {pending && <Loading />}
         <div className='grid grid-cols-1 h-screen  md:flex md:flex-row  md:gap-y-40'>
             <PageLogo isHighContrast={isHighContrast} className=" self-start justify-self-start" />
@@ -323,7 +329,7 @@ const ForgotPassword = ({isHighContrast}) => {
 
         </div>
         <ToastContainer />
-    </div>
+    </motion.div>
   )
 }
 
